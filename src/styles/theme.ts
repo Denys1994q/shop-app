@@ -1,0 +1,40 @@
+import {createTheme} from '@mui/material/styles';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),
+    fontSize: 14
+  },
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontSize: 14
+        }
+      }
+    },
+    MuiInputLabel: {
+      defaultProps: {
+        sx: {
+          fontSize: 14
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      defaultProps: {
+        sx: {
+          fontSize: 14
+        }
+      }
+    },
+    MuiMenuItem: {
+      defaultProps: {
+        sx: {
+          fontSize: 14
+        }
+      }
+    }
+  }
+});
+
+export default theme;
