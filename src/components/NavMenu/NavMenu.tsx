@@ -1,16 +1,17 @@
 import './NavMenu.sass';
+import {Link} from 'react-router-dom';
 
 interface NavMenuProps {
-  items: {link: string; title: string}[];
+  items: {to: string; title: string}[];
 }
 
 const NavMenu: React.FC<NavMenuProps> = ({items}) => {
   return (
     <nav>
-      <ul className="nav">
+      <ul className="nav-list">
         {items.map((item) => (
           <li key={item.title}>
-            <a href={item.link}>{item.title}</a>
+            <Link to={item.to}>{item.title}</Link>
           </li>
         ))}
       </ul>

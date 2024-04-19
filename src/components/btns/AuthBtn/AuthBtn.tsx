@@ -1,14 +1,16 @@
 import IconButton from '@mui/material/IconButton';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LoginIcon from '@mui/icons-material/Login';
-import BasicMenu from '@/components/BasicMenu/BasicMenu';
+import UserMenu from '@/components/UserMenu/UserMenu';
 import {useState} from 'react';
 
 interface AuthBtnProps {
-  isAuthed?: boolean;
+  isAuthenticated?: boolean;
 }
 
-const AuthBtn: React.FC<AuthBtnProps> = ({isAuthed = false}) => {
+const menuItems = ['Profile', 'Logout'];
+
+const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -39,8 +41,8 @@ const AuthBtn: React.FC<AuthBtnProps> = ({isAuthed = false}) => {
 
   return (
     <div>
-      {isAuthed ? userBtn : loginBtn}
-      <BasicMenu menuItems={['Profile', 'Logout']} anchorEl={anchorEl} open={open} handleClose={handleClose} />
+      {isAuthenticated ? userBtn : loginBtn}
+      <UserMenu menuItems={menuItems} anchorEl={anchorEl} open={open} handleClose={handleClose} />
     </div>
   );
 };

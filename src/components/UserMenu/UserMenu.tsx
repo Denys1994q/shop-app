@@ -2,12 +2,12 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {MenuProps} from '@mui/material/Menu';
 
-interface BasicMenuProps extends MenuProps {
+interface UserMenuProps extends MenuProps {
   handleClose: () => void;
   menuItems: string[];
 }
 
-const BasicMenu: React.FC<BasicMenuProps> = ({anchorEl, menuItems, open, handleClose}) => {
+const UserMenu: React.FC<UserMenuProps> = ({anchorEl, menuItems, open, handleClose}) => {
   return (
     <Menu
       id="basic-menu"
@@ -27,4 +27,4 @@ const BasicMenu: React.FC<BasicMenuProps> = ({anchorEl, menuItems, open, handleC
   );
 };
 
-export default BasicMenu;
+export default UserMenu;
