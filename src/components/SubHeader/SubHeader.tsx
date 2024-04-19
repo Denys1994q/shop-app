@@ -11,7 +11,7 @@ const SubHeader: React.FC = () => {
           <img src={logo} alt="logo" />
         </a>
         <div className="subHeader__btns">
-          <AuthBtn isAuthed />
+          <AuthBtn isAuthed={false} />
           <CartBtn />
         </div>
       </div>
