@@ -17,7 +17,9 @@ const BasicDialog: React.FC<BasicDialogProps> = ({title, onClose, open, children
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle fontSize={20}>{title}</DialogTitle>
+      <DialogTitle fontSize={20} sx={{textAlign: 'center'}}>
+        {title}
+      </DialogTitle>
       <DialogContent>{children}</DialogContent>
     </Dialog>
   );

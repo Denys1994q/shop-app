@@ -45,7 +45,7 @@ const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
   );
 
   const loginBtn = (
-    <IconButton aria-label="login-icon">
+    <IconButton aria-label="login-icon" onClick={handleSignUpBtnClick}>
       <LoginIcon fontSize="large" />
     </IconButton>
   );
@@ -54,7 +54,7 @@ const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
     <div>
       {isAuthenticated ? userBtn : loginBtn}
       <UserMenu menuItems={menuItems} anchorEl={anchorEl} open={open} handleClose={handleClose} />
-      <BasicDialog title="Register user" open={openModal} onClose={handleCloseDialog}>
+      <BasicDialog title="Registration" open={openModal} onClose={handleCloseDialog}>
         <SignUpForm />
       </BasicDialog>
     </div>
