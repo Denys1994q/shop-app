@@ -2,8 +2,8 @@ import {createTheme} from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
-    fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),
-    fontSize: 14
+    fontFamily: ['Poppins', 'Arial', 'sans-serif'].join(','),
+    fontSize: 16
   },
   components: {
     MuiTypography: {
