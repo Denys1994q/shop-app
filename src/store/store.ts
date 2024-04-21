@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authSlice from './slices/auth/auth.slice';
+import dialogSlice from './slices/dialog/dialog.slice';
 
 const store = configureStore({
   reducer: {
-    authSlice
+    authSlice,
+    dialogSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
