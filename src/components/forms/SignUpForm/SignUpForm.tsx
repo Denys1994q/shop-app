@@ -1,17 +1,19 @@
 import './SignUpForm.sass';
-import {useForm} from 'react-hook-form';
+import {FieldValues, Path, useForm} from 'react-hook-form';
 import BasicTextField from '@/components/inputs/BasicTextField/BasicTextField';
 import BasicBtn from '@/components/btns/BasicBtn/BasicBtn';
-import {signUpSchema} from '@/constants/signUp.validation';
+import {signUpSchema, ISignUp} from '@/constants/signUp.validation';
 import {yupResolver} from '@hookform/resolvers/yup';
+import {SignUpFields} from '@/models/signUp.enum';
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phoneNumber?: string;
-}
+const fields = [
+  {name: 'firstName', label: 'First name'},
+  {name: 'lastName', label: 'Last name'},
+  {name: 'email', label: 'Email'},
+  {name: 'password', label: 'Password'},
+  {name: 'confirmPassword', label: 'Confirm password'},
+  {name: 'phoneNumber', label: 'Phone number'}
+];
 
 const SignUpForm: React.FC = () => {
   const {
@@ -19,31 +21,30 @@ const SignUpForm: React.FC = () => {
     handleSubmit,
     control,
     formState: {errors}
-  } = useForm<FormData>({
+  } = useForm({
     resolver: yupResolver(signUpSchema)
   });
 
-  const onSubmit = (data: FormData): void => {
+  const onSubmit = (data: ISignUp): void => {
     console.log(data);
+  };
+
+  const isPasswordField = (field: {name: Path<FieldValues>}): boolean => {
+    return field.name === 'password' || field.name === 'confirmPassword';
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="signUpForm__input">
-        <BasicTextField name="firstName" control={control} label="First name" />
-      </div>
-      <div className="signUpForm__input">
-        <BasicTextField name="lastName" control={control} label="Last name" />
-      </div>
-      <div className="signUpForm__input">
-        <BasicTextField name="email" control={control} label="Email" />
-      </div>
-      <div className="signUpForm__input">
-        <BasicTextField name="password" control={control} label="Password" />
-      </div>
-      <div className="signUpForm__input">
-        <BasicTextField name="phoneNumber" control={control} label="Phone number" />
-      </div>
+      {fields.map((field) => (
+        <BasicTextField
+          key={field.name}
+          type={isPasswordField(field) ? 'password' : 'text'}
+          name={SignUpFields[field.name as keyof typeof SignUpFields]}
+          control={control}
+          label={field.label}
+          className="signUpForm__input"
+        />
+      ))}
       <BasicBtn type="submit" text="Register" />
     </form>
   );

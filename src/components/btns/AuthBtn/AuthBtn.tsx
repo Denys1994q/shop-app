@@ -15,7 +15,7 @@ const menuItems = ['Profile', 'Logout'];
 const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);

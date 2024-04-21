@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {ReactNode} from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import {DialogContent} from '@mui/material';
@@ -7,7 +7,7 @@ interface BasicDialogProps {
   open: boolean;
   title: string;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const BasicDialog: React.FC<BasicDialogProps> = ({title, onClose, open, children}) => {

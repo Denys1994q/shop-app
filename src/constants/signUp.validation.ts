@@ -10,6 +10,14 @@ import {
   passwordSymbolsAmount
 } from './validation.constant';
 
+export interface SignUpSchemaInterface {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber?: string;
+  password: string;
+}
+
 export const signUpSchema = yup.object().shape({
   firstName: yup.string().max(firstNameMaxValue, validationErrors.INVALID_MAX_VALUE(firstNameMaxValue)).required(validationErrors.FIELD_REQUIRED),
   lastName: yup.string().max(lastNameMaxValue, validationErrors.INVALID_MAX_VALUE(lastNameMaxValue)).required(validationErrors.FIELD_REQUIRED),
@@ -21,5 +29,11 @@ export const signUpSchema = yup.object().shape({
     .matches(uppercaseRegex, validationErrors.PASSWORD_INVALID_VALUE(`${passwordUppercaseLettersAmount} uppercase letters`))
     .matches(numbersRegex, validationErrors.PASSWORD_INVALID_VALUE(`${passwordNumbersAmount} numbers`))
     .matches(symbolsRegex, validationErrors.PASSWORD_INVALID_VALUE(`${passwordSymbolsAmount} symbols`))
+    .required(validationErrors.FIELD_REQUIRED),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), undefined], validationErrors.PASSWORDS_MUST_MATCH)
     .required(validationErrors.FIELD_REQUIRED)
 });
+
+export interface ISignUp extends yup.InferType<typeof signUpSchema> {}
