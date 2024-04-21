@@ -10,14 +10,6 @@ import {
   passwordSymbolsAmount
 } from './validation.constant';
 
-export interface SignUpSchemaInterface {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber?: string;
-  password: string;
-}
-
 export const signUpSchema = yup.object().shape({
   firstName: yup.string().max(firstNameMaxValue, validationErrors.INVALID_MAX_VALUE(firstNameMaxValue)).required(validationErrors.FIELD_REQUIRED),
   lastName: yup.string().max(lastNameMaxValue, validationErrors.INVALID_MAX_VALUE(lastNameMaxValue)).required(validationErrors.FIELD_REQUIRED),
