@@ -24,10 +24,6 @@ const BasicTextField = <FieldsType extends FieldValues>({name, control, type = '
     setShowPassword((show) => !show);
   };
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-  };
-
   const setType = (): string => {
     if (type === 'password') {
       return showPassword ? 'text' : 'password';
@@ -44,7 +40,7 @@ const BasicTextField = <FieldsType extends FieldValues>({name, control, type = '
         rules={rules}
         render={({field: {onChange, value}, fieldState: {error}, formState}) => (
           <TextField
-            helperText={error ? error.message : null}
+            helperText={error?.message}
             size="small"
             type={setType()}
             error={!!error}
@@ -56,13 +52,7 @@ const BasicTextField = <FieldsType extends FieldValues>({name, control, type = '
             InputProps={
               type === 'password'
                 ? {
-                    endAdornment: (
-                      <PasswordAdornment
-                        showPassword={showPassword}
-                        handleClickShowPassword={handleClickShowPassword}
-                        handleMouseDownPassword={handleMouseDownPassword}
-                      />
-                    )
+                    endAdornment: <PasswordAdornment showPassword={showPassword} handleClickShowPassword={handleClickShowPassword} />
                   }
                 : {}
             }
