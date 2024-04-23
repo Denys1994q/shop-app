@@ -28,4 +28,4 @@ export const signUpSchema = yup.object().shape({
     .required(validationErrors.FIELD_REQUIRED)
 });
 
-export interface ISignUp extends yup.InferType<typeof signUpSchema> {}
+export type SignUpSchemaType = yup.InferType<typeof signUpSchema>;
