@@ -55,7 +55,7 @@ const AuthPanel: FC = () => {
   );
 
   const loginBtn = (
-    <IconButton aria-label="login-icon" onClick={() => handleOpenModal(ModalType.SignIn)}>
+    <IconButton aria-label="login-icon" onClick={() => handleOpenModal(ModalType.SIGNIN)}>
       <LoginIcon fontSize="large" />
     </IconButton>
   );
@@ -83,13 +83,13 @@ const AuthPanel: FC = () => {
       <UserMenu menuItems={menuItems} anchorEl={anchorEl} open={openUserMenu} handleClose={handleCloseUserMenu} />
       {dialogType !== null && (
         <BasicDialog
-          title={dialogType === ModalType.SignIn ? 'Sign in' : 'Registration'}
+          title={dialogType === ModalType.SIGNIN ? 'Sign in' : 'Registration'}
           open={dialogType !== null}
           onClose={handleCloseModal}
         >
-          {dialogType === ModalType.SignIn ? (
+          {dialogType === ModalType.SIGNIN ? (
             <SignInForm
-              onSignUpClick={() => handleOpenModal(ModalType.SignUp)}
+              onSignUpClick={() => handleOpenModal(ModalType.SIGNUP)}
               onFormSubmit={handleSignInFormSubmit}
               error={userError}
             />

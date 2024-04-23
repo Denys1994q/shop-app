@@ -1,4 +1,4 @@
 export enum SignInFields {
-  email = 'email',
-  password = 'password'
+  EMAIL = 'email',
+  PASSWORD = 'password'
 }
