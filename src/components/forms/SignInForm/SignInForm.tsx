@@ -1,22 +1,27 @@
 import './SignInForm.sass';
-import {FieldValues, Path, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import BasicTextField from '@/components/inputs/BasicTextField/BasicTextField';
 import BasicBtn from '@/components/btns/BasicBtn/BasicBtn';
-import {signInSchema, ISignIn} from '@/constants/signIn.validation';
+import {signInSchema, SignInSchemaType} from '@/constants/signIn.validation';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {SignInFields} from '@/models/signIn.enum';
 import Typography from '@mui/material/Typography';
+import {FormField} from '@/models/formField.interface';
+import BasicError from '@/components/BasicError/BasicError';
+import {FieldType} from '@/models/fieldType.enum';
 
-const fields = [
-  {name: 'email', label: 'Email'},
-  {name: 'password', label: 'Password'}
+const fields: FormField[] = [
+  {name: 'email', label: 'Email', required: true},
+  {name: 'password', label: 'Password', fieldType: FieldType.PASSWORD, required: true}
 ];
 
 interface SignInFormProps {
   onSignUpClick: () => void;
+  onFormSubmit: (data: SignInSchemaType) => void;
+  error?: string | null;
 }
 
-const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick}) => {
+const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit, error}) => {
   const {
     register,
     handleSubmit,
@@ -26,12 +31,8 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick}) => {
     resolver: yupResolver(signInSchema)
   });
 
-  const onSubmit = (data: ISignIn): void => {
-    console.log(data);
-  };
-
-  const isPasswordField = (field: {name: Path<FieldValues>}): boolean => {
-    return field.name === 'password';
+  const onSubmit = (data: SignInSchemaType): void => {
+    onFormSubmit(data);
   };
 
   const handleSignUpBtnClick = (): void => {
@@ -43,7 +44,8 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick}) => {
       {fields.map((field) => (
         <BasicTextField
           key={field.name}
-          type={isPasswordField(field) ? 'password' : 'text'}
+          required={field.required}
+          type={field.fieldType}
           name={SignInFields[field.name as keyof typeof SignInFields]}
           control={control}
           label={field.label}
@@ -57,6 +59,7 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick}) => {
           Register.
         </span>
       </Typography>
+      {error && <BasicError text={error} />}
     </form>
   );
 };

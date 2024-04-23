@@ -6,4 +6,4 @@ export const signInSchema = yup.object().shape({
   password: yup.string().required(validationErrors.FIELD_REQUIRED)
 });
 
-export interface ISignIn extends yup.InferType<typeof signInSchema> {}
+export type SignInSchemaType = yup.InferType<typeof signInSchema>;

@@ -14,6 +14,7 @@ interface FormInputControllerProps<FieldsType extends FieldValues> {
 interface Props<FieldsType extends FieldValues> extends FormInputControllerProps<FieldsType> {
   label?: string;
   className?: string;
+  required?: boolean;
   type?: HTMLInputTypeAttribute;
 }
 
@@ -22,7 +23,7 @@ const BasicTextField = <FieldsType extends FieldValues>({
   control,
   type = 'text',
   label,
-  rules,
+  required = false,
   className
 }: Props<FieldsType>) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -44,9 +45,9 @@ const BasicTextField = <FieldsType extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        rules={rules}
         render={({field: {onChange, value}, fieldState: {error}, formState}) => (
           <TextField
+            InputLabelProps={{required: required}}
             helperText={error?.message}
             size="small"
             type={setType()}
