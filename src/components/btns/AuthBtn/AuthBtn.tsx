@@ -3,6 +3,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import LoginIcon from '@mui/icons-material/Login';
 import UserMenu from '@/components/UserMenu/UserMenu';
 import {useState} from 'react';
+import BasicDialog from '@/components/BasicDialog/BasicDialog';
+import SignUpForm from '@/components/forms/SignUpForm/SignUpForm';
 
 interface AuthBtnProps {
   isAuthenticated?: boolean;
@@ -13,6 +15,7 @@ const menuItems = ['Profile', 'Logout'];
 const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -20,6 +23,14 @@ const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
 
   const handleClose = (): void => {
     setAnchorEl(null);
+  };
+
+  const handleSignUpBtnClick = (): void => {
+    setOpenModal(true);
+  };
+
+  const handleCloseDialog = (): void => {
+    setOpenModal(false);
   };
 
   const userBtn = (
@@ -34,7 +45,7 @@ const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
   );
 
   const loginBtn = (
-    <IconButton aria-label="login-icon">
+    <IconButton aria-label="login-icon" onClick={handleSignUpBtnClick}>
       <LoginIcon fontSize="large" />
     </IconButton>
   );
@@ -43,6 +54,9 @@ const AuthBtn: React.FC<AuthBtnProps> = ({isAuthenticated = false}) => {
     <div>
       {isAuthenticated ? userBtn : loginBtn}
       <UserMenu menuItems={menuItems} anchorEl={anchorEl} open={open} handleClose={handleClose} />
+      <BasicDialog title="Registration" open={openModal} onClose={handleCloseDialog}>
+        <SignUpForm />
+      </BasicDialog>
     </div>
   );
 };
