@@ -1,5 +1,7 @@
-import {ModalType} from '@/models/dialog.enum';
+import {ReactNode} from 'react';
+
+export type ModalContent = ReactNode | null;
 
 export interface DialogState {
-  dialogType: ModalType | null;
+  dialogContent: ModalContent;
 }

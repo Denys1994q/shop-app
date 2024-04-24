@@ -8,7 +8,7 @@ import {SignUpFields} from '@/models/signUp.enum';
 import {FC} from 'react';
 import {FieldType} from '@/models/fieldType.enum';
 import {FormField} from '@/models/formField.interface';
-import BasicError from '@/components/BasicError/BasicError';
+import {Typography} from '@mui/material';
 
 const fields: FormField[] = [
   {name: 'firstName', label: 'First name', required: true},
@@ -40,6 +40,9 @@ const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit, error}) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Typography fontSize={20} sx={{mb: 2, textAlign: 'center'}}>
+        Register
+      </Typography>
       {fields.map((field) => (
         <BasicTextField
           key={field.name}
@@ -52,7 +55,6 @@ const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit, error}) => {
         />
       ))}
       <BasicBtn type="submit" text="Register" />
-      {error && <BasicError text={error} />}
     </form>
   );
 };

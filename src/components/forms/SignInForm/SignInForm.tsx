@@ -7,7 +7,6 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {SignInFields} from '@/models/signIn.enum';
 import Typography from '@mui/material/Typography';
 import {FormField} from '@/models/formField.interface';
-import BasicError from '@/components/BasicError/BasicError';
 import {FieldType} from '@/models/fieldType.enum';
 
 const fields: FormField[] = [
@@ -18,10 +17,9 @@ const fields: FormField[] = [
 interface SignInFormProps {
   onSignUpClick: () => void;
   onFormSubmit: (data: SignInSchemaType) => void;
-  error?: string | null;
 }
 
-const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit, error}) => {
+const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) => {
   const {
     register,
     handleSubmit,
@@ -41,6 +39,9 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit, err
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Typography fontSize={20} sx={{mb: 2, textAlign: 'center'}}>
+        Log in
+      </Typography>
       {fields.map((field) => (
         <BasicTextField
           key={field.name}
@@ -59,7 +60,6 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit, err
           Register.
         </span>
       </Typography>
-      {error && <BasicError text={error} />}
     </form>
   );
 };

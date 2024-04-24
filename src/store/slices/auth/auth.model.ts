@@ -8,5 +8,7 @@ export interface User {
 
 export interface AuthState {
   user: User | null;
-  error: string | null;
+  signUpError: string | null;
+  signInError: string | null;
+  getUserError: string | null;
 }

@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LoginIcon from '@mui/icons-material/Login';
@@ -8,12 +8,13 @@ import SignInForm from '@/components/forms/SignInForm/SignInForm';
 import SignUpForm from '@/components/forms/SignUpForm/SignUpForm';
 import {useAppSelector, useAppDispatch} from '@/store/hooks';
 import {openModal} from '@/store/slices/dialog/dialog.slice';
-import {ModalType} from '@/models/dialog.enum';
 import {SignUpSchemaType} from '@/constants/signUp.validation';
 import {registerUser, getUser, loginUser} from '@/store/slices/auth/auth.thunks';
-import {resetError} from '@/store/slices/auth/auth.slice';
+import {resetErrors} from '@/store/slices/auth/auth.slice';
 import {User} from '@/store/slices/auth/auth.model';
 import {SignInSchemaType} from '@/constants/signIn.validation';
+import BasicError from '@/components/BasicError/BasicError';
+import {Box} from '@mui/material';
 
 const menuItems = ['Profile', 'Logout'];
 
@@ -21,9 +22,10 @@ const AuthPanel: FC = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openUserMenu = Boolean(anchorEl);
-  const dialogType = useAppSelector((store) => store.dialogSlice.dialogType);
-  const userError: string | null = useAppSelector((store) => store.authSlice.error);
+  const dialogContent = useAppSelector((store) => store.dialogSlice.dialogContent);
   const user: User | null = useAppSelector((store) => store.authSlice.user);
+  const signUpError: string | null = useAppSelector((store) => store.authSlice.signUpError);
+  const signInError: string | null = useAppSelector((store) => store.authSlice.signInError);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -33,14 +35,35 @@ const AuthPanel: FC = () => {
     setAnchorEl(null);
   };
 
-  const handleOpenModal = (modalType: ModalType): void => {
-    dispatch(openModal(modalType));
-    dispatch(resetError());
+  const handleSignUpFormSumbit = async (signUpForm: SignUpSchemaType): Promise<void> => {
+    const {confirmPassword, ...userData} = signUpForm;
+    const result = await dispatch(registerUser(userData)).unwrap();
+    if (!result.error) {
+      handleCloseModal();
+      dispatch(getUser());
+    }
+  };
+
+  const handleSignInFormSubmit = async (signInForm: SignInSchemaType): Promise<void> => {
+    const result = await dispatch(loginUser(signInForm)).unwrap();
+    if (!result.error) {
+      handleCloseModal();
+      dispatch(getUser());
+    }
+  };
+
+  const signUpForm = <SignUpForm onFormSubmit={handleSignUpFormSumbit} error={signUpError} />;
+
+  const signInForm = (
+    <SignInForm onSignUpClick={() => dispatch(openModal(signUpForm))} onFormSubmit={handleSignInFormSubmit} />
+  );
+
+  const handleOpenSignInModal = (): void => {
+    dispatch(openModal(signInForm));
   };
 
   const handleCloseModal = (): void => {
     dispatch(openModal(null));
-    dispatch(resetError());
   };
 
   const userBtn = (
@@ -55,48 +78,35 @@ const AuthPanel: FC = () => {
   );
 
   const loginBtn = (
-    <IconButton aria-label="login-icon" onClick={() => handleOpenModal(ModalType.SIGNIN)}>
+    <IconButton aria-label="login-icon" onClick={handleOpenSignInModal}>
       <LoginIcon fontSize="large" />
     </IconButton>
   );
 
-  const handleSignUpFormSumbit = async (data: SignUpSchemaType): Promise<void> => {
-    const {confirmPassword, ...userData} = data;
-    const result: any = await dispatch(registerUser(userData));
-    if (!result.error) {
-      handleCloseModal();
-    }
-    dispatch(getUser());
-  };
-
-  const handleSignInFormSubmit = async (data: SignInSchemaType): Promise<void> => {
-    const result: any = await dispatch(loginUser(data));
-    if (!result.error) {
-      handleCloseModal();
-    }
-    dispatch(getUser());
-  };
+  useEffect(() => {
+    dispatch(resetErrors());
+  }, [dialogContent]);
 
   return (
     <div>
       {user ? userBtn : loginBtn}
       <UserMenu menuItems={menuItems} anchorEl={anchorEl} open={openUserMenu} handleClose={handleCloseUserMenu} />
-      {dialogType !== null && (
-        <BasicDialog
-          title={dialogType === ModalType.SIGNIN ? 'Sign in' : 'Registration'}
-          open={dialogType !== null}
-          onClose={handleCloseModal}
-        >
-          {dialogType === ModalType.SIGNIN ? (
-            <SignInForm
-              onSignUpClick={() => handleOpenModal(ModalType.SIGNUP)}
-              onFormSubmit={handleSignInFormSubmit}
-              error={userError}
-            />
-          ) : (
-            <SignUpForm onFormSubmit={handleSignUpFormSumbit} error={userError} />
-          )}
-        </BasicDialog>
+      {dialogContent !== null && (
+        <>
+          <BasicDialog open={dialogContent !== null} onClose={handleCloseModal}>
+            {dialogContent}
+            {signUpError && (
+              <Box width={300}>
+                <BasicError text={signUpError} />
+              </Box>
+            )}
+            {signInError && (
+              <Box width={300}>
+                <BasicError text={signInError} />
+              </Box>
+            )}
+          </BasicDialog>
+        </>
       )}
     </div>
   );

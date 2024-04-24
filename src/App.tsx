@@ -1,9 +1,18 @@
-import './MainLayout.sass';
+import './App.sass';
 import {Outlet} from 'react-router-dom';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
+import {FC, useEffect} from 'react';
+import {useAppDispatch} from '@/store/hooks';
+import {getUser} from '@/store/slices/auth/auth.thunks';
 
-const MainLayout: React.FC = () => {
+const App: FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
   return (
     <div className="main-container">
       <Header />
@@ -15,4 +24,4 @@ const MainLayout: React.FC = () => {
   );
 };
 
-export default MainLayout;
+export default App;

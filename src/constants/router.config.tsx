@@ -2,11 +2,11 @@ import {createBrowserRouter} from 'react-router-dom';
 import HomePage from '@pages/HomePage/HomePage';
 import NotFoundPage from '@pages/NotFoundPage/NotFoundPage';
 import {routes} from './routes';
-import MainLayout from '@layouts/MainLayout/MainLayout';
+import App from '@/App';
 
 export const router = createBrowserRouter([
   {
-    element: <MainLayout />,
+    element: <App />,
     children: [
       {
         path: `${routes.home}`,

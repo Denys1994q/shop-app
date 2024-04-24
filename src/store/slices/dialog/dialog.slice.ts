@@ -1,17 +1,17 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {ModalType} from '@/models/dialog.enum';
 import {DialogState} from './dialog.model';
+import {ModalContent} from './dialog.model';
 
 const initialState: DialogState = {
-  dialogType: null
+  dialogContent: null
 };
 
 const DialogSlice = createSlice({
   name: 'dialog',
   initialState,
   reducers: {
-    openModal(state: DialogState, action: PayloadAction<ModalType | null>) {
-      state.dialogType = action.payload;
+    openModal(state: DialogState, action: PayloadAction<ModalContent>) {
+      state.dialogContent = action.payload;
     }
   }
 });
