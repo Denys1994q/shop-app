@@ -9,7 +9,7 @@ import SignUpForm from '@/components/forms/SignUpForm/SignUpForm';
 import {useAppSelector, useAppDispatch} from '@/store/hooks';
 import {openModal} from '@/store/slices/dialog/dialog.slice';
 import {SignUpSchemaType} from '@/constants/signUp.validation';
-import {registerUser, getUser, loginUser} from '@/store/slices/auth/auth.thunks';
+import {registerUser, getUser, loginUser, logoutUser} from '@/store/slices/auth/auth.thunks';
 import {resetErrors} from '@/store/slices/auth/auth.slice';
 import {User} from '@/store/slices/auth/auth.model';
 import {SignInSchemaType} from '@/constants/signIn.validation';
@@ -66,6 +66,12 @@ const AuthPanel: FC = () => {
     dispatch(openModal(null));
   };
 
+  const handleMenuItemClick = (menuItem: string): void => {
+    if (menuItem === 'Logout') {
+      dispatch(logoutUser());
+    }
+  };
+
   const userBtn = (
     <IconButton aria-label="user-icon" onClick={handleOpenUserMenu}>
       <AccountCircleOutlinedIcon
@@ -90,7 +96,13 @@ const AuthPanel: FC = () => {
   return (
     <div>
       {user ? userBtn : loginBtn}
-      <UserMenu menuItems={menuItems} anchorEl={anchorEl} open={openUserMenu} handleClose={handleCloseUserMenu} />
+      <UserMenu
+        menuItems={menuItems}
+        anchorEl={anchorEl}
+        open={openUserMenu}
+        handleClose={handleCloseUserMenu}
+        onMenuItemClick={handleMenuItemClick}
+      />
       {dialogContent !== null && (
         <>
           <BasicDialog open={dialogContent !== null} onClose={handleCloseModal}>

@@ -11,4 +11,5 @@ export interface AuthState {
   signUpError: string | null;
   signInError: string | null;
   getUserError: string | null;
+  logoutUserError: string | null;
 }

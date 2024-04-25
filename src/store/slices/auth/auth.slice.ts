@@ -1,12 +1,14 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {registerUser, getUser, loginUser} from './auth.thunks';
+import {registerUser, getUser, loginUser, logoutUser} from './auth.thunks';
 import {AuthState} from './auth.model';
+import {removeTokens} from '@/services/tokens.service';
 
 const initialState: AuthState = {
   user: null,
   signUpError: null,
   signInError: null,
-  getUserError: null
+  getUserError: null,
+  logoutUserError: null
 };
 
 const TodoSlice = createSlice({
@@ -56,6 +58,16 @@ const TodoSlice = createSlice({
       .addCase(getUser.rejected, (state: AuthState, action: any) => {
         if (action.error.message) {
           state.getUserError = action.error.message;
+        }
+      })
+      .addCase(logoutUser.fulfilled, (state: AuthState, action: PayloadAction<any>) => {
+        state.user = null;
+        removeTokens();
+        state.logoutUserError = null;
+      })
+      .addCase(logoutUser.rejected, (state: AuthState, action: any) => {
+        if (action.error.message) {
+          state.logoutUserError = action.error.message;
         }
       });
   }

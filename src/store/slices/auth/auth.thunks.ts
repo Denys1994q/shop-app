@@ -1,4 +1,4 @@
-import {registerUserUrl, loginUserUrl, getUserUrl} from '@/constants/api';
+import {registerUserUrl, loginUserUrl, getUserUrl, logoutUserUrl} from '@/constants/api';
 import axiosInstance from '@/services/axiosInstance';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
@@ -33,6 +33,17 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (userData: Sig
 export const getUser = createAsyncThunk('auth/getUser', async (): Promise<any> => {
   try {
     return await axiosInstance.get(getUserUrl);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      throw error.response.data.message;
+    }
+    throw error;
+  }
+});
+
+export const logoutUser = createAsyncThunk('auth/logoutUser', async (): Promise<any> => {
+  try {
+    return await axiosInstance.get(logoutUserUrl);
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
       throw error.response.data.message;
