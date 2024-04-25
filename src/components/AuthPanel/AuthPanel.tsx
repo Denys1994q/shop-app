@@ -7,7 +7,7 @@ import BasicDialog from '@/components/BasicDialog/BasicDialog';
 import SignInForm from '@/components/forms/SignInForm/SignInForm';
 import SignUpForm from '@/components/forms/SignUpForm/SignUpForm';
 import {useAppSelector, useAppDispatch} from '@/store/hooks';
-import {openModal} from '@/store/slices/dialog/dialog.slice';
+import {openModal, setModalContent} from '@/store/slices/dialog/dialog.slice';
 import {SignUpSchemaType} from '@/constants/signUp.validation';
 import {registerUser, getUser, loginUser, logoutUser} from '@/store/slices/auth/auth.thunks';
 import {resetErrors} from '@/store/slices/auth/auth.slice';
@@ -22,6 +22,7 @@ const AuthPanel: FC = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openUserMenu = Boolean(anchorEl);
+  const isOpenDialog = useAppSelector((store) => store.dialogSlice.isOpen);
   const dialogContent = useAppSelector((store) => store.dialogSlice.dialogContent);
   const user: User | null = useAppSelector((store) => store.authSlice.user);
   const signUpError: string | null = useAppSelector((store) => store.authSlice.signUpError);
@@ -39,7 +40,7 @@ const AuthPanel: FC = () => {
     const {confirmPassword, ...userData} = signUpForm;
     const result = await dispatch(registerUser(userData)).unwrap();
     if (!result.error) {
-      handleCloseModal();
+      dispatch(openModal(false));
       dispatch(getUser());
     }
   };
@@ -47,24 +48,23 @@ const AuthPanel: FC = () => {
   const handleSignInFormSubmit = async (signInForm: SignInSchemaType): Promise<void> => {
     const result = await dispatch(loginUser(signInForm)).unwrap();
     if (!result.error) {
-      handleCloseModal();
+      dispatch(openModal(false));
       dispatch(getUser());
     }
   };
 
-  const signUpForm = <SignUpForm onFormSubmit={handleSignUpFormSumbit} error={signUpError} />;
-
-  const signInForm = (
-    <SignInForm onSignUpClick={() => dispatch(openModal(signUpForm))} onFormSubmit={handleSignInFormSubmit} />
-  );
+  const handleOpenSignUpModal = (): void => {
+    dispatch(openModal(true));
+    dispatch(setModalContent(signUpForm));
+  };
 
   const handleOpenSignInModal = (): void => {
-    dispatch(openModal(signInForm));
+    dispatch(openModal(true));
+    dispatch(setModalContent(signInForm));
   };
 
-  const handleCloseModal = (): void => {
-    dispatch(openModal(null));
-  };
+  const signUpForm = <SignUpForm onFormSubmit={handleSignUpFormSumbit} error={signUpError} />;
+  const signInForm = <SignInForm onSignUpClick={handleOpenSignUpModal} onFormSubmit={handleSignInFormSubmit} />;
 
   const handleMenuItemClick = (menuItem: string): void => {
     if (menuItem === 'Logout') {
@@ -103,10 +103,9 @@ const AuthPanel: FC = () => {
         handleClose={handleCloseUserMenu}
         onMenuItemClick={handleMenuItemClick}
       />
-      {dialogContent !== null && (
+      {isOpenDialog && (
         <>
-          <BasicDialog open={dialogContent !== null} onClose={handleCloseModal}>
-            {dialogContent}
+          <BasicDialog>
             {signUpError && (
               <Box width={300}>
                 <BasicError text={signUpError} />

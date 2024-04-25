@@ -1,21 +1,26 @@
 import {ReactNode} from 'react';
 import Dialog from '@mui/material/Dialog';
 import {DialogContent} from '@mui/material';
+import {useAppDispatch, useAppSelector} from '@/store/hooks';
+import {openModal} from '@/store/slices/dialog/dialog.slice';
 
 interface BasicDialogProps {
-  open: boolean;
-  onClose: () => void;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
-const BasicDialog: React.FC<BasicDialogProps> = ({onClose, open, children}) => {
+const BasicDialog: React.FC<BasicDialogProps> = ({children}) => {
+  const dispatch = useAppDispatch();
+  const isOpenDialog = useAppSelector((store) => store.dialogSlice.isOpen);
+  const dialogContent = useAppSelector((store) => store.dialogSlice.dialogContent);
+
   const handleClose = (): void => {
-    onClose();
+    dispatch(openModal(false));
   };
 
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogContent>{children}</DialogContent>
+    <Dialog onClose={handleClose} open={isOpenDialog}>
+      <DialogContent>{dialogContent}</DialogContent>
+      {children && children}
     </Dialog>
   );
 };

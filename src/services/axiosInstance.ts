@@ -16,7 +16,7 @@ axiosInstance.interceptors.response.use(
 );
 
 axiosInstance.interceptors.request.use((config): InternalAxiosRequestConfig<any> => {
-  const accessToken = window.localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
