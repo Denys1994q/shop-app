@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authSlice from './slices/auth/auth.slice';
 import dialogSlice from './slices/dialog/dialog.slice';
+import loadingSlice from './slices/loading/loading.slice';
 
 const store = configureStore({
   reducer: {
     authSlice,
-    dialogSlice
+    dialogSlice,
+    loadingSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 });

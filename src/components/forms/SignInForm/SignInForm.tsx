@@ -8,6 +8,9 @@ import {SignInFields} from '@/models/signIn.enum';
 import Typography from '@mui/material/Typography';
 import {FormField} from '@/models/formField.interface';
 import {FieldType} from '@/models/fieldType.enum';
+import FormHeader from '../FormHeader/FormHeader';
+import {useAppDispatch} from '@/store/hooks';
+import {openModal} from '@/store/slices/dialog/dialog.slice';
 
 const fields: FormField[] = [
   {name: 'email', label: 'Email', required: true},
@@ -20,6 +23,7 @@ interface SignInFormProps {
 }
 
 const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) => {
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -37,11 +41,13 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) =>
     onSignUpClick();
   };
 
+  const handleCloseBtnClick = (): void => {
+    dispatch(openModal(false));
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Typography fontSize={20} sx={{mb: 2, textAlign: 'center'}}>
-        Log in
-      </Typography>
+      <FormHeader title={'Sign In'} onCloseBtnClick={handleCloseBtnClick} />
       {fields.map((field) => (
         <BasicTextField
           key={field.name}

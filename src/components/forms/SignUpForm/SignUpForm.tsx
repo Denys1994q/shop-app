@@ -8,15 +8,18 @@ import {SignUpFields} from '@/models/signUp.enum';
 import {FC} from 'react';
 import {FieldType} from '@/models/fieldType.enum';
 import {FormField} from '@/models/formField.interface';
-import {Typography} from '@mui/material';
+import FormHeader from '../FormHeader/FormHeader';
+import Grid from '@mui/material/Grid';
+import {useAppDispatch} from '@/store/hooks';
+import {openModal} from '@/store/slices/dialog/dialog.slice';
 
 const fields: FormField[] = [
   {name: 'firstName', label: 'First name', required: true},
   {name: 'lastName', label: 'Last name', required: true},
   {name: 'email', label: 'Email', required: true},
+  {name: 'phoneNumber', label: 'Phone number'},
   {name: 'password', label: 'Password', fieldType: FieldType.PASSWORD, required: true},
-  {name: 'confirmPassword', label: 'Confirm password', fieldType: FieldType.PASSWORD, required: true},
-  {name: 'phoneNumber', label: 'Phone number'}
+  {name: 'confirmPassword', label: 'Confirm password', fieldType: FieldType.PASSWORD, required: true}
 ];
 
 interface SignUpFormProps {
@@ -25,6 +28,7 @@ interface SignUpFormProps {
 }
 
 const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit, error}) => {
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -38,22 +42,27 @@ const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit, error}) => {
     onFormSubmit(data);
   };
 
+  const handleCloseBtnClick = (): void => {
+    dispatch(openModal(false));
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Typography fontSize={20} sx={{mb: 2, textAlign: 'center'}}>
-        Register
-      </Typography>
-      {fields.map((field) => (
-        <BasicTextField
-          key={field.name}
-          type={field.fieldType}
-          required={field.required}
-          name={SignUpFields[field.name.toUpperCase() as keyof typeof SignUpFields]}
-          control={control}
-          label={field.label}
-          className="signUpForm__input"
-        />
-      ))}
+      <FormHeader title={'Sign Up'} onCloseBtnClick={handleCloseBtnClick} />
+      <Grid container spacing={2} sx={{mb: 4}}>
+        {fields.map((field) => (
+          <Grid item xs={6} key={field.name}>
+            <BasicTextField
+              type={field.fieldType}
+              required={field.required}
+              name={SignUpFields[field.name.toUpperCase() as keyof typeof SignUpFields]}
+              control={control}
+              label={field.label}
+              className="signUpForm__input"
+            />
+          </Grid>
+        ))}
+      </Grid>
       <BasicBtn type="submit" text="Register" />
     </form>
   );
