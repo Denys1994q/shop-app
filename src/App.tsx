@@ -2,11 +2,12 @@ import './App.sass';
 import {Outlet} from 'react-router-dom';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import {FC, useEffect} from 'react';
+import {useEffect} from 'react';
 import {useAppDispatch} from '@/store/hooks';
 import {getUser} from '@/store/slices/auth/auth.thunks';
+import BasicDialog from './components/BasicDialog/BasicDialog';
 
-const App: FC = () => {
+const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const App: FC = () => {
         <Outlet />
       </div>
       <Footer />
+      <BasicDialog />
     </div>
   );
 };

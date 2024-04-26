@@ -21,10 +21,9 @@ const fields: FormField[] = [
 
 interface SignUpFormProps {
   onFormSubmit: (data: SignUpSchemaType) => void;
-  error?: string | null;
 }
 
-const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit, error}) => {
+const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit}) => {
   const {
     register,
     handleSubmit,
