@@ -11,14 +11,26 @@ import {
 } from './validation.constant';
 
 export const signUpSchema = yup.object().shape({
-  firstName: yup.string().max(firstNameMaxValue, validationErrors.INVALID_MAX_VALUE(firstNameMaxValue)).required(validationErrors.FIELD_REQUIRED),
-  lastName: yup.string().max(lastNameMaxValue, validationErrors.INVALID_MAX_VALUE(lastNameMaxValue)).required(validationErrors.FIELD_REQUIRED),
+  firstName: yup
+    .string()
+    .max(firstNameMaxValue, validationErrors.INVALID_MAX_VALUE(firstNameMaxValue))
+    .required(validationErrors.FIELD_REQUIRED),
+  lastName: yup
+    .string()
+    .max(lastNameMaxValue, validationErrors.INVALID_MAX_VALUE(lastNameMaxValue))
+    .required(validationErrors.FIELD_REQUIRED),
   email: yup.string().email(validationErrors.INVALID_EMAIL).required(validationErrors.FIELD_REQUIRED),
   phoneNumber: yup.string().matches(onlyNumbersRegex, validationErrors.INVALID_FORMAT('phone number')).optional(),
   password: yup
     .string()
-    .matches(lowercaseRegex, validationErrors.PASSWORD_INVALID_VALUE(`${passwordLowercaseLettersAmount} lowercase letters`))
-    .matches(uppercaseRegex, validationErrors.PASSWORD_INVALID_VALUE(`${passwordUppercaseLettersAmount} uppercase letters`))
+    .matches(
+      lowercaseRegex,
+      validationErrors.PASSWORD_INVALID_VALUE(`${passwordLowercaseLettersAmount} lowercase letters`)
+    )
+    .matches(
+      uppercaseRegex,
+      validationErrors.PASSWORD_INVALID_VALUE(`${passwordUppercaseLettersAmount} uppercase letters`)
+    )
     .matches(numbersRegex, validationErrors.PASSWORD_INVALID_VALUE(`${passwordNumbersAmount} numbers`))
     .matches(symbolsRegex, validationErrors.PASSWORD_INVALID_VALUE(`${passwordSymbolsAmount} symbols`))
     .required(validationErrors.FIELD_REQUIRED),
@@ -29,3 +41,4 @@ export const signUpSchema = yup.object().shape({
 });
 
 export type SignUpSchemaType = yup.InferType<typeof signUpSchema>;
+export type SignUpSchemaTypeAPI = Omit<SignUpSchemaType, 'confirmPassword'>;

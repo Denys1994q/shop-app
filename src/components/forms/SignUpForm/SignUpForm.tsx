@@ -8,17 +8,22 @@ import {SignUpFields} from '@/models/signUp.enum';
 import {FC} from 'react';
 import {FieldType} from '@/models/fieldType.enum';
 import {FormField} from '@/models/formField.interface';
+import {Typography} from '@mui/material';
 
 const fields: FormField[] = [
-  {name: 'firstName', label: 'First name', fieldType: FieldType.TEXT},
-  {name: 'lastName', label: 'Last name', fieldType: FieldType.TEXT},
-  {name: 'email', label: 'Email', fieldType: FieldType.TEXT},
-  {name: 'password', label: 'Password', fieldType: FieldType.PASSWORD},
-  {name: 'confirmPassword', label: 'Confirm password', fieldType: FieldType.PASSWORD},
-  {name: 'phoneNumber', label: 'Phone number', fieldType: FieldType.TEXT}
+  {name: 'firstName', label: 'First name', required: true},
+  {name: 'lastName', label: 'Last name', required: true},
+  {name: 'email', label: 'Email', required: true},
+  {name: 'password', label: 'Password', fieldType: FieldType.PASSWORD, required: true},
+  {name: 'confirmPassword', label: 'Confirm password', fieldType: FieldType.PASSWORD, required: true},
+  {name: 'phoneNumber', label: 'Phone number'}
 ];
 
-const SignUpForm: FC = () => {
+interface SignUpFormProps {
+  onFormSubmit: (data: SignUpSchemaType) => void;
+}
+
+const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit}) => {
   const {
     register,
     handleSubmit,
@@ -29,15 +34,19 @@ const SignUpForm: FC = () => {
   });
 
   const onSubmit = (data: SignUpSchemaType): void => {
-    console.log(data);
+    onFormSubmit(data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Typography fontSize={20} sx={{mb: 2, textAlign: 'center'}}>
+        Register
+      </Typography>
       {fields.map((field) => (
         <BasicTextField
           key={field.name}
           type={field.fieldType}
+          required={field.required}
           name={SignUpFields[field.name.toUpperCase() as keyof typeof SignUpFields]}
           control={control}
           label={field.label}

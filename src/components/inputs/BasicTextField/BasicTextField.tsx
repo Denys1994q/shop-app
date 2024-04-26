@@ -14,10 +14,18 @@ interface FormInputControllerProps<FieldsType extends FieldValues> {
 interface Props<FieldsType extends FieldValues> extends FormInputControllerProps<FieldsType> {
   label?: string;
   className?: string;
+  required?: boolean;
   type?: HTMLInputTypeAttribute;
 }
 
-const BasicTextField = <FieldsType extends FieldValues>({name, control, type = 'text', label, rules, className}: Props<FieldsType>) => {
+const BasicTextField = <FieldsType extends FieldValues>({
+  name,
+  control,
+  type = 'text',
+  label,
+  required = false,
+  className
+}: Props<FieldsType>) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleClickShowPassword = (): void => {
@@ -37,9 +45,9 @@ const BasicTextField = <FieldsType extends FieldValues>({name, control, type = '
       <Controller
         name={name}
         control={control}
-        rules={rules}
         render={({field: {onChange, value}, fieldState: {error}, formState}) => (
           <TextField
+            InputLabelProps={{required: required}}
             helperText={error?.message}
             size="small"
             type={setType()}
@@ -52,7 +60,12 @@ const BasicTextField = <FieldsType extends FieldValues>({name, control, type = '
             InputProps={
               type === 'password'
                 ? {
-                    endAdornment: <PasswordAdornment showPassword={showPassword} handleClickShowPassword={handleClickShowPassword} />
+                    endAdornment: (
+                      <PasswordAdornment
+                        showPassword={showPassword}
+                        handleClickShowPassword={handleClickShowPassword}
+                      />
+                    )
                   }
                 : {}
             }

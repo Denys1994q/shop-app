@@ -5,9 +5,15 @@ import {MenuProps} from '@mui/material/Menu';
 interface UserMenuProps extends MenuProps {
   handleClose: () => void;
   menuItems: string[];
+  onMenuItemClick: (menuItem: string) => void;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({anchorEl, menuItems, open, handleClose}) => {
+const UserMenu: React.FC<UserMenuProps> = ({anchorEl, menuItems, open, handleClose, onMenuItemClick}) => {
+  const handleMenuItemClick = (menuItem: string): void => {
+    onMenuItemClick(menuItem);
+    handleClose();
+  };
+
   return (
     <Menu
       id="basic-menu"
@@ -19,7 +25,7 @@ const UserMenu: React.FC<UserMenuProps> = ({anchorEl, menuItems, open, handleClo
       }}
     >
       {menuItems.map((menuItem) => (
-        <MenuItem key={menuItem} onClick={handleClose}>
+        <MenuItem key={menuItem} onClick={() => handleMenuItemClick(menuItem)}>
           {menuItem}
         </MenuItem>
       ))}
