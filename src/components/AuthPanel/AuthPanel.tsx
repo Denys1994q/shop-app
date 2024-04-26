@@ -1,20 +1,16 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useState} from 'react';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LoginIcon from '@mui/icons-material/Login';
 import UserMenu from '@/components/UserMenu/UserMenu';
-import BasicDialog from '@/components/BasicDialog/BasicDialog';
 import SignInForm from '@/components/forms/SignInForm/SignInForm';
 import SignUpForm from '@/components/forms/SignUpForm/SignUpForm';
 import {useAppSelector, useAppDispatch} from '@/store/hooks';
 import {openModal, setModalContent} from '@/store/slices/dialog/dialog.slice';
 import {SignUpSchemaType} from '@/constants/signUp.validation';
 import {registerUser, getUser, loginUser, logoutUser} from '@/store/slices/auth/auth.thunks';
-import {resetErrors} from '@/store/slices/auth/auth.slice';
 import {User} from '@/store/slices/auth/auth.model';
 import {SignInSchemaType} from '@/constants/signIn.validation';
-import BasicError from '@/components/BasicError/BasicError';
-import {Box} from '@mui/material';
 
 const menuItems = ['Profile', 'Logout'];
 
@@ -22,11 +18,7 @@ const AuthPanel: FC = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openUserMenu = Boolean(anchorEl);
-  const isOpenDialog = useAppSelector((store) => store.dialogSlice.isOpen);
-  const dialogContent = useAppSelector((store) => store.dialogSlice.dialogContent);
   const user: User | null = useAppSelector((store) => store.authSlice.user);
-  const signUpError: string | null = useAppSelector((store) => store.authSlice.signUpError);
-  const signInError: string | null = useAppSelector((store) => store.authSlice.signInError);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -63,7 +55,7 @@ const AuthPanel: FC = () => {
     dispatch(setModalContent(signInForm));
   };
 
-  const signUpForm = <SignUpForm onFormSubmit={handleSignUpFormSumbit} error={signUpError} />;
+  const signUpForm = <SignUpForm onFormSubmit={handleSignUpFormSumbit} />;
   const signInForm = <SignInForm onSignUpClick={handleOpenSignUpModal} onFormSubmit={handleSignInFormSubmit} />;
 
   const handleMenuItemClick = (menuItem: string): void => {
@@ -89,10 +81,6 @@ const AuthPanel: FC = () => {
     </IconButton>
   );
 
-  useEffect(() => {
-    dispatch(resetErrors());
-  }, [dialogContent]);
-
   return (
     <div>
       {user ? userBtn : loginBtn}
@@ -103,22 +91,6 @@ const AuthPanel: FC = () => {
         handleClose={handleCloseUserMenu}
         onMenuItemClick={handleMenuItemClick}
       />
-      {isOpenDialog && (
-        <>
-          <BasicDialog>
-            {signUpError && (
-              <Box width={300}>
-                <BasicError text={signUpError} />
-              </Box>
-            )}
-            {signInError && (
-              <Box width={300}>
-                <BasicError text={signInError} />
-              </Box>
-            )}
-          </BasicDialog>
-        </>
-      )}
     </div>
   );
 };
