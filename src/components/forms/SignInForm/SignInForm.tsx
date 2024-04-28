@@ -11,6 +11,7 @@ import {FieldType} from '@/models/fieldType.enum';
 import FormHeader from '../FormHeader/FormHeader';
 import {useAppDispatch} from '@/store/hooks';
 import {openModal} from '@/store/slices/dialog/dialog.slice';
+import FormLink from '../FormLink/FormLink';
 
 const fields: FormField[] = [
   {name: 'email', label: 'Email', required: true},
@@ -37,10 +38,6 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) =>
     onFormSubmit(data);
   };
 
-  const handleSignUpBtnClick = (): void => {
-    onSignUpClick();
-  };
-
   const handleCloseBtnClick = (): void => {
     dispatch(openModal(false));
   };
@@ -60,12 +57,7 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) =>
         />
       ))}
       <BasicBtn type="submit" text="Login" />
-      <Typography sx={{mt: 2}}>
-        New customer?{' '}
-        <span className="register-item" onClick={handleSignUpBtnClick}>
-          Register.
-        </span>
-      </Typography>
+      <FormLink text="New customer?" to="Register" onClick={onSignUpClick} />
     </form>
   );
 };

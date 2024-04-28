@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {useState} from 'react';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LoginIcon from '@mui/icons-material/Login';
@@ -14,7 +14,7 @@ import {SignInSchemaType} from '@/constants/signIn.validation';
 
 const menuItems = ['Profile', 'Logout'];
 
-const AuthPanel: FC = () => {
+const AuthPanel = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openUserMenu = Boolean(anchorEl);
@@ -55,7 +55,7 @@ const AuthPanel: FC = () => {
     dispatch(setModalContent(signInForm));
   };
 
-  const signUpForm = <SignUpForm onFormSubmit={handleSignUpFormSumbit} />;
+  const signUpForm = <SignUpForm onSignInClick={handleOpenSignInModal} onFormSubmit={handleSignUpFormSumbit} />;
   const signInForm = <SignInForm onSignUpClick={handleOpenSignUpModal} onFormSubmit={handleSignInFormSubmit} />;
 
   const handleMenuItemClick = (menuItem: string): void => {

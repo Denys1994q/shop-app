@@ -1,4 +1,4 @@
-import {FC, ReactNode} from 'react';
+import {ReactNode} from 'react';
 import Backdrop from '@mui/material/Backdrop';
 
 interface BasicBackDropProps {
@@ -12,13 +12,11 @@ const backdropStyles = {
   backgroundColor: 'rgba(0, 0, 0, 0.1)'
 };
 
-const BasicBackDrop: FC<BasicBackDropProps> = ({children, isOpen}) => {
+const BasicBackDrop = ({children, isOpen}: BasicBackDropProps) => {
   return (
-    <div>
-      <Backdrop sx={backdropStyles} open={isOpen}>
-        {children}
-      </Backdrop>
-    </div>
+    <Backdrop sx={backdropStyles} open={isOpen}>
+      {children}
+    </Backdrop>
   );
 };
 

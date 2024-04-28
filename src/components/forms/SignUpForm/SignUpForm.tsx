@@ -12,6 +12,7 @@ import FormHeader from '../FormHeader/FormHeader';
 import Grid from '@mui/material/Grid';
 import {useAppDispatch} from '@/store/hooks';
 import {openModal} from '@/store/slices/dialog/dialog.slice';
+import FormLink from '../FormLink/FormLink';
 
 const fields: FormField[] = [
   {name: 'firstName', label: 'First name', required: true},
@@ -23,10 +24,11 @@ const fields: FormField[] = [
 ];
 
 interface SignUpFormProps {
+  onSignInClick: () => void;
   onFormSubmit: (data: SignUpSchemaType) => void;
 }
 
-const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit}) => {
+const SignUpForm: FC<SignUpFormProps> = ({onSignInClick, onFormSubmit}) => {
   const dispatch = useAppDispatch();
   const {
     register,
@@ -63,6 +65,7 @@ const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit}) => {
         ))}
       </Grid>
       <BasicBtn type="submit" text="Register" />
+      <FormLink text="Already have an account?" to="Sign In" onClick={onSignInClick} />
     </form>
   );
 };

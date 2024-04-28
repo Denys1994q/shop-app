@@ -1,15 +1,15 @@
 import {AxiosError, InternalAxiosRequestConfig} from 'axios';
 import {useDispatch} from 'react-redux';
 import axiosInstance from '@/services/axiosInstance';
-import {setLoading} from '@/store/slices/loading/loading.slice';
+import {showLoading, hideLoading} from '@/store/slices/loading/loading.slice';
 import {refreshTokens, removeTokens, updateTokens} from '@/services/tokens.service';
 
 const useAxiosInterceptor = () => {
   const dispatch = useDispatch();
 
-  axiosInstance.interceptors.request.use((config): InternalAxiosRequestConfig<any> => {
-    dispatch(setLoading(true));
-    const accessToken = window.localStorage.getItem('accessToken');
+  axiosInstance.interceptors.request.use((config): InternalAxiosRequestConfig => {
+    dispatch(showLoading());
+    const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -19,11 +19,11 @@ const useAxiosInterceptor = () => {
 
   axiosInstance.interceptors.response.use(
     (response) => {
-      dispatch(setLoading(false));
+      dispatch(hideLoading());
       return response;
     },
     async (error: AxiosError) => {
-      dispatch(setLoading(false));
+      dispatch(hideLoading());
       const originalRequest: any = error.config;
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
