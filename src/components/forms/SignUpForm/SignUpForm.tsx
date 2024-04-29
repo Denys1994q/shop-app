@@ -10,9 +10,6 @@ import {FieldType} from '@/models/fieldType.enum';
 import {FormField} from '@/models/formField.interface';
 import FormHeader from '../FormHeader/FormHeader';
 import Grid from '@mui/material/Grid';
-import {useAppDispatch} from '@/store/hooks';
-import {openModal} from '@/store/slices/dialog/dialog.slice';
-import FormLink from '../FormLink/FormLink';
 
 const fields: FormField[] = [
   {name: 'firstName', label: 'First name', required: true},
@@ -24,12 +21,10 @@ const fields: FormField[] = [
 ];
 
 interface SignUpFormProps {
-  onSignInClick: () => void;
   onFormSubmit: (data: SignUpSchemaType) => void;
 }
 
-const SignUpForm: FC<SignUpFormProps> = ({onSignInClick, onFormSubmit}) => {
-  const dispatch = useAppDispatch();
+const SignUpForm: FC<SignUpFormProps> = ({onFormSubmit}) => {
   const {
     register,
     handleSubmit,
@@ -43,13 +38,9 @@ const SignUpForm: FC<SignUpFormProps> = ({onSignInClick, onFormSubmit}) => {
     onFormSubmit(data);
   };
 
-  const handleCloseBtnClick = (): void => {
-    dispatch(openModal(false));
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormHeader title={'Sign Up'} onCloseBtnClick={handleCloseBtnClick} />
+      <FormHeader title={'Sign Up'} />
       <Grid container spacing={2} sx={{mb: 4}}>
         {fields.map((field) => (
           <Grid item xs={6} key={field.name}>
@@ -65,7 +56,6 @@ const SignUpForm: FC<SignUpFormProps> = ({onSignInClick, onFormSubmit}) => {
         ))}
       </Grid>
       <BasicBtn type="submit" text="Register" />
-      <FormLink text="Already have an account?" to="Sign In" onClick={onSignInClick} />
     </form>
   );
 };

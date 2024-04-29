@@ -1,6 +1,6 @@
 import './SubHeader.sass';
 import logo from '@/assets/logo.svg';
-import AuthPanel from '@components/AuthPanel/AuthPanel';
+import AuthPanel from '@/components/btns/AuthBtn/AuthBtn';
 import CartBtn from '@components/btns/CartBtn/CartBtn';
 import {Link} from 'react-router-dom';
 import {routes} from '@/constants/routes';
