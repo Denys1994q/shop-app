@@ -8,9 +8,12 @@ import FormLink from '../FormLink/FormLink';
 import {getUser, loginUser, registerUser} from '@/store/slices/auth/auth.thunks';
 import {closeDialog} from '@/store/slices/dialog/dialog.slice';
 
+const loginFormLinkText = 'Already have an account?';
+const registerFormLinkText = 'New customer?';
+
 const AuthForm = () => {
   const dispatch = useAppDispatch();
-  const [isLoginForm, setIsLoginForm] = useState(true);
+  const [isLoginForm, setIsLoginForm] = useState<boolean>(true);
 
   const handleSignUpFormSumbit = async (signUpForm: SignUpSchemaType): Promise<void> => {
     const {confirmPassword, ...userData} = signUpForm;
@@ -35,9 +38,6 @@ const AuthForm = () => {
   const toggleForm = (): void => {
     setIsLoginForm((isLoginForm) => !isLoginForm);
   };
-
-  const loginFormLinkText = 'Already have an account?';
-  const registerFormLinkText = 'New customer?';
 
   return (
     <>
