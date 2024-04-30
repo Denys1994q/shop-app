@@ -1,20 +1,16 @@
-import {FC, useState} from 'react';
+import {useState} from 'react';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LoginIcon from '@mui/icons-material/Login';
 import UserMenu from '@/components/UserMenu/UserMenu';
-import SignInForm from '@/components/forms/SignInForm/SignInForm';
-import SignUpForm from '@/components/forms/SignUpForm/SignUpForm';
 import {useAppSelector, useAppDispatch} from '@/store/hooks';
-import {openModal, setModalContent} from '@/store/slices/dialog/dialog.slice';
-import {SignUpSchemaType} from '@/constants/signUp.validation';
-import {registerUser, getUser, loginUser, logoutUser} from '@/store/slices/auth/auth.thunks';
+import {openDialog} from '@/store/slices/dialog/dialog.slice';
+import {logoutUser} from '@/store/slices/auth/auth.thunks';
 import {User} from '@/store/slices/auth/auth.model';
-import {SignInSchemaType} from '@/constants/signIn.validation';
+import AuthForm from '@/components/forms/AuthForm/AuthForm';
+import {UserMenuOptions} from '@/models/userMenuOptions.enum';
 
-const menuItems = ['Profile', 'Logout'];
-
-const AuthPanel: FC = () => {
+const AuthBtn = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openUserMenu = Boolean(anchorEl);
@@ -28,38 +24,12 @@ const AuthPanel: FC = () => {
     setAnchorEl(null);
   };
 
-  const handleSignUpFormSumbit = async (signUpForm: SignUpSchemaType): Promise<void> => {
-    const {confirmPassword, ...userData} = signUpForm;
-    const result = await dispatch(registerUser(userData)).unwrap();
-    if (!result.error) {
-      dispatch(openModal(false));
-      dispatch(getUser());
-    }
-  };
-
-  const handleSignInFormSubmit = async (signInForm: SignInSchemaType): Promise<void> => {
-    const result = await dispatch(loginUser(signInForm)).unwrap();
-    if (!result.error) {
-      dispatch(openModal(false));
-      dispatch(getUser());
-    }
-  };
-
-  const handleOpenSignUpModal = (): void => {
-    dispatch(openModal(true));
-    dispatch(setModalContent(signUpForm));
-  };
-
   const handleOpenSignInModal = (): void => {
-    dispatch(openModal(true));
-    dispatch(setModalContent(signInForm));
+    dispatch(openDialog(<AuthForm />));
   };
-
-  const signUpForm = <SignUpForm onFormSubmit={handleSignUpFormSumbit} />;
-  const signInForm = <SignInForm onSignUpClick={handleOpenSignUpModal} onFormSubmit={handleSignInFormSubmit} />;
 
   const handleMenuItemClick = (menuItem: string): void => {
-    if (menuItem === 'Logout') {
+    if (menuItem === UserMenuOptions.LOGOUT) {
       dispatch(logoutUser());
     }
   };
@@ -85,7 +55,6 @@ const AuthPanel: FC = () => {
     <div>
       {user ? userBtn : loginBtn}
       <UserMenu
-        menuItems={menuItems}
         anchorEl={anchorEl}
         open={openUserMenu}
         handleClose={handleCloseUserMenu}
@@ -95,4 +64,4 @@ const AuthPanel: FC = () => {
   );
 };
 
-export default AuthPanel;
+export default AuthBtn;
