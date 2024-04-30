@@ -5,13 +5,9 @@ import BasicBtn from '@/components/btns/BasicBtn/BasicBtn';
 import {signInSchema, SignInSchemaType} from '@/constants/signIn.validation';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {SignInFields} from '@/models/signIn.enum';
-import Typography from '@mui/material/Typography';
 import {FormField} from '@/models/formField.interface';
 import {FieldType} from '@/models/fieldType.enum';
 import FormHeader from '../FormHeader/FormHeader';
-import {useAppDispatch} from '@/store/hooks';
-import {openModal} from '@/store/slices/dialog/dialog.slice';
-import FormLink from '../FormLink/FormLink';
 
 const fields: FormField[] = [
   {name: 'email', label: 'Email', required: true},
@@ -19,12 +15,10 @@ const fields: FormField[] = [
 ];
 
 interface SignInFormProps {
-  onSignUpClick: () => void;
   onFormSubmit: (data: SignInSchemaType) => void;
 }
 
-const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) => {
-  const dispatch = useAppDispatch();
+const SignInForm: React.FC<SignInFormProps> = ({onFormSubmit}) => {
   const {
     register,
     handleSubmit,
@@ -38,13 +32,9 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) =>
     onFormSubmit(data);
   };
 
-  const handleCloseBtnClick = (): void => {
-    dispatch(openModal(false));
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormHeader title={'Sign In'} onCloseBtnClick={handleCloseBtnClick} />
+      <FormHeader title={'Sign In'}/>
       {fields.map((field) => (
         <BasicTextField
           key={field.name}
@@ -57,7 +47,6 @@ const SignInForm: React.FC<SignInFormProps> = ({onSignUpClick, onFormSubmit}) =>
         />
       ))}
       <BasicBtn type="submit" text="Login" />
-      <FormLink text="New customer?" to="Register" onClick={onSignUpClick} />
     </form>
   );
 };

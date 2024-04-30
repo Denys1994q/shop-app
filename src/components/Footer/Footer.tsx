@@ -1,6 +1,6 @@
+import InfoSections from '@components/InfoSections/InfoSections';
 import './Footer.sass';
 import Box from '@mui/material/Box';
-import InfoSections from '@components/InfoSections/InfoSections';
 import TagsList from '@components/TagsList/TagsList';
 
 const Footer = () => {

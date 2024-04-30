@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 import {DialogContent} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
-import {openModal} from '@/store/slices/dialog/dialog.slice';
+import {closeDialog} from '@/store/slices/dialog/dialog.slice';
 
 const BasicDialog = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +9,7 @@ const BasicDialog = () => {
   const dialogContent = useAppSelector((store) => store.dialogSlice.dialogContent);
 
   const handleClose = (): void => {
-    dispatch(openModal(false));
+    dispatch(closeDialog());
   };
 
   return (

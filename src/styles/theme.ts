@@ -40,6 +40,15 @@ const theme = createTheme({
           fontSize: 11
         }
       }
+    },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          zIndex: 1000,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)'
+        }
+      }
     }
   }
 });

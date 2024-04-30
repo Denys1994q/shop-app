@@ -11,15 +11,16 @@ const DialogSlice = createSlice({
   name: 'dialog',
   initialState,
   reducers: {
-    openModal(state: DialogState, action: PayloadAction<boolean>) {
-      state.isOpen = action.payload;
-    },
-    setModalContent(state: DialogState, action: PayloadAction<ModalContent>) {
+    openDialog(state: DialogState, action: PayloadAction<ModalContent>) {
+      state.isOpen = true;
       state.dialogContent = action.payload;
+    },
+    closeDialog(state: DialogState) {
+      state.isOpen = false;
     }
   }
 });
 
-export const {openModal, setModalContent} = DialogSlice.actions;
+export const {openDialog, closeDialog} = DialogSlice.actions;
 
 export default DialogSlice.reducer;
