@@ -7,10 +7,7 @@ const actionsStyles = {
   display: 'flex',
   alignItems: 'flex-start',
   flexDirection: 'column',
-  gap: 2,
-  '&.css-h34jhz-MuiCardActions-root > :not(style) ~ :not(style)': {
-    margin: 0
-  }
+  gap: 2
 };
 
 const CardActions = () => {

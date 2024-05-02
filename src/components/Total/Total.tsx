@@ -1,9 +1,13 @@
 import './Total.sass';
 
-const Total = () => {
+interface TotalProps {
+  value: number;
+}
+
+const Total = ({value}: TotalProps) => {
   return (
     <span>
-      <span className="total-number">117</span>
+      <span className="total-number">{value}</span>
       <span className="total-text">Products</span>
     </span>
   );

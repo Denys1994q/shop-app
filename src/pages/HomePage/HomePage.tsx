@@ -21,7 +21,7 @@ const HomePage = () => {
     <section className="products">
       <div className="products__title">
         <MainTitle text="Products List" />
-        <Total />
+        <Total value={products.length} />
       </div>
       <div className="products__main">
         <div>filters</div>

@@ -33,24 +33,16 @@ const ProductCard = ({product}: ProductCardProps) => {
   const priceWithDiscount = discount ? price - (price * discount) / 100 : price;
 
   return (
-    <>
-      <Card sx={cardStyles}>
-        <CardMedia imageUrl={images[0]} width={270} height={270} />
-        <Box sx={cardBoxStyles}>
-          <CardContent
-            title={title}
-            description={description}
-            rating={rating || 0}
-            state={state}
-            seller={seller}
-          />
-        </Box>
-        <Box sx={actionsBoxStyles}>
-          <CardPrice priceAfterDiscount={priceWithDiscount} priceBeforeDiscount={discount && price} />
-          <CardActions />
-        </Box>
-      </Card>
-    </>
+    <Card sx={cardStyles}>
+      <CardMedia imageUrl={images[0]} width={270} height={270} />
+      <Box sx={cardBoxStyles}>
+        <CardContent title={title} description={description} rating={rating || 0} state={state} seller={seller} />
+      </Box>
+      <Box sx={actionsBoxStyles}>
+        <CardPrice priceAfterDiscount={priceWithDiscount} priceBeforeDiscount={discount && price} />
+        <CardActions />
+      </Box>
+    </Card>
   );
 };
 
