@@ -1,20 +1,36 @@
 import './HomePage.sass';
-import Title from '@/components/Title/Title';
+import MainTitle from '@/components/typography/MainTitle/MainTitle';
 import ProductsList from '@/components/ProductsList/ProductsList';
 import Total from '@/components/Total/Total';
+import {getAllProducts} from '@/store/slices/products/products.thunks';
+import {useAppDispatch} from '@/store/hooks';
+import {useEffect} from 'react';
+import {useAppSelector} from '@/store/hooks';
+import {selectProducts} from '@/store/slices/products/products.selectors';
+import SecondaryTitle from '@/components/typography/SecondaryTitle/SecondaryTitle';
 
 const HomePage = () => {
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(selectProducts);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
+
   return (
     <section className="products">
       <div className="products__title">
-        {/* main title, secondary title */}
-        <Title text="Products List" />
+        <MainTitle text="Products List" />
         <Total />
       </div>
-      <div className='products__main'>
+      <div className="products__main">
         <div>filters</div>
-        <div className='productsList'>
-          <ProductsList />
+        <div className="productsList">
+          {products.length > 0 ? (
+            <ProductsList products={products} />
+          ) : (
+            <SecondaryTitle sx={{textAlign: 'center'}} text="Nothing found" />
+          )}
         </div>
       </div>
     </section>

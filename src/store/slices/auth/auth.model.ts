@@ -1,3 +1,5 @@
+import {ErrorApi} from '@/models/errorApi.type';
+
 export interface User {
   _id: string;
   firstName: string;
@@ -8,8 +10,8 @@ export interface User {
 
 export interface AuthState {
   user: User | null;
-  signUpError: string | null;
-  signInError: string | null;
-  getUserError: string | null;
-  logoutUserError: string | null;
+  signUpError: ErrorApi;
+  signInError: ErrorApi;
+  getUserError: ErrorApi;
+  logoutUserError: ErrorApi;
 }

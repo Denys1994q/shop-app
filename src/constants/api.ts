@@ -4,3 +4,4 @@ export const loginUserUrl = 'auth/signIn';
 export const getUserUrl = 'auth/me';
 export const refreshTokensUrl = 'auth/refresh';
 export const logoutUserUrl = 'auth/logout';
+export const getAllProductsUrl = 'product';
