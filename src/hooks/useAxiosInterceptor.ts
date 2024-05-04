@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux';
 import axiosInstance from '@/services/axiosInstance';
 import {showLoading, hideLoading} from '@/store/slices/loading/loading.slice';
 import {useEffect} from 'react';
+import {refreshTokens, removeTokens, updateTokens} from '@/services/tokens.service';
 
 const useAxiosInterceptor = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,20 @@ const useAxiosInterceptor = () => {
         numberOfAjaxCAllPending--;
         if (numberOfAjaxCAllPending == 0) {
           dispatch(hideLoading());
+        }
+        const originalRequest: any = error.config;
+        if (error.response?.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          try {
+            const data = await refreshTokens();
+            const {accessToken, refreshToken} = data;
+            updateTokens(accessToken, refreshToken);
+
+            return axiosInstance(originalRequest);
+          } catch (refreshError) {
+            removeTokens();
+            return Promise.reject(refreshError);
+          }
         }
         return Promise.reject(error);
       }

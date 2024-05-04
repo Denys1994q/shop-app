@@ -49,6 +49,22 @@ const theme = createTheme({
           backgroundColor: 'rgba(0, 0, 0, 0.3)'
         }
       }
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          '& > :not(style) ~ :not(style)': {
+            marginLeft: 0
+          }
+        }
+      }
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: 0
+        }
+      }
     }
   }
 });

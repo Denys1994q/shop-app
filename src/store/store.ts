@@ -4,18 +4,22 @@ import dialogSlice from './slices/dialog/dialog.slice';
 import loadingSlice, {LoadingState} from './slices/loading/loading.slice';
 import {AuthState} from './slices/auth/auth.model';
 import {DialogState} from './slices/dialog/dialog.model';
+import {ProductsState} from './slices/products/products.model';
+import productsSlice from './slices/products/products.slice';
 
 export interface State {
   authSlice: AuthState;
   dialogSlice: DialogState;
   loadingSlice: LoadingState;
+  productsSlice: ProductsState;
 }
 
 const store = configureStore({
   reducer: {
     authSlice,
     dialogSlice,
-    loadingSlice
+    loadingSlice,
+    productsSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 });
