@@ -2,12 +2,13 @@ import {CardContent as MuiCardContent} from '@mui/material';
 import SecondaryTitle from '@components/typography/SecondaryTitle/SecondaryTitle';
 import MainParagraph from '@components/typography/MainParagraph/MainParagraph';
 import BasicRating from '@/components/BasicRating/BasicRating';
-import {ReactNode} from 'react';
 import {Box} from '@mui/material';
 import CardInfoList from '../CardInfoList/CardInfoList';
 import {SellerEnum, StateEnum} from '@/models/product.enum';
+import {PropsWithChildren} from 'react';
+import {ReactNode} from 'react';
 
-const StyledBox = ({children}: {children: ReactNode}) => {
+const StyledBox = ({children}: {children: PropsWithChildren<ReactNode>}) => {
   return <Box sx={{mb: 1}}>{children}</Box>;
 };
 

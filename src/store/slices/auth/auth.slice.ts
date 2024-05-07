@@ -31,9 +31,7 @@ const TodoSlice = createSlice({
         state.signUpError = null;
       })
       .addCase(registerUser.rejected, (state: AuthState, action: any) => {
-        if (action.error.message) {
-          state.signUpError = action.error.message;
-        }
+        state.signUpError = action.payload;
       })
       .addCase(loginUser.pending, (state: AuthState) => {
         state.signInError = null;
@@ -44,9 +42,7 @@ const TodoSlice = createSlice({
         state.signInError = null;
       })
       .addCase(loginUser.rejected, (state: AuthState, action: any) => {
-        if (action.error.message) {
-          state.signInError = action.error.message;
-        }
+        state.signInError = action.payload;
       })
       .addCase(getUser.pending, (state: AuthState) => {
         state.getUserError = null;
@@ -56,9 +52,7 @@ const TodoSlice = createSlice({
         state.getUserError = null;
       })
       .addCase(getUser.rejected, (state: AuthState, action: any) => {
-        if (action.error.message) {
-          state.getUserError = action.error.message;
-        }
+        state.getUserError = action.payload;
       })
       .addCase(logoutUser.fulfilled, (state: AuthState, action: PayloadAction<any>) => {
         state.user = null;
@@ -66,9 +60,7 @@ const TodoSlice = createSlice({
         state.logoutUserError = null;
       })
       .addCase(logoutUser.rejected, (state: AuthState, action: any) => {
-        if (action.error.message) {
-          state.logoutUserError = action.error.message;
-        }
+        state.logoutUserError = action.payload;
       });
   }
 });

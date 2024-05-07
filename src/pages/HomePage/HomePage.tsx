@@ -2,7 +2,7 @@ import './HomePage.sass';
 import MainTitle from '@/components/typography/MainTitle/MainTitle';
 import ProductsList from '@/components/ProductsList/ProductsList';
 import Total from '@/components/Total/Total';
-import {getAllProducts} from '@/store/slices/products/products.thunks';
+import getAllProducts from '@/store/slices/products/products.thunks';
 import {useAppDispatch} from '@/store/hooks';
 import {useEffect} from 'react';
 import {useAppSelector} from '@/store/hooks';

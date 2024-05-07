@@ -9,6 +9,9 @@ import {logoutUser} from '@/store/slices/auth/auth.thunks';
 import {User} from '@/store/slices/auth/auth.model';
 import AuthForm from '@/components/forms/AuthForm/AuthForm';
 import {UserMenuOptions} from '@/models/userMenuOptions.enum';
+import {openToast} from '@/store/slices/toast/toast.slice';
+import {SuccesToastMessages} from '@/constants/toastMessages.constant';
+import {ToastEnum} from '@/models/toast.enum';
 
 const AuthBtn = () => {
   const dispatch = useAppDispatch();
@@ -28,9 +31,12 @@ const AuthBtn = () => {
     dispatch(openDialog(<AuthForm />));
   };
 
-  const handleMenuItemClick = (menuItem: string): void => {
+  const handleMenuItemClick = async (menuItem: string): Promise<void> => {
     if (menuItem === UserMenuOptions.LOGOUT) {
-      dispatch(logoutUser());
+      const result = await dispatch(logoutUser());
+      if (!result.error) {
+        dispatch(openToast({message: SuccesToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
+      }
     }
   };
 

@@ -1,14 +1,14 @@
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import {FC} from 'react';
 
 interface CloseBtnProps {
   onClick: () => void;
+  sx?: React.CSSProperties;
 }
 
-const CloseBtn: FC<CloseBtnProps> = ({onClick}) => {
+const CloseBtn = ({onClick, sx}: CloseBtnProps) => {
   return (
-    <IconButton aria-label="close-icon" onClick={onClick}>
+    <IconButton aria-label="close-icon" onClick={onClick} sx={{...sx}}>
       <CloseIcon />
     </IconButton>
   );

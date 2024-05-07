@@ -1,7 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {ProductsState} from './products.model';
 import {Product} from './products.model';
-import {getAllProducts} from './products.thunks';
+import getAllProducts from './products.thunks';
 
 const initialState: ProductsState = {
   products: [],

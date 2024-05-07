@@ -1,9 +1,9 @@
 import {getAllProductsUrl} from '@/constants/api';
 import axiosInstance from '@/services/axiosInstance';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AxiosError} from 'axios';
+import {AxiosError, AxiosPromise} from 'axios';
 
-export const getAllProducts = createAsyncThunk('products/getAllProducts', async (): Promise<any> => {
+export default createAsyncThunk('products/getAllProducts', async (): AxiosPromise => {
   try {
     return await axiosInstance.get(getAllProductsUrl);
   } catch (error) {

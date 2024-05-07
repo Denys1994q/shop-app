@@ -14,6 +14,7 @@ const btnStyles = {
     background: '#fff'
   }
 };
+
 const WishListBtn = () => {
   return (
     <Button sx={btnStyles} startIcon={<FavoriteBorderIcon />}>
