@@ -5,6 +5,7 @@ import {refreshTokens, removeTokens, updateTokens} from './tokens.service';
 import {Store} from 'redux';
 import {openToast} from '@/store/slices/toast/toast.slice';
 import {ToastEnum} from '@/models/toast.enum';
+import {ErrorToastMessages} from '@/constants/toastMessages.constant';
 
 let store: Store;
 let numberOfAjaxCAllPending = 0;
@@ -64,7 +65,7 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     } else {
-      store.dispatch(openToast({message: 'Sorry, something is wrong', type: ToastEnum.ERROR}));
+      store.dispatch(openToast({message: ErrorToastMessages.SOMETHING_WRONG, type: ToastEnum.ERROR}));
     }
     return Promise.reject(error);
   }

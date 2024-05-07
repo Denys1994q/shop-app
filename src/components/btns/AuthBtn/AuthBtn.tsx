@@ -10,7 +10,7 @@ import {User} from '@/store/slices/auth/auth.model';
 import AuthForm from '@/components/forms/AuthForm/AuthForm';
 import {UserMenuOptions} from '@/models/userMenuOptions.enum';
 import {openToast} from '@/store/slices/toast/toast.slice';
-import {SuccesToastMessages} from '@/constants/toastMessages.constant';
+import {SuccessToastMessages} from '@/constants/toastMessages.constant';
 import {ToastEnum} from '@/models/toast.enum';
 
 const AuthBtn = () => {
@@ -35,7 +35,7 @@ const AuthBtn = () => {
     if (menuItem === UserMenuOptions.LOGOUT) {
       try {
         await dispatch(logoutUser()).unwrap();
-        dispatch(openToast({message: SuccesToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
+        dispatch(openToast({message: SuccessToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
       } catch (error) {
         typeof error === 'string' && dispatch(openToast({message: error, type: ToastEnum.ERROR}));
       }
