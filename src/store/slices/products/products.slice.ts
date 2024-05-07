@@ -1,7 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {ProductsState} from './products.model';
 import {Product} from './products.model';
-import getAllProducts from './products.thunks';
+import {getAllProducts} from './products.thunks';
 
 const initialState: ProductsState = {
   products: [],
@@ -17,10 +17,8 @@ const ProductsSlice = createSlice({
       .addCase(getAllProducts.fulfilled, (state: ProductsState, action: PayloadAction<Product[]>) => {
         state.products = action.payload;
       })
-      .addCase(getAllProducts.rejected, (state: ProductsState, action) => {
-        if (action.error.message) {
-          state.productsError = action.error.message;
-        }
+      .addCase(getAllProducts.rejected, (state: ProductsState, action: PayloadAction<any>) => {
+        state.productsError = action.payload;
       });
   }
 });

@@ -8,7 +8,7 @@ import {handleApiError} from '@/services/handleApiError';
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
-  async (userData: SignUpSchemaTypeAPI, {rejectWithValue}): AxiosPromise<any> => {
+  async (userData: SignUpSchemaTypeAPI, {rejectWithValue}): AxiosPromise => {
     try {
       return await axiosInstance.post(registerUserUrl, userData);
     } catch (error) {
@@ -19,7 +19,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
-  async (userData: SignInSchemaType, {rejectWithValue}): AxiosPromise<any> => {
+  async (userData: SignInSchemaType, {rejectWithValue}): AxiosPromise => {
     try {
       return await axiosInstance.post(loginUserUrl, userData);
     } catch (error) {
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk('auth/getUser', async (_, {rejectWithValue}): AxiosPromise<any> => {
+export const getUser = createAsyncThunk('auth/getUser', async (_, {rejectWithValue}): AxiosPromise => {
   try {
     return await axiosInstance.get(getUserUrl);
   } catch (error: any) {
@@ -36,7 +36,7 @@ export const getUser = createAsyncThunk('auth/getUser', async (_, {rejectWithVal
   }
 });
 
-export const logoutUser = createAsyncThunk('auth/logoutUser', async (_, {rejectWithValue}): AxiosPromise<any> => {
+export const logoutUser = createAsyncThunk('auth/logoutUser', async (_, {rejectWithValue}): AxiosPromise => {
   try {
     return await axiosInstance.get(logoutUserUrl);
   } catch (error) {

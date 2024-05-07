@@ -33,9 +33,11 @@ const AuthBtn = () => {
 
   const handleMenuItemClick = async (menuItem: string): Promise<void> => {
     if (menuItem === UserMenuOptions.LOGOUT) {
-      const result = await dispatch(logoutUser());
-      if (!result.error) {
+      try {
+        await dispatch(logoutUser()).unwrap();
         dispatch(openToast({message: SuccesToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
+      } catch (error) {
+        typeof error === 'string' && dispatch(openToast({message: error, type: ToastEnum.ERROR}));
       }
     }
   };

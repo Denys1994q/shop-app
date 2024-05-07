@@ -1,15 +1,16 @@
 import {getAllProductsUrl} from '@/constants/api';
 import axiosInstance from '@/services/axiosInstance';
+import {handleApiError} from '@/services/handleApiError';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AxiosError, AxiosPromise} from 'axios';
+import {AxiosPromise} from 'axios';
 
-export default createAsyncThunk('products/getAllProducts', async (): AxiosPromise => {
-  try {
-    return await axiosInstance.get(getAllProductsUrl);
-  } catch (error) {
-    if (error instanceof AxiosError && error.response) {
-      throw error.response.data.message;
+export const getAllProducts = createAsyncThunk(
+  'products/getAllProducts',
+  async (_, {rejectWithValue}): AxiosPromise => {
+    try {
+      return await axiosInstance.get(getAllProductsUrl);
+    } catch (error) {
+      return handleApiError(error, rejectWithValue);
     }
-    throw error;
   }
-});
+);

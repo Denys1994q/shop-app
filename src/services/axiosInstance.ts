@@ -2,12 +2,14 @@ import axios, {AxiosError, AxiosResponse, InternalAxiosRequestConfig} from 'axio
 import {baseUrl} from '@constants/api';
 import {hideLoading, showLoading} from '@/store/slices/loading/loading.slice';
 import {refreshTokens, removeTokens, updateTokens} from './tokens.service';
+import {Store} from 'redux';
 import {openToast} from '@/store/slices/toast/toast.slice';
+import {ToastEnum} from '@/models/toast.enum';
 
-let store: any;
+let store: Store;
 let numberOfAjaxCAllPending = 0;
 
-export const injectStore = (_store: any): void => {
+export const injectStore = (_store: Store): void => {
   store = _store;
 };
 
@@ -61,6 +63,8 @@ axiosInstance.interceptors.response.use(
         removeTokens();
         return Promise.reject(refreshError);
       }
+    } else {
+      store.dispatch(openToast({message: 'Sorry, something is wrong', type: ToastEnum.ERROR}));
     }
     return Promise.reject(error);
   }

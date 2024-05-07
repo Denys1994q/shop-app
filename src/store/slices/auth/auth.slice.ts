@@ -30,7 +30,7 @@ const TodoSlice = createSlice({
         localStorage.setItem('accessToken', action.payload.accessToken);
         state.signUpError = null;
       })
-      .addCase(registerUser.rejected, (state: AuthState, action: any) => {
+      .addCase(registerUser.rejected, (state: AuthState, action: PayloadAction<any>) => {
         state.signUpError = action.payload;
       })
       .addCase(loginUser.pending, (state: AuthState) => {
