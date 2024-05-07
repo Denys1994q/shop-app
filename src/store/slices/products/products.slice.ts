@@ -1,6 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {ProductsState} from './products.model';
-import {Product} from './products.model';
 import {getAllProducts} from './products.thunks';
 
 const initialState: ProductsState = {
@@ -14,7 +13,7 @@ const ProductsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.fulfilled, (state: ProductsState, action: PayloadAction<Product[]>) => {
+      .addCase(getAllProducts.fulfilled, (state: ProductsState, action: PayloadAction<any>) => {
         state.products = action.payload;
       })
       .addCase(getAllProducts.rejected, (state: ProductsState, action: PayloadAction<any>) => {

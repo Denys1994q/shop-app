@@ -2,6 +2,8 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {registerUser, getUser, loginUser, logoutUser} from './auth.thunks';
 import {AuthState} from './auth.model';
 import {removeTokens} from '@/services/tokens.service';
+import {Tokens} from '@/services/tokens.service';
+import {User} from './auth.model';
 
 const initialState: AuthState = {
   user: null,
@@ -25,7 +27,7 @@ const TodoSlice = createSlice({
       .addCase(registerUser.pending, (state: AuthState) => {
         state.signUpError = null;
       })
-      .addCase(registerUser.fulfilled, (state: AuthState, action: PayloadAction<any>) => {
+      .addCase(registerUser.fulfilled, (state: AuthState, action: PayloadAction<Tokens>) => {
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         localStorage.setItem('accessToken', action.payload.accessToken);
         state.signUpError = null;
@@ -36,30 +38,30 @@ const TodoSlice = createSlice({
       .addCase(loginUser.pending, (state: AuthState) => {
         state.signInError = null;
       })
-      .addCase(loginUser.fulfilled, (state: AuthState, action: PayloadAction<any>) => {
+      .addCase(loginUser.fulfilled, (state: AuthState, action: PayloadAction<Tokens>) => {
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         localStorage.setItem('accessToken', action.payload.accessToken);
         state.signInError = null;
       })
-      .addCase(loginUser.rejected, (state: AuthState, action: any) => {
+      .addCase(loginUser.rejected, (state: AuthState, action: PayloadAction<any>) => {
         state.signInError = action.payload;
       })
       .addCase(getUser.pending, (state: AuthState) => {
         state.getUserError = null;
       })
-      .addCase(getUser.fulfilled, (state: AuthState, action: PayloadAction<any>) => {
+      .addCase(getUser.fulfilled, (state: AuthState, action: PayloadAction<User>) => {
         state.user = action.payload;
         state.getUserError = null;
       })
-      .addCase(getUser.rejected, (state: AuthState, action: any) => {
+      .addCase(getUser.rejected, (state: AuthState, action: PayloadAction<any>) => {
         state.getUserError = action.payload;
       })
-      .addCase(logoutUser.fulfilled, (state: AuthState, action: PayloadAction<any>) => {
+      .addCase(logoutUser.fulfilled, (state: AuthState) => {
         state.user = null;
         removeTokens();
         state.logoutUserError = null;
       })
-      .addCase(logoutUser.rejected, (state: AuthState, action: any) => {
+      .addCase(logoutUser.rejected, (state: AuthState, action: PayloadAction<any>) => {
         state.logoutUserError = action.payload;
       });
   }
