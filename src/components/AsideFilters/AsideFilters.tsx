@@ -1,14 +1,43 @@
-import {List, ListItem} from '@mui/material';
-import BasicSlider from '../BasicSlider/BasicSlider';
+import {useEffect} from 'react';
+import SliderWithInputs from '../SliderWithInputs/SliderWithInputs';
+import {Controller, useForm} from 'react-hook-form';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {Box} from '@mui/material';
 
-// це має бути форма, при зміні значень якої, вона наверх передає всі фільтри, які всі і йдуть на бек
 const AsideFilters = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    formState: {errors}
+  } = useForm({
+    resolver: yupResolver(filtersSchema),
+    defaultValues: {
+      priceRange: [1, 100]
+    }
+  });
+
+  const priceRange = watch('priceRange');
+
+  useEffect(() => {
+    if (priceRange[0] >= priceRange[1]) {
+      return;
+    }
+    console.log(priceRange);
+  }, [priceRange]);
+
   return (
-    <List>
-      <ListItem>
-        <BasicSlider />
-      </ListItem>
-    </List>
+    <form>
+      <Box sx={{width: 300}}>
+        <Controller
+          name="priceRange"
+          control={control}
+          render={({field: {onChange, value}}) => <SliderWithInputs title="Price" onChange={onChange} value={value} />}
+        />
+      </Box>
+    </form>
   );
 };
 
