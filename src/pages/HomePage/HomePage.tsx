@@ -7,8 +7,8 @@ import {useAppDispatch} from '@/store/hooks';
 import {useEffect} from 'react';
 import {useAppSelector} from '@/store/hooks';
 import {selectProducts} from '@/store/slices/products/products.selectors';
-import SecondaryTitle from '@/components/typography/SecondaryTitle/SecondaryTitle';
-import AsideFilters from '@components/AsideFilters/AsideFilters';
+import SecondaryTitle from '@components/typography/SecondaryTitle/SecondaryTitle';
+import ProductFiltersForm from '@components/forms/ProductFiltersForm/ProductFiltersForm';
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -25,8 +25,8 @@ const HomePage = () => {
         <Total value={products.length} />
       </div>
       <div className="products__main">
-        <div className='productsFilters'>
-          <AsideFilters />
+        <div className="productsFilters">
+          <ProductFiltersForm />
         </div>
         <div className="productsList">
           {products.length > 0 ? (
