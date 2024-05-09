@@ -25,6 +25,11 @@ const theme = createTheme({
         sx: {
           fontSize: 14
         }
+      },
+      styleOverrides: {
+        input: {
+          padding: 10
+        }
       }
     },
     MuiMenuItem: {
@@ -60,6 +65,13 @@ const theme = createTheme({
       }
     },
     MuiList: {
+      styleOverrides: {
+        root: {
+          padding: 0
+        }
+      }
+    },
+    MuiListItem: {
       styleOverrides: {
         root: {
           padding: 0

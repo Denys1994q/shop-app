@@ -6,9 +6,13 @@ import {Product} from './products.model';
 
 export const getAllProducts = createAsyncThunk(
   'products/getAllProducts',
-  async (_, {rejectWithValue}): Promise<Product[] | any> => {
+  async ({minPrice, maxPrice, minRating, maxRating}: any, {rejectWithValue}): Promise<Product[] | any> => {
     try {
-      return await axiosInstance.get(getAllProductsUrl);
+      if (minPrice && maxPrice && minRating && maxRating) {
+        return await axiosInstance.get(getAllProductsUrl, {params: {minPrice, maxPrice, minRating, maxRating}});
+      } else {
+        return await axiosInstance.get(getAllProductsUrl);
+      }
     } catch (error) {
       return handleApiError(error, rejectWithValue);
     }
