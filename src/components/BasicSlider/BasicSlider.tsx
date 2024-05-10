@@ -35,7 +35,7 @@ const BasicSlider = ({title, value, onChange, sx = styles as CSSProperties}: Bas
 
   return (
     <Box>
-      <SecondaryTitle text={title} sx={{marginBottom: 1}} />
+      <SecondaryTitle text={title} sx={{marginBottom: 2}} />
       <Slider
         sx={{...sx}}
         value={value}

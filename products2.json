@@ -749,36 +749,6 @@
     }
   ]
 },{
-  "title": "Плита комбінована GORENJE GK5C40WF",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1702037583/gorenje_front_rla25h.webp"
-    },
-    {
-      "url": "https://evergreen-purrfect-agenda.glitch.me/assets/household-appliances/large_household_appliances/gorenje.webp"
-    }
-  ]
-},{
-  "title": "Двокамерний холодильник BEKO",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1702037614/beko_front_ljzcoz.webp"
-    },
-    {
-      "url": "https://evergreen-purrfect-agenda.glitch.me/assets/household-appliances/large_household_appliances/beko.webp"
-    }
-  ]
-},{
-  "title": "Холодильник INDESIT LI6 S1E W",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1702037644/indesit_front_v0ep1a.webp"
-    },
-    {
-      "url": "https://evergreen-purrfect-agenda.glitch.me/assets/household-appliances/large_household_appliances/indesit.webp"
-    }
-  ]
-},{
   "title": "Вбудована посудомийна машина HOTPOINT",
   "images": [
     {
@@ -1071,49 +1041,7 @@
   "title": "Бездротовий геймпад PlayStation 5 Dualsense",
   "images": [
     {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1702106204/gamepad_kwpkox.webp"
-    }
-  ]
-},{
-  "title": "Sony PlayStation 5 White 825Gb + DualSense",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1702106233/ps5_white_front_yvlyvk.webp"
-    }
-  ]
-},{
-  "title": "Sony PlayStation 5 White 825Gb + DualSense",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1702106260/ps5_white_front_mj4gtu.webp"
-    }
-  ]
-},{
-  "title": "Бездротовий геймпад PlayStation 5 Dualsense",
-  "images": [
-    {
       "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1702106289/gamepad_vfwq6v.webp"
-    }
-  ]
-},{
-  "title": "Велосипед CORRADO Piemont DB",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1700999791/144339014_tyi7if.webp"
-    }
-  ]
-},{
-  "title": "Велосипед Formula MOTION AM",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1701002399/315835458_moinei.jpg"
-    }
-  ]
-},{
-  "title": "Котушка карпова Brain Apex Double Reel Baitrunner",
-  "images": [
-    {
-      "url": "https://res.cloudinary.com/dw60kllwn/image/upload/v1700924020/88232645_zz5cpl.webp"
     }
   ]
 },{

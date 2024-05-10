@@ -6,11 +6,17 @@ import {Product} from './products.model';
 
 export const getAllProducts = createAsyncThunk(
   'products/getAllProducts',
-  async ({minPrice, maxPrice, minRating, maxRating}: any, {rejectWithValue}): Promise<Product[] | any> => {
+  async ({minPrice, maxPrice, minRating, maxRating, categories}: any, {rejectWithValue}): Promise<Product[] | any> => {
     try {
+      // console.log(categories);
+      // const categories = categoris.length > 0 ? categoris : null;
       if (minPrice && maxPrice && minRating && maxRating) {
-        return await axiosInstance.get(getAllProductsUrl, {params: {minPrice, maxPrice, minRating, maxRating}});
+        console.log(1);
+        return await axiosInstance.get(getAllProductsUrl, {
+          params: {minPrice, maxPrice, minRating, maxRating, categories: categories.length > 0 ? categories : null}
+        });
       } else {
+        console.log(2);
         return await axiosInstance.get(getAllProductsUrl);
       }
     } catch (error) {
