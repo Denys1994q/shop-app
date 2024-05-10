@@ -6,12 +6,15 @@ import {AuthState} from './slices/auth/auth.model';
 import {DialogState} from './slices/dialog/dialog.model';
 import {ProductsState} from './slices/products/products.model';
 import productsSlice from './slices/products/products.slice';
+import toastSlice from './slices/toast/toast.slice';
+import {ToastState} from './slices/toast/toast.model';
 
 export interface State {
   authSlice: AuthState;
   dialogSlice: DialogState;
   loadingSlice: LoadingState;
   productsSlice: ProductsState;
+  toastSlice: ToastState;
 }
 
 const store = configureStore({
@@ -19,7 +22,8 @@ const store = configureStore({
     authSlice,
     dialogSlice,
     loadingSlice,
-    productsSlice
+    productsSlice,
+    toastSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 });

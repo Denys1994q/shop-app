@@ -7,6 +7,8 @@ import {router} from '@constants/router.config';
 import {Provider} from 'react-redux';
 import store from '@store/store';
 import '@/styles/index.sass';
+import {injectStore} from './services/axiosInstance';
+injectStore(store);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -1,6 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {DialogState} from './dialog.model';
-import {ModalContent} from './dialog.model';
+import {DialogState, ModalContent} from './dialog.model';
 
 const initialState: DialogState = {
   isOpen: false,

@@ -7,6 +7,9 @@ import {useAppDispatch} from '@/store/hooks';
 import FormLink from '../FormLink/FormLink';
 import {getUser, loginUser, registerUser} from '@/store/slices/auth/auth.thunks';
 import {closeDialog} from '@/store/slices/dialog/dialog.slice';
+import {openToast} from '@/store/slices/toast/toast.slice';
+import {ToastEnum} from '@/models/toast.enum';
+import {SuccessToastMessages} from '@/constants/toastMessages.constant';
 
 const loginFormLinkText = 'Already have an account?';
 const registerFormLinkText = 'New customer?';
@@ -17,20 +20,25 @@ const AuthForm = () => {
 
   const handleSignUpFormSumbit = async (signUpForm: SignUpSchemaType): Promise<void> => {
     const {confirmPassword, ...userData} = signUpForm;
-    const result = await dispatch(registerUser(userData)).unwrap();
-    if (!result.error) {
-      closeDialogAndGetUser();
+    try {
+      await dispatch(registerUser(userData)).unwrap();
+      closeDialogAndGetUser(SuccessToastMessages.REGISTER);
+    } catch (error) {
+      dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
     }
   };
 
   const handleSignInFormSubmit = async (signInForm: SignInSchemaType): Promise<void> => {
-    const result = await dispatch(loginUser(signInForm)).unwrap();
-    if (!result.error) {
-      closeDialogAndGetUser();
+    try {
+      await dispatch(loginUser(signInForm)).unwrap();
+      closeDialogAndGetUser(SuccessToastMessages.LOGIN);
+    } catch (error) {
+      dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
     }
   };
 
-  const closeDialogAndGetUser = (): void => {
+  const closeDialogAndGetUser = (toastMessage: SuccessToastMessages): void => {
+    dispatch(openToast({message: toastMessage, type: ToastEnum.SUCCESS}));
     dispatch(closeDialog());
     dispatch(getUser());
   };
