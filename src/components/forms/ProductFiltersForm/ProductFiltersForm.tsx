@@ -1,17 +1,15 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect} from 'react';
 import SliderWithInputs from '../../SliderWithInputs/SliderWithInputs';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {productFiltersSchema} from '@constants/productFilters.validation';
 import BasicSlider from '@/components/BasicSlider/BasicSlider';
-import {Box, Checkbox, FormControlLabel} from '@mui/material';
+import {Box} from '@mui/material';
 import {CSSProperties} from 'react';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {Filters} from '@/store/slices/filters/filters.model';
 import {useSearchParams} from 'react-router-dom';
-import BasicCheckbox from '@/components/inputs/BasicCheckbox/BasicCheckbox';
-import SecondaryTitle from '@/components/typography/SecondaryTitle/SecondaryTitle';
 import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
 import {useDebounce} from '@/hooks/useDebounce';
 import {selectFilters} from '@/store/slices/filters/filters.selectors';
@@ -22,6 +20,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: 6
+  },
+  categories: {
+    maxHeight: '500px',
+    overflowY: 'auto'
   },
   ratingSlider: {
     '& .MuiSlider-thumb': {
@@ -52,7 +54,7 @@ const ProductFiltersForm = () => {
     watch,
     formState: {errors}
   } = useForm({
-    // mode: 'onChange',
+    mode: 'onChange',
     resolver: yupResolver(productFiltersSchema),
     defaultValues: {
       priceRange: filters.priceRange,
@@ -73,13 +75,23 @@ const ProductFiltersForm = () => {
     setSearchParams(params);
   };
 
-  // const debouncedValue = useDebounce(filters, 500);
+  const debouncedValue = useDebounce(filters, 500);
 
-  // const search = useCallback(async () => {}, [debouncedValue]);
+  const search = useCallback(async () => {
+    dispatch(
+      getAllProducts({
+        minPrice: filters.priceRange[0],
+        maxPrice: filters.priceRange[1],
+        minRating: filters.ratingRange[0],
+        maxRating: filters.ratingRange[1],
+        categories: filters.categories.join(',')
+      })
+    );
+  }, [debouncedValue]);
 
-  // useEffect(() => {
-  //   search();
-  // }, [debouncedValue, search]);
+  useEffect(() => {
+    search();
+  }, [debouncedValue, search]);
 
   // перевірка чи поле вже touched або перевірка на наявність помилки
   useEffect(() => {
@@ -92,20 +104,13 @@ const ProductFiltersForm = () => {
 
   const onSubmit = (value: any): void => {
     dispatch(updateFilters(value));
-    // updateSearchParams(value);
-  };
-
-  const [s, setS] = useState([1, 1000]);
-
-  const onC = (v: any) => {
-    setS(v);
+    updateSearchParams(value);
   };
 
   return (
     <form>
       <Box sx={styles.box}>
-        <Box>
-          <BasicSlider title="Rating" onChange={onC} value={s} />
+        <Box sx={styles.categories}>
           <Controller
             name="categories"
             control={control}
@@ -126,19 +131,19 @@ const ProductFiltersForm = () => {
         </Box>
         <Box>
           <Controller
-            name="priceRange"
+            name="ratingRange"
             control={control}
-            render={({field: {onChange, value}, fieldState: {error}}) => (
-              <SliderWithInputs title="Price" onChange={onChange} value={value} error={error} />
+            render={({field: {onChange, value}}) => (
+              <BasicSlider title="Rating" onChange={onChange} value={value} sx={styles.ratingSlider as CSSProperties} />
             )}
           />
         </Box>
         <Box>
           <Controller
-            name="ratingRange"
+            name="priceRange"
             control={control}
-            render={({field: {onChange, value}}) => (
-              <BasicSlider title="Rating" onChange={onChange} value={value} sx={styles.ratingSlider as CSSProperties} />
+            render={({field: {onChange, value}, fieldState: {error}}) => (
+              <SliderWithInputs title="Price" onChange={onChange} value={value} error={error} />
             )}
           />
         </Box>
