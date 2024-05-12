@@ -4,7 +4,8 @@ const initialState: any = {
   filters: {
     priceRange: [1, 1000],
     ratingRange: [1, 5],
-    categories: []
+    categories: [],
+    brands: []
   }
 };
 

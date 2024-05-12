@@ -1,46 +1,351 @@
 [
   {
-    "title": "Sony PlayStation 5 White 825Gb + DualSense",
-    "categoryId": 5,
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b181d"
+    },
+    "categoryId": 1,
     "subcategoryId": 1,
     "description": "This is an example product description.",
     "detailedDescription": [],
-    "price": 699,
+    "price": 225,
+    "quantity": 11,
+    "discount": 5,
+    "seller": 2,
+    "brand": "ZTE",
+    "state": 1,
+    "rating": 1,
+    "title": "Мобільний телефон ZTE Blade A51",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1697355087/zte_front_scqohl.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/zte.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/zte-3.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/zte-4.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b1816"
+    },
+    "categoryId": 1,
+    "subcategoryId": 2,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 50,
+    "quantity": 11,
+    "seller": 1,
+    "brand": 6,
+    "state": 1,
+    "rating": 3,
+    "title": "Мобільний телефон Samsung Galaxy A24",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1697390868/samsung_galaxy_a24_front_lzj7rg.webp",
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1698255177/samsung_galaxy_a24_yrpdsh.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/samsung_galaxy_a24-3.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/samsung_galaxy_a24-4.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/samsung_galaxy_a24-5.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b1818"
+    },
+    "categoryId": 1,
+    "subcategoryId": 2,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 50,
     "quantity": 11,
     "discount": 10,
     "seller": 1,
-    "brand": "",
+    "brand": 8,
     "state": 1,
     "rating": 3,
-    "images": ["https://res.cloudinary.com/dw60kllwn/image/upload/v1702106260/ps5_white_front_mj4gtu.webp"]
+    "title": "Мобільний телефон Motorola G32",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1697355342/motorolla_front_yamsvb.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/motorolla.webp"
+    ]
   },
   {
-    "title": "Sony PlayStation 4",
-    "categoryId": 5,
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b181f"
+    },
+    "categoryId": 1,
     "subcategoryId": 1,
     "description": "This is an example product description.",
     "detailedDescription": [],
-    "price": 899,
+    "price": 125,
+    "quantity": 11,
+    "discount": 5,
+    "seller": 2,
+    "brand": 9,
+    "state": 1,
+    "rating": 2,
+    "title": "Мобільний телефон Tecno Spark 10 Pro",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1697355971/tecno_front_vtrdfk.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/tecno.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b1817"
+    },
+    "categoryId": 1,
+    "subcategoryId": 2,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 150,
+    "quantity": 11,
+    "discount": 10,
+    "seller": 1,
+    "brand": 5,
+    "state": 1,
+    "rating": 3,
+    "title": "Мобільний телефон Apple iPhone 13 128GB",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1697528759/221214140_11zon_xg1ptp.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/apple_13.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/apple_13-3.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/apple_13-4.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b181a"
+    },
+    "categoryId": 1,
+    "subcategoryId": 2,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 215,
+    "quantity": 11,
+    "discount": 10,
+    "seller": 1,
+    "brand": 10,
+    "state": 1,
+    "rating": 2,
+    "title": "Мобільний телефон Nokia C22",
+    "images": ["https://res.cloudinary.com/dw60kllwn/image/upload/v1697304946/nokia_c22_m3uerw.webp"]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b181b"
+    },
+    "categoryId": 1,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 405,
+    "quantity": 11,
+    "discount": 30,
+    "seller": 1,
+    "brand": 11,
+    "state": 1,
+    "rating": 5,
+    "title": "Мобільний телефон Xiaomi Redmi",
+    "images": ["https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/xiaomi_redmi.webp"]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b1820"
+    },
+    "categoryId": 1,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 265,
+    "quantity": 11,
+    "discount": 10,
+    "seller": 1,
+    "brand": 8,
+    "state": 1,
+    "rating": 4,
+    "title": "Мобільний телефон Motorola Edge 30 Neo",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1697355250/motorola_30_front_uutbmx.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/motorola_30.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/motorola_30-3.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/motorola_30-4.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/motorola_30-5.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b1819"
+    },
+    "categoryId": 1,
+    "subcategoryId": 2,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 1115,
+    "quantity": 11,
+    "discount": 10,
+    "seller": 1,
+    "brand": 5,
+    "state": 1,
+    "rating": 3,
+    "title": "Мобільний телефон Apple iPhone 14 Pro",
+    "images": [
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/apple_14_front.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/apple_14.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b181c"
+    },
+    "categoryId": 1,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 225,
+    "quantity": 11,
+    "discount": 5,
+    "seller": 2,
+    "brand": 12,
+    "state": 1,
+    "rating": 5,
+    "title": "Мобільний телефон Poco M4 Pro 6",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1697355199/poco_front_tbcydv.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/poco.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663cd8bbda2083950a8b181e"
+    },
+    "categoryId": 1,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 225,
+    "quantity": 11,
+    "discount": 5,
+    "seller": 2,
+    "brand": 11,
+    "state": 1,
+    "rating": 2,
+    "title": "Мобільний телефон Xiaomi 12 Lite 6",
+    "images": [
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/xiaomi_12_front.webp",
+      "https://rozetka-server.onrender.com/assets/telefony-tv-i-ehlektronika/phones/xiaomi_12.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663db003da2083950a8b1824"
+    },
+    "categoryId": 3,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 945,
     "quantity": 11,
     "discount": 20,
     "seller": 1,
-    "brand": "",
+    "brand": 13,
     "state": 1,
     "rating": 3,
-    "images": ["https://res.cloudinary.com/dw60kllwn/image/upload/v1702106233/ps5_white_front_yvlyvk.webp"]
+    "title": "Двокамерний холодильник BEKO",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1702037614/beko_front_ljzcoz.webp",
+      "https://evergreen-purrfect-agenda.glitch.me/assets/household-appliances/large_household_appliances/beko.webp"
+    ]
   },
   {
-    "title": "Бездротовий геймпад PlayStation 5 Dualsense",
-    "categoryId": 5,
+    "_id": {
+      "$oid": "663db003da2083950a8b1823"
+    },
+    "categoryId": 3,
     "subcategoryId": 1,
     "description": "This is an example product description.",
     "detailedDescription": [],
-    "price": 1099,
+    "price": 650,
     "quantity": 11,
+    "discount": 10,
     "seller": 1,
-    "brand": "",
+    "brand": 14,
+    "state": 1,
+    "rating": 5,
+    "title": "Плита комбінована GORENJE GK5C40WF",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1702037583/gorenje_front_rla25h.webp",
+      "https://evergreen-purrfect-agenda.glitch.me/assets/household-appliances/large_household_appliances/gorenje.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663db05cda2083950a8b1826"
+    },
+    "categoryId": 3,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 999,
+    "quantity": 11,
+    "discount": 10,
+    "seller": 1,
+    "brand": 15,
     "state": 1,
     "rating": 4,
-    "images": ["https://res.cloudinary.com/dw60kllwn/image/upload/v1702106204/gamepad_kwpkox.webp"]
+    "title": "Холодильник INDESIT LI6 S1E W",
+    "images": [
+      "https://res.cloudinary.com/dw60kllwn/image/upload/v1702037644/indesit_front_v0ep1a.webp",
+      "https://evergreen-purrfect-agenda.glitch.me/assets/household-appliances/large_household_appliances/indesit.webp"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "663db108da2083950a8b1827"
+    },
+    "categoryId": 4,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 799,
+    "quantity": 11,
+    "discount": 10,
+    "seller": 1,
+    "brand": 16,
+    "state": 1,
+    "rating": 3,
+    "title": "Велосипед CORRADO Piemont DB",
+    "images": ["https://res.cloudinary.com/dw60kllwn/image/upload/v1700999791/144339014_tyi7if.webp"]
+  },
+  {
+    "_id": {
+      "$oid": "663db108da2083950a8b1829"
+    },
+    "categoryId": 4,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 350,
+    "quantity": 11,
+    "seller": 1,
+    "brand": 17,
+    "state": 1,
+    "rating": 2,
+    "title": "Котушка карпова Brain Apex Double Reel Baitrunner",
+    "images": ["https://res.cloudinary.com/dw60kllwn/image/upload/v1700924020/88232645_zz5cpl.webp"]
+  },
+  {
+    "_id": {
+      "$oid": "663db108da2083950a8b1828"
+    },
+    "categoryId": 4,
+    "subcategoryId": 1,
+    "description": "This is an example product description.",
+    "detailedDescription": [],
+    "price": 599,
+    "quantity": 11,
+    "seller": 1,
+    "brand": 18,
+    "state": 1,
+    "rating": 3,
+    "title": "Велосипед Formula MOTION AM",
+    "images": ["https://res.cloudinary.com/dw60kllwn/image/upload/v1701002399/315835458_moinei.jpg"]
   }
 ]

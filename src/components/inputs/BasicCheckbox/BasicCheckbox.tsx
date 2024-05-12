@@ -9,7 +9,14 @@ interface BasicCheckboxProps {
 }
 
 const BasicCheckbox = ({label, checked, value, onChange}: BasicCheckboxProps) => {
-  return <FormControlLabel control={<Checkbox value={value} onChange={onChange} />} label={label} />;
+  return (
+    <FormControlLabel
+      control={
+        <Checkbox sx={{'& .MuiSvgIcon-root': {fontSize: 22}}} checked={checked} value={value} onChange={onChange} />
+      }
+      label={label}
+    />
+  );
 };
 
 export default BasicCheckbox;

@@ -12,7 +12,8 @@ export const productFiltersSchema = yup.object().shape({
     .array()
     .test('is-valid-range', INVALID_MIN_MAX_VALUES, (value) => value && value[0] < value[1])
     .required(),
-  categories: yup.array().required()
+  categories: yup.array().required(),
+  brands: yup.array().required()
 });
 
 export type ProductFiltersSchemaType = yup.InferType<typeof productFiltersSchema>;

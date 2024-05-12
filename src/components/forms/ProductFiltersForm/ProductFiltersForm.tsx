@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import SliderWithInputs from '../../SliderWithInputs/SliderWithInputs';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -14,6 +14,8 @@ import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
 import {useDebounce} from '@/hooks/useDebounce';
 import {selectFilters} from '@/store/slices/filters/filters.selectors';
 import {getAllProducts} from '@/store/slices/products/products.thunks';
+import {brandItems} from '@/models/brands.enum';
+import {decodeParamsArray} from '@/services/decodeParamsArray';
 
 const styles = {
   box: {
@@ -22,7 +24,7 @@ const styles = {
     gap: 6
   },
   categories: {
-    maxHeight: '500px',
+    maxHeight: '400px',
     overflowY: 'auto'
   },
   ratingSlider: {
@@ -38,55 +40,62 @@ const styles = {
   }
 };
 
-interface ProductFiltersFormProps {
-  priceRange: number[];
-  ratingRange: number[];
-  categories: [];
-}
-
 const ProductFiltersForm = () => {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectFilters);
   let [searchParams, setSearchParams] = useSearchParams();
-  const {
-    control,
-    setValue,
-    watch,
-    formState: {errors}
-  } = useForm({
+  const {control, setValue, getValues, reset, watch, formState} = useForm({
     mode: 'onChange',
     resolver: yupResolver(productFiltersSchema),
     defaultValues: {
       priceRange: filters.priceRange,
       ratingRange: filters.ratingRange,
-      categories: []
+      categories: filters.categories,
+      brands: filters.brands
     }
   });
+  const debouncedValue = useDebounce(filters, 500);
+  const [subscribed, setSubscribed] = useState(false);
+
+  useEffect(() => {
+    const params = Object.fromEntries(searchParams.entries());
+    const {minPrice, maxPrice, minRating, maxRating, categories, brands} = params;
+    if (minPrice && maxPrice) setValue('priceRange', [+minPrice, +maxPrice]);
+    if (minRating && maxRating) setValue('ratingRange', [+minRating, +maxRating]);
+    if (categories) setValue('categories', decodeParamsArray(categories));
+    if (brands) setValue('brands', decodeParamsArray(brands));
+    const formValues = getValues();
+    dispatch(updateFilters(formValues));
+  }, []);
 
   const updateSearchParams = (filters: Filters): void => {
-    const {priceRange, ratingRange, categories} = filters;
-    const params: any = {
-      minPrice: priceRange[0],
-      maxPrice: priceRange[1],
-      minRating: ratingRange[0],
-      maxRating: ratingRange[1],
-      categories: categories.join(',')
-    };
+    const {priceRange, ratingRange, categories, brands} = filters;
+    let params: any = {};
+    if (priceRange[0] !== undefined) params.minPrice = priceRange[0];
+    if (priceRange[1] !== undefined) params.maxPrice = priceRange[1];
+    if (ratingRange[0] !== undefined) params.minRating = ratingRange[0];
+    if (ratingRange[1] !== undefined) params.maxRating = ratingRange[1];
+    if (categories && categories.length > 0) params.categories = categories.join(',');
+    if (brands && brands.length > 0) params.brands = brands.join(',');
     setSearchParams(params);
   };
 
-  const debouncedValue = useDebounce(filters, 500);
-
   const search = useCallback(async () => {
-    dispatch(
-      getAllProducts({
-        minPrice: filters.priceRange[0],
-        maxPrice: filters.priceRange[1],
-        minRating: filters.ratingRange[0],
-        maxRating: filters.ratingRange[1],
-        categories: filters.categories.join(',')
-      })
-    );
+    if (subscribed) {
+      dispatch(
+        getAllProducts({
+          minPrice: filters.priceRange[0],
+          maxPrice: filters.priceRange[1],
+          minRating: filters.ratingRange[0],
+          maxRating: filters.ratingRange[1],
+          categories: filters.categories.join(','),
+          brands: filters.brands.join(',')
+        })
+      );
+      const formValues: any = getValues();
+      updateSearchParams(formValues);
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
   }, [debouncedValue]);
 
   useEffect(() => {
@@ -96,16 +105,12 @@ const ProductFiltersForm = () => {
   // перевірка чи поле вже touched або перевірка на наявність помилки
   useEffect(() => {
     const subscription = watch((value: any) => {
-      onSubmit(value);
+      setSubscribed(true);
+      dispatch(updateFilters(value));
     });
 
     return () => subscription.unsubscribe();
   }, [watch]);
-
-  const onSubmit = (value: any): void => {
-    dispatch(updateFilters(value));
-    updateSearchParams(value);
-  };
 
   return (
     <form>
@@ -116,6 +121,7 @@ const ProductFiltersForm = () => {
             control={control}
             render={({field: {onChange, value}, fieldState: {error}}) => (
               <CheckboxesList
+                title="Categories"
                 onChange={onChange}
                 value={value}
                 items={[
@@ -126,6 +132,15 @@ const ProductFiltersForm = () => {
                   {label: 'Game Zone', value: 5}
                 ]}
               />
+            )}
+          />
+        </Box>
+        <Box sx={styles.categories}>
+          <Controller
+            name="brands"
+            control={control}
+            render={({field: {onChange, value}, fieldState: {error}}) => (
+              <CheckboxesList title="Brands" onChange={onChange} value={value} items={brandItems} />
             )}
           />
         </Box>

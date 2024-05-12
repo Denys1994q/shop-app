@@ -2,6 +2,7 @@ import {CSSProperties, useRef} from 'react';
 import Slider from '@mui/material/Slider';
 import {Box} from '@mui/material';
 import SecondaryTitle from '../typography/SecondaryTitle/SecondaryTitle';
+import {useDebounce} from '@/hooks/useDebounce';
 
 interface BasicSliderProps {
   title: string;

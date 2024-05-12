@@ -6,13 +6,17 @@ import {selectProducts} from '@/store/slices/products/products.selectors';
 import {useEffect} from 'react';
 import {getAllProducts} from '@/store/slices/products/products.thunks';
 import SecondaryTitle from '../typography/SecondaryTitle/SecondaryTitle';
+import {useSearchParams} from 'react-router-dom';
 
 const ProductsList = () => {
+  console.log('ProductsList');
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
   const products = useAppSelector(selectProducts);
 
   useEffect(() => {
-    dispatch(getAllProducts({}));
+    const params = Object.fromEntries(searchParams.entries());
+    dispatch(getAllProducts(params));
   }, []);
 
   return (

@@ -77,6 +77,33 @@ const theme = createTheme({
           padding: 0
         }
       }
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          '&.MuiCheckbox-root.Mui-checked': {
+            color: '#6A983C'
+          },
+          '&.MuiButtonBase-root.MuiCheckbox-root': {
+            padding: '2px',
+            marginRight: '6px'
+          }
+        }
+      }
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          marginLeft: 0
+        }
+      }
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: '36px 44px'
+        }
+      }
     }
   }
 });
