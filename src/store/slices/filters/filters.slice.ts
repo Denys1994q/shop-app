@@ -5,7 +5,8 @@ const initialState: any = {
     priceRange: [1, 1000],
     ratingRange: [1, 5],
     categories: [],
-    brands: []
+    brands: [],
+    sort: ''
   }
 };
 

@@ -13,25 +13,6 @@ const theme = createTheme({
         }
       }
     },
-    MuiInputLabel: {
-      defaultProps: {
-        sx: {
-          fontSize: 14
-        }
-      }
-    },
-    MuiOutlinedInput: {
-      defaultProps: {
-        sx: {
-          fontSize: 14
-        }
-      },
-      styleOverrides: {
-        input: {
-          padding: 10
-        }
-      }
-    },
     MuiMenuItem: {
       defaultProps: {
         sx: {
@@ -102,6 +83,20 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           padding: '36px 44px'
+        }
+      }
+    },
+    MuiInputLabel: {
+      defaultProps: {
+        sx: {
+          fontSize: 14
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      defaultProps: {
+        sx: {
+          fontSize: 14
         }
       }
     }

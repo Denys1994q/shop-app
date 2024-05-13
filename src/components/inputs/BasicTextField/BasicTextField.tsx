@@ -50,6 +50,7 @@ const BasicTextField = <FieldsType extends FieldValues>({
             InputLabelProps={{required: required}}
             helperText={error?.message}
             size="small"
+            sx={{fontSize: 14}}
             type={setType()}
             error={!!error}
             onChange={onChange}

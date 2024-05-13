@@ -29,10 +29,14 @@ const BasicSlider = ({title, value, onChange, sx = styles as CSSProperties}: Bas
   const maxValue = useRef(value[1]);
 
   const handleChange = (event: Event, newValue: number | number[]): void => {
+    console.log('handle change');
     if (Array.isArray(newValue)) {
       onChange([newValue[0], newValue[1]]);
     }
   };
+
+  // const debouncedValue = useDebounce(handleChange, 2500);
+  // console.log(debouncedValue);
 
   return (
     <Box>
