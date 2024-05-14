@@ -18,8 +18,8 @@ export const getAllProducts = createAsyncThunk(
       if (brands && brands.length > 0) params.brands = brands;
       if (sort) params.sort = sort;
 
-      console.log(sort);
-      console.log(!!sort);
+      // console.log(sort);
+      // console.log(!!sort);
 
       return await axiosInstance.get(getAllProductsUrl, {params});
     } catch (error) {
