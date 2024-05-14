@@ -37,7 +37,7 @@ const BasicSlider = ({title, value, onChange, sx = sliderStyles as CSSProperties
     <Box>
       <SecondaryTitle text={title} sx={{marginBottom: 1}} />
       <Slider
-        sx={{...sx}}
+        sx={sx}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"

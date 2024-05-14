@@ -10,11 +10,11 @@ export const getAllProducts = createAsyncThunk(
   async (filters: Filters | {} = {}, {rejectWithValue}): Promise<Product[] | any> => {
     try {
       let params: Record<string, any> = {};
-      for (const [key, value] of Object.entries(filters)) {
+      Object.entries(filters).forEach(([key, value]) => {
         if (value) {
           params[key] = value;
         }
-      }
+      });
 
       return await axiosInstance.get(getAllProductsUrl, {params});
     } catch (error) {

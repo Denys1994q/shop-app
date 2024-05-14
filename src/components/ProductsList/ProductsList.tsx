@@ -20,16 +20,16 @@ const ProductsList = () => {
 
   return (
     <>
-      {products.length === 0 ? (
-        <SecondaryTitle sx={{textAlign: 'center'}} text="Nothing found" />
-      ) : (
+      {Boolean(products.length) ? (
         <List>
           {products.map((product: Product) => (
             <ListItem key={product._id} sx={{mb: 4}}>
-              {<ProductCard product={product} />}
+              {<ProductCard product={product} />}{' '}
             </ListItem>
-          ))}
+          ))}{' '}
         </List>
+      ) : (
+        <SecondaryTitle sx={{textAlign: 'center'}} text="Nothing found" />
       )}
     </>
   );

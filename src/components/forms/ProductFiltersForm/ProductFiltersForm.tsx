@@ -72,7 +72,7 @@ const ProductFiltersForm = () => {
   const debouncedSubmit = debounce(onSubmit, 500);
 
   useEffect(() => {
-    const subscription = watch((value: any) => {
+    const subscription = watch(() => {
       return handleSubmit(debouncedSubmit)();
     });
 
