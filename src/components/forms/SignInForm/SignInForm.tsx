@@ -34,7 +34,7 @@ const SignInForm: React.FC<SignInFormProps> = ({onFormSubmit}) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormHeader title={'Sign In'}/>
+      <FormHeader title={'Sign In'} />
       {fields.map((field) => (
         <BasicTextField
           key={field.name}
