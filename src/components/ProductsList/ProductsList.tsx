@@ -18,20 +18,16 @@ const ProductsList = () => {
     dispatch(getAllProducts(params));
   }, []);
 
-  return (
-    <>
-      {Boolean(products.length) ? (
-        <List>
-          {products.map((product: Product) => (
-            <ListItem key={product._id} sx={{mb: 4}}>
-              {<ProductCard product={product} />}{' '}
-            </ListItem>
-          ))}{' '}
-        </List>
-      ) : (
-        <SecondaryTitle sx={{textAlign: 'center'}} text="Nothing found" />
-      )}
-    </>
+  return Boolean(products.length) ? (
+    <List>
+      {products.map((product: Product) => (
+        <ListItem key={product._id} sx={{mb: 4}}>
+          {<ProductCard product={product} />}{' '}
+        </ListItem>
+      ))}{' '}
+    </List>
+  ) : (
+    <SecondaryTitle sx={{textAlign: 'center'}} text="Nothing found" />
   );
 };
 
