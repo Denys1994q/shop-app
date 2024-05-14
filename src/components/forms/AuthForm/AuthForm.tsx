@@ -24,7 +24,7 @@ const AuthForm = () => {
       await dispatch(registerUser(userData)).unwrap();
       closeDialogAndGetUser(SuccessToastMessages.REGISTER);
     } catch (error) {
-      typeof error === 'string' && dispatch(openToast({message: error, type: ToastEnum.ERROR}));
+      dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
     }
   };
 
@@ -33,7 +33,7 @@ const AuthForm = () => {
       await dispatch(loginUser(signInForm)).unwrap();
       closeDialogAndGetUser(SuccessToastMessages.LOGIN);
     } catch (error) {
-      typeof error === 'string' && dispatch(openToast({message: error, type: ToastEnum.ERROR}));
+      dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
     }
   };
 

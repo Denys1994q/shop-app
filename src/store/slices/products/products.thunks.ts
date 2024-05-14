@@ -3,16 +3,20 @@ import axiosInstance from '@/services/axiosInstance';
 import {handleApiError} from '@/services/handleApiError';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Product} from './products.model';
+import {Filters} from '../filters/filters.model';
 
 export const getAllProducts = createAsyncThunk(
   'products/getAllProducts',
-  async ({minPrice, maxPrice, minRating, maxRating}: any, {rejectWithValue}): Promise<Product[] | any> => {
+  async (filters: Filters | {} = {}, {rejectWithValue}): Promise<Product[] | any> => {
     try {
-      if (minPrice && maxPrice && minRating && maxRating) {
-        return await axiosInstance.get(getAllProductsUrl, {params: {minPrice, maxPrice, minRating, maxRating}});
-      } else {
-        return await axiosInstance.get(getAllProductsUrl);
+      let params: Record<string, any> = {};
+      for (const [key, value] of Object.entries(filters)) {
+        if (value) {
+          params[key] = value;
+        }
       }
+
+      return await axiosInstance.get(getAllProductsUrl, {params});
     } catch (error) {
       return handleApiError(error, rejectWithValue);
     }
