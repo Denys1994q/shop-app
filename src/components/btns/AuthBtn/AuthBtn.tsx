@@ -37,7 +37,7 @@ const AuthBtn = () => {
         await dispatch(logoutUser()).unwrap();
         dispatch(openToast({message: SuccessToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
       } catch (error) {
-        typeof error === 'string' && dispatch(openToast({message: error, type: ToastEnum.ERROR}));
+       dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
       }
     }
   };

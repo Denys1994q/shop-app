@@ -5,6 +5,6 @@ export const getUserUrl = 'auth/me';
 export const refreshTokensUrl = 'auth/refresh';
 export const logoutUserUrl = 'auth/logout';
 export const getAllProductsUrl = 'product';
-// export const getAllProductsUrl = (minPrice: number, maxPrice: number): string => {
-//     return `product?minPrice=${minPrice}&maxPrice=${maxPrice}`
-// }
+export const getOneProductUrl = (id: string): string => {
+  return `/product/${id}`;
+};

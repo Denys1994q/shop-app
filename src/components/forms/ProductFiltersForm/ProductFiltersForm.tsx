@@ -11,13 +11,11 @@ import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {Filters} from '@/store/slices/filters/filters.model';
 import {useSearchParams} from 'react-router-dom';
 import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
-import {useDebounce} from '@/hooks/useDebounce';
 import {selectFilters} from '@/store/slices/filters/filters.selectors';
 import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {brandItems} from '@/models/brands.enum';
 import {decodeParamsArray} from '@/services/decodeParamsArray';
 import debounce from 'lodash/debounce';
-import {useFilters} from '@/hooks/useFilters';
 
 const styles = {
   box: {
@@ -79,7 +77,7 @@ const ProductFiltersForm = () => {
   };
 
   const onSubmit = (): void => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    scrollTo({top: 0, behavior: 'smooth'});
     const formValues: any = getValues();
     dispatch(updateFilters(formValues));
     dispatch(

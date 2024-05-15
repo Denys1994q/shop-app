@@ -8,7 +8,6 @@ import Total from '../Total/Total';
 import {Box} from '@mui/material';
 import {setPage} from '@/store/slices/filters/filters.slice';
 
-// напевно коли фільтр міняється, то сторінка першою має стати там де update filters
 const PaginationPanel = () => {
   const dispatch = useAppDispatch();
   const pagesNumber = useAppSelector(selectPages);
@@ -18,7 +17,6 @@ const PaginationPanel = () => {
 
   const handlePageChange = (page: number): void => {
     dispatch(setPage(page));
-    // setPage(page);
     dispatch(
       getAllProducts({
         minPrice: filters.priceRange[0],
@@ -31,7 +29,7 @@ const PaginationPanel = () => {
         page
       })
     );
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    scrollTo({top: 0, behavior: 'smooth'});
   };
 
   return (

@@ -4,9 +4,11 @@ import {paragraphLength} from '@/constants/typography.constant';
 
 interface MainParagraphProps {
   text: string;
+  sx: any;
+  lineClamp?: number;
 }
 
-const MainParagraph = ({text}: MainParagraphProps) => {
+const MainParagraph = ({text, sx, lineClamp = 2}: MainParagraphProps) => {
   return (
     <Typography
       variant="body2"
@@ -14,12 +16,13 @@ const MainParagraph = ({text}: MainParagraphProps) => {
       fontSize={12}
       sx={{
         display: '-webkit-box',
-        WebkitLineClamp: 2,
+        WebkitLineClamp: lineClamp,
         WebkitBoxOrient: 'vertical',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        ...sx
       }}
     >
-      {truncateText(text, paragraphLength)}
+      {text}
     </Typography>
   );
 };
