@@ -11,7 +11,7 @@ interface BasicSliderProps {
   sx?: CSSProperties;
 }
 
-const styles = {
+const sliderStyles = {
   '& .MuiSlider-thumb': {
     color: '#fff'
   },
@@ -23,7 +23,7 @@ const styles = {
   }
 };
 
-const BasicSlider = ({title, value, onChange, sx = styles as CSSProperties}: BasicSliderProps) => {
+const BasicSlider = ({title, value, onChange, sx = sliderStyles as CSSProperties}: BasicSliderProps) => {
   const minValue = useRef(value[0]);
   const maxValue = useRef(value[1]);
 
@@ -35,9 +35,9 @@ const BasicSlider = ({title, value, onChange, sx = styles as CSSProperties}: Bas
 
   return (
     <Box>
-      <SecondaryTitle text={title} sx={{marginBottom: 2}} />
+      <SecondaryTitle text={title} sx={{marginBottom: 1}} />
       <Slider
-        sx={{...sx}}
+        sx={sx}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"

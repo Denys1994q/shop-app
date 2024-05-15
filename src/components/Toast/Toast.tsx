@@ -10,6 +10,19 @@ const styles = {
   minWidth: 'auto'
 };
 
+const getBackgroundByToastType = (type: ToastEnum): string => {
+  switch (type) {
+    case ToastEnum.ERROR:
+      return '#ba000d';
+    case ToastEnum.SUCCESS:
+      return '#6A983C';
+    case ToastEnum.WARNING:
+      return '#ed6c02';
+    default:
+      return '#0288d1';
+  }
+};
+
 const Toast = () => {
   const dispatch = useAppDispatch();
   const isOpen = useIsOpenToast();
@@ -24,17 +37,6 @@ const Toast = () => {
 
   const action = <CloseBtn sx={{color: '#fff'}} onClick={() => dispatch(closeToast())} />;
 
-  let background = '';
-  if (toast?.type === ToastEnum.ERROR) {
-    background = '#ba000d';
-  } else if (toast?.type === ToastEnum.SUCCESS) {
-    background = '#6A983C';
-  } else if (toast?.type === ToastEnum.WARNING) {
-    background = '#ed6c02';
-  } else {
-    background = '#0288d1';
-  }
-
   return (
     <Snackbar
       open={isOpen}
@@ -45,7 +47,7 @@ const Toast = () => {
       sx={{
         '& .MuiSnackbarContent-root': {
           ...styles,
-          background: background
+          background: toast?.type && getBackgroundByToastType(toast?.type)
         }
       }}
     />

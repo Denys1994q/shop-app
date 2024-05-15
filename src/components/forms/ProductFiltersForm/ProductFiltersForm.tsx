@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import {useCallback, useEffect} from 'react';
+=======
+import {useEffect} from 'react';
+>>>>>>> main
 import SliderWithInputs from '../../SliderWithInputs/SliderWithInputs';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -10,6 +14,7 @@ import {useAppDispatch, useAppSelector} from '@/store/hooks';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {Filters} from '@/store/slices/filters/filters.model';
 import {useSearchParams} from 'react-router-dom';
+<<<<<<< HEAD
 import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
 import {useDebounce} from '@/hooks/useDebounce';
 import {selectFilters} from '@/store/slices/filters/filters.selectors';
@@ -43,21 +48,38 @@ interface ProductFiltersFormProps {
   ratingRange: number[];
   categories: [];
 }
+=======
+import {selectFilters} from '@/store/slices/filters/filters.selectors';
+import debounce from 'lodash/debounce';
+import {getAllProducts} from '@/store/slices/products/products.thunks';
+import {formStyles} from './ProductFiltersForm.styles';
+>>>>>>> main
 
 const ProductFiltersForm = () => {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectFilters);
+<<<<<<< HEAD
   let [searchParams, setSearchParams] = useSearchParams();
   const {
     control,
     setValue,
     watch,
     formState: {errors}
+=======
+  const {
+    control,
+    handleSubmit,
+    watch,
+    getValues,
+    setValue,
+    formState: {isValid}
+>>>>>>> main
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(productFiltersSchema),
     defaultValues: {
       priceRange: filters.priceRange,
+<<<<<<< HEAD
       ratingRange: filters.ratingRange,
       categories: []
     }
@@ -65,16 +87,39 @@ const ProductFiltersForm = () => {
 
   const updateSearchParams = (filters: Filters): void => {
     const {priceRange, ratingRange, categories} = filters;
+=======
+      ratingRange: filters.ratingRange
+    }
+  });
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const params: any = Object.fromEntries(searchParams.entries());
+    const {minPrice, maxPrice, minRating, maxRating} = params;
+    if (minPrice && maxPrice) setValue('priceRange', [+minPrice, +maxPrice]);
+    if (minRating && maxRating) setValue('ratingRange', [+minRating, +maxRating]);
+    const formValues = getValues();
+    dispatch(updateFilters(formValues));
+  }, []);
+
+  const updateSearchParams = (filters: Filters): void => {
+    const {priceRange, ratingRange} = filters;
+>>>>>>> main
     const params: any = {
       minPrice: priceRange[0],
       maxPrice: priceRange[1],
       minRating: ratingRange[0],
+<<<<<<< HEAD
       maxRating: ratingRange[1],
       categories: categories.join(',')
+=======
+      maxRating: ratingRange[1]
+>>>>>>> main
     };
     setSearchParams(params);
   };
 
+<<<<<<< HEAD
   const debouncedValue = useDebounce(filters, 500);
 
   const search = useCallback(async () => {
@@ -138,6 +183,35 @@ const ProductFiltersForm = () => {
             )}
           />
         </Box>
+=======
+  const onSubmit = (): void => {
+    const formValues: any = getValues();
+    dispatch(updateFilters(formValues));
+    dispatch(
+      getAllProducts({
+        minPrice: formValues.priceRange[0],
+        maxPrice: formValues.priceRange[1],
+        minRating: formValues.ratingRange[0],
+        maxRating: formValues.ratingRange[1]
+      })
+    );
+    updateSearchParams(formValues);
+  };
+
+  const debouncedSubmit = debounce(onSubmit, 500);
+
+  useEffect(() => {
+    const subscription = watch(() => {
+      return handleSubmit(debouncedSubmit)();
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, isValid]);
+
+  return (
+    <form>
+      <Box sx={formStyles.box}>
+>>>>>>> main
         <Box>
           <Controller
             name="priceRange"
@@ -147,6 +221,23 @@ const ProductFiltersForm = () => {
             )}
           />
         </Box>
+<<<<<<< HEAD
+=======
+        <Box>
+          <Controller
+            name="ratingRange"
+            control={control}
+            render={({field: {onChange, value}}) => (
+              <BasicSlider
+                title="Rating"
+                onChange={onChange}
+                value={value}
+                sx={formStyles.ratingSlider as CSSProperties}
+              />
+            )}
+          />
+        </Box>
+>>>>>>> main
       </Box>
     </form>
   );
