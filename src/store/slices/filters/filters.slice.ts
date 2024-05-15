@@ -2,12 +2,13 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
 const initialState: any = {
   filters: {
-    priceRange: [1, 1000],
+    priceRange: [1, 1200],
     ratingRange: [1, 5],
     categories: [],
     brands: [],
     sort: ''
-  }
+  },
+  currentPage: 1
 };
 
 const FiltersSlice = createSlice({
@@ -16,10 +17,14 @@ const FiltersSlice = createSlice({
   reducers: {
     updateFilters(state, action) {
       state.filters = {...state.filters, ...action.payload};
+      state.currentPage = 1;
+    },
+    setPage(state, action) {
+      state.currentPage = action.payload;
     }
   }
 });
 
-export const {updateFilters} = FiltersSlice.actions;
+export const {updateFilters, setPage} = FiltersSlice.actions;
 
 export default FiltersSlice.reducer;

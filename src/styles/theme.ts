@@ -29,11 +29,11 @@ const theme = createTheme({
     },
     MuiBackdrop: {
       styleOverrides: {
-        root: {
-          color: '#fff',
-          zIndex: 1000,
-          backgroundColor: 'rgba(0, 0, 0, 0.3)'
-        }
+        // root: {
+        //   color: '#fff',
+        //   zIndex: 1000,
+        //   backgroundColor: 'rgba(0, 0, 0, 0.3)'
+        // }
       }
     },
     MuiCardActions: {
@@ -97,6 +97,14 @@ const theme = createTheme({
       defaultProps: {
         sx: {
           fontSize: 14
+        }
+      }
+    },
+    MuiRating: {
+      defaultProps: {
+        sx: {
+          color: '#151515',
+          fontSize: '20px'
         }
       }
     }

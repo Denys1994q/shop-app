@@ -12,15 +12,27 @@ const CheckboxesList = ({title, items, value, onChange}: any) => {
   return (
     <Box sx={{display: 'flex', flexDirection: 'column'}}>
       <SecondaryTitle text={title} sx={{marginBottom: 2}} />
-      {items.map((item: any) => (
-        <BasicCheckbox
-          key={item.value}
-          label={item.label}
-          value={item.value}
-          checked={value.includes(item.value)} // Перевірка, чи міститься значення в масиві value
-          onChange={(e: any) => handleCheckboxChange(item.value, e.target.checked)}
-        />
-      ))}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          maxHeight: '400px',
+          overflow: 'hidden',
+          '&:hover': {
+            overflowY: 'auto'
+          }
+        }}
+      >
+        {items.map((item: any) => (
+          <BasicCheckbox
+            key={item.value}
+            label={item.label}
+            value={item.value}
+            checked={value.includes(item.value)} // Перевірка, чи міститься значення в масиві value
+            onChange={(e: any) => handleCheckboxChange(item.value, e.target.checked)}
+          />
+        ))}
+      </Box>
     </Box>
   );
 };

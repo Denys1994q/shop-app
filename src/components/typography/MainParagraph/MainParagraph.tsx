@@ -8,7 +8,17 @@ interface MainParagraphProps {
 
 const MainParagraph = ({text}: MainParagraphProps) => {
   return (
-    <Typography variant="body2" color="#575757" fontSize={12}>
+    <Typography
+      variant="body2"
+      color="#575757"
+      fontSize={12}
+      sx={{
+        display: '-webkit-box',
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: 'vertical',
+        overflow: 'hidden'
+      }}
+    >
       {truncateText(text, paragraphLength)}
     </Typography>
   );

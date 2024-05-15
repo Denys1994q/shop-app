@@ -48,8 +48,8 @@ const SortWidget = () => {
         label="Sort by:"
         onChange={(e) => handleChange(e)}
         options={[
-          {value: 1, label: 'Cheaper first'},
-          {value: -1, label: 'Expensive  first'}
+          {value: 1, label: 'From cheap to expensive'},
+          {value: -1, label: 'From expensive to cheap'}
         ]}
       />
     </Box>

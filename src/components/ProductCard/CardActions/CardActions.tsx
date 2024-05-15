@@ -7,7 +7,8 @@ const actionsStyles = {
   display: 'flex',
   alignItems: 'flex-start',
   flexDirection: 'column',
-  gap: 2
+  gap: 2,
+  padding: 0
 };
 
 const CardActions = () => {

@@ -8,7 +8,7 @@ export const getAllProducts = createAsyncThunk(
   'products/getAllProducts',
   async (filters: any = {}, {rejectWithValue}): Promise<Product[] | any> => {
     try {
-      const {minPrice, maxPrice, minRating, maxRating, categories, brands, sort} = filters;
+      const {minPrice, maxPrice, minRating, maxRating, categories, brands, sort, page = 1} = filters;
       let params: any = {};
       if (minPrice !== undefined) params.minPrice = minPrice;
       if (maxPrice !== undefined) params.maxPrice = maxPrice;
@@ -17,9 +17,7 @@ export const getAllProducts = createAsyncThunk(
       if (categories && categories.length > 0) params.categories = categories;
       if (brands && brands.length > 0) params.brands = brands;
       if (sort) params.sort = sort;
-
-      // console.log(sort);
-      // console.log(!!sort);
+      if (page) params.page = page;
 
       return await axiosInstance.get(getAllProductsUrl, {params});
     } catch (error) {

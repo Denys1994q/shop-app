@@ -27,7 +27,9 @@ const actionsBoxStyles = {
   width: '33%',
   padding: 3,
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  minHeight: '270px',
+  justifyContent: 'space-between'
 };
 
 const ProductCard = ({product}: ProductCardProps) => {
@@ -41,7 +43,9 @@ const ProductCard = ({product}: ProductCardProps) => {
         <CardContent title={title} description={description} rating={rating || 0} state={state} seller={seller} />
       </Box>
       <Box sx={actionsBoxStyles}>
-        <CardPrice priceAfterDiscount={priceWithDiscount} priceBeforeDiscount={discount && price} />
+        <div>
+          <CardPrice priceAfterDiscount={priceWithDiscount} priceBeforeDiscount={discount && price} />
+        </div>
         <CardActions />
       </Box>
     </Card>

@@ -25,13 +25,6 @@ const styles = {
     flexDirection: 'column',
     gap: 6
   },
-  categories: {
-    maxHeight: '400px',
-    overflow: 'hidden',
-    '&:hover': {
-      overflowY: 'auto'
-    }
-  },
   ratingSlider: {
     '& .MuiSlider-thumb': {
       color: '#fff'
@@ -86,6 +79,7 @@ const ProductFiltersForm = () => {
   };
 
   const onSubmit = (): void => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
     const formValues: any = getValues();
     dispatch(updateFilters(formValues));
     dispatch(
@@ -106,7 +100,6 @@ const ProductFiltersForm = () => {
 
   useEffect(() => {
     const subscription = watch((value: any) => {
-      console.log(formState.isValid);
       return handleSubmit(debouncedSubmit)();
     });
 
@@ -116,7 +109,7 @@ const ProductFiltersForm = () => {
   return (
     <form>
       <Box sx={styles.box}>
-        <Box sx={styles.categories}>
+        <Box>
           <Controller
             name="categories"
             control={control}
@@ -136,7 +129,7 @@ const ProductFiltersForm = () => {
             )}
           />
         </Box>
-        <Box sx={styles.categories}>
+        <Box>
           <Controller
             name="brands"
             control={control}

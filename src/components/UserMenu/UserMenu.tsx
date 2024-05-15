@@ -18,6 +18,11 @@ const UserMenu = ({anchorEl, open, handleClose, onMenuItemClick}: UserMenuProps)
     <Menu
       id="basic-menu"
       anchorEl={anchorEl}
+      sx={{
+        '& .MuiPaper-root': {
+          left: '1130px !important'
+        }
+      }}
       open={open}
       onClose={handleClose}
       MenuListProps={{
