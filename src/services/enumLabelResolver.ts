@@ -2,7 +2,7 @@ import {CategoriesEnum} from '@/models/product.enum';
 
 const enumLabelResolver = {
   categories: {
-    [CategoriesEnum.COMPUTERS_LAPTOPS]: 'Compters, laptops',
+    [CategoriesEnum.COMPUTERS_LAPTOPS]: 'Computers, laptops',
     [CategoriesEnum.GAME_ZONE]: 'Game Zone',
     [CategoriesEnum.HOUSEHOLD_APPLIANCES]: 'Household appliances',
     [CategoriesEnum.SPORT]: 'Sport',
