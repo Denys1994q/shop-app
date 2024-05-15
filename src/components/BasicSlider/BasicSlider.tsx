@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {CSSProperties, useRef} from 'react';
 import Slider from '@mui/material/Slider';
 import {Box} from '@mui/material';
 import SecondaryTitle from '../typography/SecondaryTitle/SecondaryTitle';
@@ -8,9 +8,10 @@ interface BasicSliderProps {
   ariaLabel?: string;
   onChange: (values: number[]) => void;
   value: number[];
+  sx?: CSSProperties;
 }
 
-const styles = {
+const sliderStyles = {
   '& .MuiSlider-thumb': {
     color: '#fff'
   },
@@ -22,7 +23,7 @@ const styles = {
   }
 };
 
-const BasicSlider = ({title, value, onChange}: BasicSliderProps) => {
+const BasicSlider = ({title, value, onChange, sx = sliderStyles as CSSProperties}: BasicSliderProps) => {
   const minValue = useRef(value[0]);
   const maxValue = useRef(value[1]);
 
@@ -36,7 +37,7 @@ const BasicSlider = ({title, value, onChange}: BasicSliderProps) => {
     <Box>
       <SecondaryTitle text={title} sx={{marginBottom: 1}} />
       <Slider
-        sx={styles}
+        sx={sx}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"

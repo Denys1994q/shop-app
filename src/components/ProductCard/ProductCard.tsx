@@ -10,9 +10,11 @@ interface ProductCardProps {
 }
 
 const cardStyles = {
+  width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'flex-start'
+  alignItems: 'flex-start',
+  padding: '10px'
 };
 
 const cardBoxStyles = {

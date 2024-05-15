@@ -8,7 +8,12 @@ interface CardMediaProps {
 
 const CardMedia = ({imageUrl, width, height}: CardMediaProps) => {
   return (
-    <MuiCardMedia component="img" sx={{width: {width}, height: {height}}} image={imageUrl} title="product image" />
+    <MuiCardMedia
+      component="img"
+      sx={{width: {width}, height: {height}, objectFit: 'contain'}}
+      image={imageUrl}
+      title="product image"
+    />
   );
 };
 

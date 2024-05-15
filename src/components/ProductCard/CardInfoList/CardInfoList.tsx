@@ -14,9 +14,9 @@ const styles = {
     width: '100%'
   },
   listItem: {
-    flexDirection: 'column',
-    padding: 0,
-    color: '#a9a9a9'
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 2
   }
 };
 
