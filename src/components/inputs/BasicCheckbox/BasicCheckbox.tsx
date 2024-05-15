@@ -1,11 +1,12 @@
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import {ChangeEvent} from 'react';
 
 interface BasicCheckboxProps {
   label: string;
-  value: any;
-  checked?: any;
-  onChange: (e: any) => void;
+  value: number;
+  checked?: boolean;
+  onChange: (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void;
 }
 
 const BasicCheckbox = ({label, checked, value, onChange}: BasicCheckboxProps) => {

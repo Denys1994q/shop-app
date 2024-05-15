@@ -1,13 +1,24 @@
 import Box from '@mui/material/Box';
 import SecondaryTitle from '../typography/SecondaryTitle/SecondaryTitle';
 import BasicCheckbox from '../inputs/BasicCheckbox/BasicCheckbox';
+import {SelectOption} from '@/models/selectOption.interface';
 
 interface CheckboxesListProps {
-  title: any;
-  items: any;
-  value: any;
-  onChange: (values: any) => void;
+  title: string;
+  items: SelectOption[];
+  value: number[];
+  onChange: (values: number[]) => void;
 }
+
+const boxStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  maxHeight: '400px',
+  overflow: 'hidden',
+  '&:hover': {
+    overflowY: 'auto'
+  }
+};
 
 const CheckboxesList = ({title, items, value, onChange}: CheckboxesListProps) => {
   const handleCheckboxChange = (itemValue: number, isChecked: boolean): void => {
@@ -16,30 +27,20 @@ const CheckboxesList = ({title, items, value, onChange}: CheckboxesListProps) =>
   };
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+    <>
       <SecondaryTitle text={title} sx={{marginBottom: 2}} />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          maxHeight: '400px',
-          overflow: 'hidden',
-          '&:hover': {
-            overflowY: 'auto'
-          }
-        }}
-      >
-        {items.map((item: any) => (
+      <Box sx={boxStyles}>
+        {items.map((item) => (
           <BasicCheckbox
             key={item.value}
             label={item.label}
             value={item.value}
             checked={value.includes(item.value)}
-            onChange={(e: any) => handleCheckboxChange(item.value, e.target.checked)}
+            onChange={(e) => handleCheckboxChange(item.value, e.target.checked)}
           />
         ))}
       </Box>
-    </Box>
+    </>
   );
 };
 

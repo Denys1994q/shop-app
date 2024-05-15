@@ -16,6 +16,8 @@ import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {formStyles} from './ProductFiltersForm.styles';
 import {decodeParamsArray} from '@/services/decodeParamsArray';
 import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
+import {categoriesOptions} from '@/services/enumLabelResolver';
+import {scrollToTop} from '@/services/scrollToTop.service';
 
 const ProductFiltersForm = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +62,7 @@ const ProductFiltersForm = () => {
   };
 
   const onSubmit = (): void => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    scrollToTop();
     const formValues: any = getValues();
     dispatch(updateFilters(formValues));
     dispatch(
@@ -88,28 +90,15 @@ const ProductFiltersForm = () => {
   return (
     <form>
       <Box sx={formStyles.box}>
-        <Box sx={formStyles.categories}>
+        <Box>
           <Controller
             name="categories"
             control={control}
-            render={({field: {onChange, value}, fieldState: {error}}) => (
-              <CheckboxesList
-                title="Categories"
-                onChange={onChange}
-                value={value}
-                items={[
-                  {label: 'Smartphones, TV, Electronics', value: 1},
-                  {label: 'Computers', value: 2},
-                  {label: 'Household appliances', value: 3},
-                  {label: 'Sport', value: 4},
-                  {label: 'Game Zone', value: 5}
-                ]}
-              />
+            render={({field: {onChange, value}}) => (
+              <CheckboxesList title="Categories" onChange={onChange} value={value} items={categoriesOptions} />
             )}
           />
         </Box>
-      </Box>
-      <Box sx={formStyles.box}>
         <Box>
           <Controller
             name="priceRange"
