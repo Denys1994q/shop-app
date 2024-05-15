@@ -14,6 +14,8 @@ import {selectFilters} from '@/store/slices/filters/filters.selectors';
 import debounce from 'lodash/debounce';
 import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {formStyles} from './ProductFiltersForm.styles';
+import {decodeParamsArray} from '@/services/decodeParamsArray';
+import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
 
 const ProductFiltersForm = () => {
   const dispatch = useAppDispatch();
@@ -30,27 +32,30 @@ const ProductFiltersForm = () => {
     resolver: yupResolver(productFiltersSchema),
     defaultValues: {
       priceRange: filters.priceRange,
-      ratingRange: filters.ratingRange
+      ratingRange: filters.ratingRange,
+      categories: filters.categories
     }
   });
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const params: any = Object.fromEntries(searchParams.entries());
-    const {minPrice, maxPrice, minRating, maxRating} = params;
+    const {minPrice, maxPrice, minRating, maxRating, categories} = params;
     if (minPrice && maxPrice) setValue('priceRange', [+minPrice, +maxPrice]);
     if (minRating && maxRating) setValue('ratingRange', [+minRating, +maxRating]);
+    if (categories) setValue('categories', decodeParamsArray(categories));
     const formValues = getValues();
     dispatch(updateFilters(formValues));
   }, []);
 
   const updateSearchParams = (filters: Filters): void => {
-    const {priceRange, ratingRange} = filters;
+    const {priceRange, ratingRange, categories} = filters;
     const params: any = {
       minPrice: priceRange[0],
       maxPrice: priceRange[1],
       minRating: ratingRange[0],
-      maxRating: ratingRange[1]
+      maxRating: ratingRange[1],
+      categories: categories.join(',')
     };
     setSearchParams(params);
   };
@@ -63,7 +68,8 @@ const ProductFiltersForm = () => {
         minPrice: formValues.priceRange[0],
         maxPrice: formValues.priceRange[1],
         minRating: formValues.ratingRange[0],
-        maxRating: formValues.ratingRange[1]
+        maxRating: formValues.ratingRange[1],
+        categories: formValues.categories.join(',')
       })
     );
     updateSearchParams(formValues);
@@ -81,6 +87,28 @@ const ProductFiltersForm = () => {
 
   return (
     <form>
+      <Box sx={formStyles.box}>
+        <Box sx={formStyles.categories}>
+          <Controller
+            name="categories"
+            control={control}
+            render={({field: {onChange, value}, fieldState: {error}}) => (
+              <CheckboxesList
+                title="Categories"
+                onChange={onChange}
+                value={value}
+                items={[
+                  {label: 'Smartphones, TV, Electronics', value: 1},
+                  {label: 'Computers', value: 2},
+                  {label: 'Household appliances', value: 3},
+                  {label: 'Sport', value: 4},
+                  {label: 'Game Zone', value: 5}
+                ]}
+              />
+            )}
+          />
+        </Box>
+      </Box>
       <Box sx={formStyles.box}>
         <Box>
           <Controller

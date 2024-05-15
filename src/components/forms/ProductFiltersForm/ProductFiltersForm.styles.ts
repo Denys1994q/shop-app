@@ -4,6 +4,10 @@ export const formStyles = {
     flexDirection: 'column',
     gap: 6
   },
+  categories: {
+    maxHeight: '400px',
+    overflowY: 'auto'
+  },
   ratingSlider: {
     '& .MuiSlider-thumb': {
       color: '#fff'
