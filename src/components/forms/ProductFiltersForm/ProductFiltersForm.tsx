@@ -50,17 +50,17 @@ const ProductFiltersForm = () => {
 
   const updateSearchParams = (filters: Filters): void => {
     const {priceRange, ratingRange, categories} = filters;
-    const params: any = {
-      minPrice: priceRange[0],
-      maxPrice: priceRange[1],
-      minRating: ratingRange[0],
-      maxRating: ratingRange[1],
-      categories: categories.join(',')
-    };
+    let params: any = {};
+    if (priceRange[0] !== undefined) params.minPrice = priceRange[0];
+    if (priceRange[1] !== undefined) params.maxPrice = priceRange[1];
+    if (ratingRange[0] !== undefined) params.minRating = ratingRange[0];
+    if (ratingRange[1] !== undefined) params.maxRating = ratingRange[1];
+    if (categories && categories.length > 0) params.categories = categories.join(',');
     setSearchParams(params);
   };
 
   const onSubmit = (): void => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
     const formValues: any = getValues();
     dispatch(updateFilters(formValues));
     dispatch(
