@@ -22,7 +22,6 @@ const SortWidget = () => {
 
   // хук для двох методів, завжди updateFilters в ньому робити, взятив компоненті метод з хука і передати йому параметри, а в хуку оновити і фільтри і запит зробити, а з компонента просто цей метод викликати де треба
   const handleChange = (value: any): void => {
-    console.log(value);
     dispatch(updateFilters({sort: value}));
     setValue(value);
     const params = Object.fromEntries(searchParams.entries());

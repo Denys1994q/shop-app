@@ -14,12 +14,11 @@ const ProductsList = () => {
   const products = useAppSelector(selectProducts);
   const [searchParams, setSearchParams] = useSearchParams();
   const isLoading = useAppSelector(selectIsLoading);
+  const isOpenDialog = useAppSelector(state => state.dialogSlice.isOpen)
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
     dispatch(getAllProducts(params));
-    // якщо є юрл, то з ними
-    // якщо нема, то просто
   }, []);
 
   const content =
@@ -40,7 +39,7 @@ const ProductsList = () => {
       </List>
     );
 
-  return isLoading ? products.map(() => <ProductCardSkeleton />) : content;
+  return isLoading && !isOpenDialog ? products.map(() => <ProductCardSkeleton />) : content;
 };
 
 export default ProductsList;

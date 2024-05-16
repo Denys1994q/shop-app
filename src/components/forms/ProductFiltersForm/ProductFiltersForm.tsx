@@ -4,7 +4,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {productFiltersSchema} from '@constants/productFilters.validation';
 import BasicSlider from '@/components/BasicSlider/BasicSlider';
-import {Box} from '@mui/material';
+import {Box, Button} from '@mui/material';
 import {CSSProperties} from 'react';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
@@ -104,6 +104,16 @@ const ProductFiltersForm = () => {
     return () => subscription.unsubscribe();
   }, [watch, filters.sort, formState.isValid]);
 
+  const handleReset = () => {
+    reset({
+      priceRange: [1, 1200],
+      ratingRange: [1, 5],
+      categories: [],
+      brands: []
+    });
+    dispatch(updateFilters({priceRange: [1, 1200], ratingRange: [1, 5], categories: [], brands: [], sort: ''}));
+  };
+
   return (
     <form>
       <Box sx={styles.box}>
@@ -154,6 +164,15 @@ const ProductFiltersForm = () => {
             )}
           />
         </Box>
+      </Box>
+      <Box sx={{textAlign: 'center'}} mt={6}>
+        <Button
+          type="button"
+          onClick={handleReset}
+          sx={{color: '#A9A9A9', fontWeight: 'bold', fontSize: 14, textTransform: 'capitalize'}}
+        >
+          Reset
+        </Button>
       </Box>
     </form>
   );

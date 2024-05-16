@@ -48,6 +48,7 @@ const Toast = () => {
           background: background
         }
       }}
+      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
     />
   );
 };

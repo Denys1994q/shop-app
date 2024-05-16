@@ -4,7 +4,7 @@ import {paragraphLength} from '@/constants/typography.constant';
 
 interface MainParagraphProps {
   text: string;
-  sx: any;
+  sx?: any;
   lineClamp?: number;
 }
 

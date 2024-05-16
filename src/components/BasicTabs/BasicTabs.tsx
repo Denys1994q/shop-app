@@ -69,14 +69,16 @@ export default function BasicTabs({description}: any) {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        {description.map((descriptionItem: any) => {
-          return (
-            <Box mb={2}>
-              <p style={{fontWeight: 'bold', marginBottom: 8}}>{descriptionItem.label}</p>
-              <p>{descriptionItem.value}</p>
-            </Box>
-          );
-        })}
+        {description.length > 0
+          ? description.map((descriptionItem: any) => {
+              return (
+                <Box mb={2}>
+                  <p style={{fontWeight: 'bold', marginBottom: 8}}>{descriptionItem.label}</p>
+                  <p>{descriptionItem.value}</p>
+                </Box>
+              );
+            })
+          : 'No description.'}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         No reviews yet.

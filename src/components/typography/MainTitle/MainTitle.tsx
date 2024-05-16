@@ -11,7 +11,7 @@ interface MainTitleProps {
 const MainTitle = ({text, sx}: MainTitleProps) => {
   return (
     <Typography variant="h1" sx={{fontSize: 32, fontWeight: 'bold', ...sx}}>
-      {truncateText(text, mainTitleLength)}
+      {truncateText(text, 200)}
     </Typography>
   );
 };

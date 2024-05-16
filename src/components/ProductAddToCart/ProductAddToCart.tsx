@@ -2,7 +2,7 @@ import {Box} from '@mui/material';
 import CardPrice from '../ProductCard/CardPrice/CardPrice';
 import ChevronBtn from '../btns/ChevronBtn/ChevronBtn';
 
-const ProductAddToCart = () => {
+const ProductAddToCart = ({priceAfterDiscount, priceBeforeDiscount}: any) => {
   return (
     <Box
       sx={{
@@ -15,7 +15,7 @@ const ProductAddToCart = () => {
       }}
     >
       <Box>
-        <CardPrice fontSize={26} priceAfterDiscount={50} priceBeforeDiscount={100} />
+        <CardPrice fontSize={26} priceAfterDiscount={priceAfterDiscount} priceBeforeDiscount={priceBeforeDiscount} />
       </Box>
       <Box>
         <ChevronBtn text="Add to cart" />
