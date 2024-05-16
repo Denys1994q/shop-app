@@ -13,8 +13,8 @@ const ProductsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.fulfilled, (state: ProductsState, action: PayloadAction<Product[]>) => {
-        state.products = action.payload;
+      .addCase(getAllProducts.fulfilled, (state: ProductsState, action: PayloadAction<{products: Product[]}>) => {
+        state.products = action.payload.products;
       })
       .addCase(getAllProducts.rejected, (state: ProductsState, action: PayloadAction<any>) => {
         state.productsError = action.payload;

@@ -6,7 +6,8 @@ import {RatingEnum} from '@/models/rating.enum';
 const initialState: FiltersState = {
   filters: {
     priceRange: [minPrice, maxPrice],
-    ratingRange: [RatingEnum.ONE_STAR, RatingEnum.FIVE_STARS]
+    ratingRange: [RatingEnum.ONE_STAR, RatingEnum.FIVE_STARS],
+    categories: []
   }
 };
 
