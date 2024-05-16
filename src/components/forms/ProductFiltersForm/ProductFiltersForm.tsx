@@ -55,11 +55,10 @@ const ProductFiltersForm = () => {
   const updateSearchParams = (filters: Filters): void => {
     const {priceRange, ratingRange, categories, brands} = filters;
     let params: any = {};
-    // виправити
-    if (priceRange[0] !== undefined) params.minPrice = priceRange[0];
-    if (priceRange[1] !== undefined) params.maxPrice = priceRange[1];
-    if (ratingRange[0] !== undefined) params.minRating = ratingRange[0];
-    if (ratingRange[1] !== undefined) params.maxRating = ratingRange[1];
+    if (priceRange[0]) params.minPrice = priceRange[0];
+    if (priceRange[1]) params.maxPrice = priceRange[1];
+    if (ratingRange[0]) params.minRating = ratingRange[0];
+    if (ratingRange[1]) params.maxRating = ratingRange[1];
     if (categories && categories.length > 0) params.categories = categories.join(',');
     if (brands && brands.length > 0) params.brands = brands.join(',');
     setSearchParams(params);
