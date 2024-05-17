@@ -2,31 +2,36 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import SecondaryTitle from '@components/typography/SecondaryTitle/SecondaryTitle';
+import MainParagraph from '@components/typography/MainParagraph/MainParagraph';
+import CardPrice from '@components/ProductCard/CardPrice/CardPrice';
+import {Box} from '@mui/material';
+import ChevronBtn from '@components/btns/ChevronBtn/ChevronBtn';
 
-const SecondaryProductCard = () => {
+interface SecondaryProductCardProps {
+  image: string;
+  title: string;
+  description: string;
+  price: number;
+  discount?: number;
+}
+
+const SecondaryProductCard = ({image, title, description, price, discount}: SecondaryProductCardProps) => {
+  const priceAfterDiscount = discount ? price - (price * discount) / 100 : price;
+
   return (
-    <Card sx={{maxWidth: 345}}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="https://res.cloudinary.com/dw60kllwn/image/upload/v1697528759/221214140_11zon_xg1ptp.webp"
-      />
+    <Card>
+      <CardMedia component="img" alt="product image" height="140" image={image} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents
-          except Antarctica
-        </Typography>
+        <SecondaryTitle text={title} fontSize={15} sx={{marginBottom: 1}} />
+        <MainParagraph text={description} />
+        <CardActions sx={{p: 0, mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <Box>
+            <CardPrice priceAfterDiscount={priceAfterDiscount} priceBeforeDiscount={discount && price} />
+          </Box>
+          <ChevronBtn text="Buy now" />
+        </CardActions>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 };

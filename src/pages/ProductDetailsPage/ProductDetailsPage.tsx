@@ -17,12 +17,12 @@ import {Product} from '@store/slices/products/products.model';
 import BasicTabs from '@/components/BasicTabs/BasicTabs';
 import Carousel from '@/components/Carousel/Carousel';
 import ProductsCarousel from '@/components/ProductsCarousel/ProductsCarousel';
+import {SellerEnum} from '@/models/product.enum';
 
 const StyledBox = ({children}: {children: PropsWithChildren<ReactNode>}) => {
   return <Box sx={{mb: 5}}>{children}</Box>;
 };
 
-// скелетон додати
 const ProductDetailsPage = () => {
   const dispatch = useAppDispatch();
   const [product, setProduct] = useState<Product | null>(null);
@@ -60,13 +60,34 @@ const ProductDetailsPage = () => {
       </div>
     ));
 
+  const responsiveCarouselSettings = [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3
+      }
+    },
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1
+      }
+    }
+  ];
+
   return (
     product && (
       <section>
         <div className="product">
           <div className="product__photos">
             <img className="main-photo" src={product.images[currentImage]} alt="product-photo" />
-            <Carousel slidesToShow={4} arrows={false}>
+            <Carousel slidesToShow={4} arrows={false} responsive={responsiveCarouselSettings}>
               {imagesSlides}
             </Carousel>
           </div>
@@ -83,7 +104,7 @@ const ProductDetailsPage = () => {
                 <div>
                   <Box sx={{display: 'flex', gap: '40px', marginBottom: '12px'}}>
                     <p style={{width: '70px', color: '#A9A9A9'}}>Seller:</p>
-                    <p>{product.seller}</p>
+                    <p>{SellerEnum[product.seller]}</p>
                   </Box>
                   <Box sx={{display: 'flex', gap: '40px', marginBottom: '12px'}}>
                     <p style={{width: '70px', color: '#A9A9A9'}}>State:</p>

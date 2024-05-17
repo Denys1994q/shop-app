@@ -2,6 +2,11 @@ import Slider from 'react-slick';
 import './Carousel.sass';
 import {ReactNode} from 'react';
 
+interface Responsive {
+  breakpoint: number;
+  settings: {slidesToShow: number};
+}
+
 interface CarouselProps {
   slidesToShow?: number;
   dots?: boolean;
@@ -9,15 +14,16 @@ interface CarouselProps {
   autoplay?: boolean;
   infinite?: boolean;
   children: ReactNode;
+  responsive?: Responsive[];
 }
 
-// responsive передавати
 const Carousel = ({
   slidesToShow = 1,
   dots = true,
   arrows = true,
   autoplay = false,
   infinite = false,
+  responsive,
   children
 }: CarouselProps) => {
   const settings = {
@@ -25,32 +31,7 @@ const Carousel = ({
     dots: dots,
     autoplay: autoplay,
     infinite: infinite,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ],
+    responsive: responsive,
     speed: 500,
     slidesToShow: slidesToShow,
     slidesToScroll: 1

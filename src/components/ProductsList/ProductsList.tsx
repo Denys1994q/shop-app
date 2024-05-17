@@ -1,6 +1,6 @@
 import ProductCard from '@components/ProductCard/ProductCard';
 import {Product} from '@/store/slices/products/products.model';
-import {Box, List, ListItem, Skeleton, Stack} from '@mui/material';
+import {Box, List, ListItem} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
 import {selectProducts} from '@/store/slices/products/products.selectors';
 import {useEffect} from 'react';
@@ -12,7 +12,7 @@ import ProductCardSkeleton from '../ProductCardSkeleton/ProductCardSkeleton';
 const ProductsList = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const isLoading = useAppSelector(selectIsLoading);
   const isOpenDialog = useAppSelector(state => state.dialogSlice.isOpen)
 
