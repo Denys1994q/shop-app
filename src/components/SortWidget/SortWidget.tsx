@@ -20,7 +20,6 @@ const SortWidget = () => {
   }, []);
 
   const handleChange = (value: any): void => {
-    console.log(value);
     dispatch(updateFilters({sort: value}));
     setValue(value);
     const params = Object.fromEntries(searchParams.entries());
@@ -46,8 +45,8 @@ const SortWidget = () => {
         label="Sort by:"
         onChange={(e) => handleChange(e)}
         options={[
-          {value: 1, label: 'Cheaper first'},
-          {value: -1, label: 'Expensive  first'}
+          {value: 1, label: 'From cheap to expensive'},
+          {value: -1, label: 'Form expensive to cheap'}
         ]}
       />
     </Box>
