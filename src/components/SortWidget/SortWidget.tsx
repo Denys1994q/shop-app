@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import BasicSelect from '../inputs/BasicSelect/BasicSelect';
 import {Box} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
@@ -12,17 +12,14 @@ const SortWidget = () => {
   const dispatch = useAppDispatch();
   let [searchParams, setSearchParams] = useSearchParams();
   const filters = useAppSelector(selectFilters);
-  const [value, setValue] = useState<number>(filters.sort);
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
-    setValue(params.sort);
     dispatch(updateFilters({sort: params.sort}));
   }, []);
 
-  const handleChange = (value: any): void => {
+  const handleChange = (value: number): void => {
     dispatch(updateFilters({sort: value}));
-    setValue(value);
     const params = Object.fromEntries(searchParams.entries());
     params.sort = value;
     setSearchParams(params);
@@ -41,7 +38,7 @@ const SortWidget = () => {
 
   return (
     <Box mb={4}>
-      <BasicSelect value={value} label="Sort by:" onChange={(e) => handleChange(e)} options={sortProductOptions} />
+      <BasicSelect value={filters.sort} label="Sort by:" onChange={handleChange} options={sortProductOptions} />
     </Box>
   );
 };
