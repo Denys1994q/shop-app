@@ -1,46 +1,62 @@
 import Slider from 'react-slick';
 import './Carousel.sass';
+import {ReactNode} from 'react';
 
-const Carousel = () => {
+interface CarouselProps {
+  slidesToShow?: number;
+  dots?: boolean;
+  arrows?: boolean;
+  autoplay?: boolean;
+  infinite?: boolean;
+  children: ReactNode;
+}
+
+// responsive передавати
+const Carousel = ({
+  slidesToShow = 1,
+  dots = true,
+  arrows = true,
+  autoplay = false,
+  infinite = false,
+  children
+}: CarouselProps) => {
   const settings = {
-    arrows: true,
-    dots: true,
-    // autoplay: true,
-    infinite: true,
-    // responsive
+    arrows: arrows,
+    dots: dots,
+    autoplay: autoplay,
+    infinite: infinite,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ],
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1
   };
 
-  return (
-    <Slider {...settings}>
-      <div>
-        <img
-          src="https://www.adobe.com/content/dam/cc/us/en/creativecloud/photography/discover/smartphone-photography/thumbnail.jpeg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          src="https://www.zdnet.com/a/img/resize/e9794c8e2b8a9a9173f0b1f496406d551f6e80b5/2023/08/22/8c939452-01fe-4087-a469-c902c577f0a1/asus-zenfone-10-in-hand.jpg?auto=webp&fit=crop&height=900&width=1200"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          src="https://www.zdnet.com/a/img/resize/e9794c8e2b8a9a9173f0b1f496406d551f6e80b5/2023/08/22/8c939452-01fe-4087-a469-c902c577f0a1/asus-zenfone-10-in-hand.jpg?auto=webp&fit=crop&height=900&width=1200"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          src="https://www.zdnet.com/a/img/resize/e9794c8e2b8a9a9173f0b1f496406d551f6e80b5/2023/08/22/8c939452-01fe-4087-a469-c902c577f0a1/asus-zenfone-10-in-hand.jpg?auto=webp&fit=crop&height=900&width=1200"
-          alt=""
-        />
-      </div>
-    </Slider>
-  );
+  return <Slider {...settings}>{children}</Slider>;
 };
 
 export default Carousel;

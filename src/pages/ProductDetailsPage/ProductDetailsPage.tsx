@@ -8,7 +8,6 @@ import {PropsWithChildren, ReactNode} from 'react';
 import {Box} from '@mui/material';
 import WishListBtn from '@components/btns/WishlistBtn/WishlistBtn';
 import ProductAddToCart from '@components/ProductAddToCart/ProductAddToCart';
-import PhotosGrid from '@components/PhotosGrid/PhotosGrid';
 import {useParams} from 'react-router-dom';
 import {useAppDispatch} from '@store/hooks';
 import {getOneProduct} from '@store/slices/products/products.thunks';
@@ -17,6 +16,7 @@ import {ToastEnum} from '@/models/toast.enum';
 import {Product} from '@store/slices/products/products.model';
 import BasicTabs from '@/components/BasicTabs/BasicTabs';
 import Carousel from '@/components/Carousel/Carousel';
+import ProductsCarousel from '@/components/ProductsCarousel/ProductsCarousel';
 
 const StyledBox = ({children}: {children: PropsWithChildren<ReactNode>}) => {
   return <Box sx={{mb: 5}}>{children}</Box>;
@@ -27,6 +27,7 @@ const ProductDetailsPage = () => {
   const dispatch = useAppDispatch();
   const [product, setProduct] = useState<Product | null>(null);
   const {id} = useParams();
+  const [currentImage, setCurrentImage] = useState(0);
 
   const getProduct = async () => {
     try {
@@ -47,12 +48,27 @@ const ProductDetailsPage = () => {
   const priceAfterDiscount =
     product && product.discount ? product.price - (product.price * product.discount) / 100 : product?.price;
 
+  const handleSlideClick = (e: any, index: number) => {
+    setCurrentImage(index);
+  };
+
+  const imagesSlides =
+    product &&
+    product.images.map((image, index) => (
+      <div key={index} onClick={(e) => handleSlideClick(e, index)}>
+        <img src={image} alt="image" className={currentImage === index ? 'active' : ''} />
+      </div>
+    ));
+
   return (
     product && (
       <section>
         <div className="product">
           <div className="product__photos">
-            <Carousel />
+            <img className="main-photo" src={product.images[currentImage]} alt="product-photo" />
+            <Carousel slidesToShow={4} arrows={false}>
+              {imagesSlides}
+            </Carousel>
           </div>
           <div className="product__info">
             <MainTitle text={product.title} sx={{marginBottom: 2}} />
@@ -115,7 +131,9 @@ const ProductDetailsPage = () => {
             </Box>
           </div>
         </div>
-        <div>{/* <PhotosGrid /> */}</div>
+        <div>
+          <ProductsCarousel />
+        </div>
       </section>
     )
   );
