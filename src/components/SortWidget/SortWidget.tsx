@@ -12,7 +12,7 @@ const SortWidget = () => {
   const dispatch = useAppDispatch();
   let [searchParams, setSearchParams] = useSearchParams();
   const filters = useAppSelector(selectFilters);
-  const [value, setValue] = useState(filters.sort);
+  const [value, setValue] = useState<number>(filters.sort);
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
