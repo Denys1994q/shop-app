@@ -16,7 +16,9 @@ const HomePage = () => {
         <MainTitle text="All Products" />
         <Total value={products.length} />
       </div>
-      <SortWidget />
+      <div className="products__sort">
+        <SortWidget />
+      </div>
       <div className="products__main">
         <div className="productsFilters">
           <ProductFiltersForm />

@@ -55,6 +55,7 @@ const ProductFiltersForm = () => {
   const updateSearchParams = (filters: Filters): void => {
     const {priceRange, ratingRange, categories, brands} = filters;
     let params: any = {};
+    const sortParam = Object.fromEntries(searchParams.entries()).sort;
     if (priceRange[0]) params.minPrice = priceRange[0];
     if (priceRange[1]) params.maxPrice = priceRange[1];
     if (ratingRange[0]) params.minRating = ratingRange[0];
@@ -91,7 +92,7 @@ const ProductFiltersForm = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, isValid]);
+  }, [watch, isValid, filters.sort]);
 
   return (
     <form>

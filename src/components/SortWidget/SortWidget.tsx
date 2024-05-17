@@ -6,6 +6,7 @@ import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {selectFilters} from '@/store/slices/filters/filters.selectors';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {useSearchParams} from 'react-router-dom';
+import {sortProductOptions} from '@/services/enumLabelResolver';
 
 const SortWidget = () => {
   const dispatch = useAppDispatch();
@@ -39,16 +40,8 @@ const SortWidget = () => {
   };
 
   return (
-    <Box sx={{width: '181px', mb: 4}}>
-      <BasicSelect
-        value={value}
-        label="Sort by:"
-        onChange={(e) => handleChange(e)}
-        options={[
-          {value: 1, label: 'From cheap to expensive'},
-          {value: -1, label: 'Form expensive to cheap'}
-        ]}
-      />
+    <Box mb={4}>
+      <BasicSelect value={value} label="Sort by:" onChange={(e) => handleChange(e)} options={sortProductOptions} />
     </Box>
   );
 };

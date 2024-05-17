@@ -9,7 +9,7 @@ const initialState: FiltersState = {
     ratingRange: [RatingEnum.ONE_STAR, RatingEnum.FIVE_STARS],
     categories: [],
     brands: [],
-    sort: ''
+    sort: 0
   }
 };
 
@@ -24,3 +24,5 @@ const FiltersSlice = createSlice({
 });
 
 export const {updateFilters} = FiltersSlice.actions;
+
+export default FiltersSlice.reducer;
