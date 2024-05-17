@@ -7,7 +7,6 @@ import {selectFilters} from '@/store/slices/filters/filters.selectors';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {useSearchParams} from 'react-router-dom';
 
-// треба якийсь сервіс для парамсів
 const SortWidget = () => {
   const dispatch = useAppDispatch();
   let [searchParams, setSearchParams] = useSearchParams();
@@ -20,7 +19,6 @@ const SortWidget = () => {
     dispatch(updateFilters({sort: params.sort}));
   }, []);
 
-  // хук для двох методів, завжди updateFilters в ньому робити, взятив компоненті метод з хука і передати йому параметри, а в хуку оновити і фільтри і запит зробити, а з компонента просто цей метод викликати де треба
   const handleChange = (value: any): void => {
     console.log(value);
     dispatch(updateFilters({sort: value}));
