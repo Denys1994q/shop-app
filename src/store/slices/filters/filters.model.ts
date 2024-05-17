@@ -3,7 +3,7 @@ export interface Filters {
   ratingRange: number[];
   categories: [];
   brands: [];
-  sort: any;
+  sort: string | number;
 }
 
 export interface FiltersState {

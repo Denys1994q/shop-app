@@ -10,45 +10,26 @@ import {useAppDispatch, useAppSelector} from '@/store/hooks';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {Filters} from '@/store/slices/filters/filters.model';
 import {useSearchParams} from 'react-router-dom';
-import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
-import {useDebounce} from '@/hooks/useDebounce';
 import {selectFilters} from '@/store/slices/filters/filters.selectors';
-import {getAllProducts} from '@/store/slices/products/products.thunks';
-import {brandItems} from '@/models/brands.enum';
-import {decodeParamsArray} from '@/services/decodeParamsArray';
 import debounce from 'lodash/debounce';
-import {useFilters} from '@/hooks/useFilters';
-
-const styles = {
-  box: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 6
-  },
-  categories: {
-    maxHeight: '400px',
-    overflow: 'hidden',
-    '&:hover': {
-      overflowY: 'auto'
-    }
-  },
-  ratingSlider: {
-    '& .MuiSlider-thumb': {
-      color: '#fff'
-    },
-    '& .MuiSlider-track': {
-      color: '#ffc400'
-    },
-    '& .MuiSlider-rail': {
-      backgroundColor: '#D1D1D1'
-    }
-  }
-};
+import {getAllProducts} from '@/store/slices/products/products.thunks';
+import {formStyles} from './ProductFiltersForm.styles';
+import {decodeParamsArray} from '@/services/decodeParamsArray';
+import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
+import {categoriesOptions, brandsOptions} from '@/services/enumLabelResolver';
+import {scrollToTop} from '@/services/scrollToTop.service';
 
 const ProductFiltersForm = () => {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectFilters);
-  const {control, handleSubmit, setValue, getValues, reset, watch, formState} = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    getValues,
+    setValue,
+    formState: {isValid}
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(productFiltersSchema),
     defaultValues: {
@@ -74,11 +55,10 @@ const ProductFiltersForm = () => {
   const updateSearchParams = (filters: Filters): void => {
     const {priceRange, ratingRange, categories, brands} = filters;
     let params: any = {};
-    const sortParam = Object.fromEntries(searchParams.entries()).sort;
-    if (priceRange[0] !== undefined) params.minPrice = priceRange[0];
-    if (priceRange[1] !== undefined) params.maxPrice = priceRange[1];
-    if (ratingRange[0] !== undefined) params.minRating = ratingRange[0];
-    if (ratingRange[1] !== undefined) params.maxRating = ratingRange[1];
+    if (priceRange[0]) params.minPrice = priceRange[0];
+    if (priceRange[1]) params.maxPrice = priceRange[1];
+    if (ratingRange[0]) params.minRating = ratingRange[0];
+    if (ratingRange[1]) params.maxRating = ratingRange[1];
     if (categories && categories.length > 0) params.categories = categories.join(',');
     if (brands && brands.length > 0) params.brands = brands.join(',');
     if (sortParam) params.sort = sortParam;
@@ -86,6 +66,7 @@ const ProductFiltersForm = () => {
   };
 
   const onSubmit = (): void => {
+    scrollToTop();
     const formValues: any = getValues();
     dispatch(updateFilters(formValues));
     dispatch(
@@ -105,52 +86,31 @@ const ProductFiltersForm = () => {
   const debouncedSubmit = debounce(onSubmit, 500);
 
   useEffect(() => {
-    const subscription = watch((value: any) => {
-      console.log(formState.isValid);
+    const subscription = watch(() => {
       return handleSubmit(debouncedSubmit)();
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, filters.sort, formState.isValid]);
+  }, [watch, isValid]);
 
   return (
     <form>
-      <Box sx={styles.box}>
-        <Box sx={styles.categories}>
+      <Box sx={formStyles.box}>
+        <Box>
           <Controller
             name="categories"
             control={control}
-            render={({field: {onChange, value}, fieldState: {error}}) => (
-              <CheckboxesList
-                title="Categories"
-                onChange={onChange}
-                value={value}
-                items={[
-                  {label: 'Smartphones, TV, Electronics', value: 1},
-                  {label: 'Computers', value: 2},
-                  {label: 'Household appliances', value: 3},
-                  {label: 'Sport', value: 4},
-                  {label: 'Game Zone', value: 5}
-                ]}
-              />
-            )}
-          />
-        </Box>
-        <Box sx={styles.categories}>
-          <Controller
-            name="brands"
-            control={control}
-            render={({field: {onChange, value}, fieldState: {error}}) => (
-              <CheckboxesList title="Brands" onChange={onChange} value={value} items={brandItems} />
+            render={({field: {onChange, value}}) => (
+              <CheckboxesList title="Categories" onChange={onChange} value={value} items={categoriesOptions} />
             )}
           />
         </Box>
         <Box>
           <Controller
-            name="ratingRange"
+            name="brands"
             control={control}
             render={({field: {onChange, value}}) => (
-              <BasicSlider title="Rating" onChange={onChange} value={value} sx={styles.ratingSlider as CSSProperties} />
+              <CheckboxesList title="Brands" onChange={onChange} value={value} items={brandsOptions} />
             )}
           />
         </Box>
@@ -160,6 +120,20 @@ const ProductFiltersForm = () => {
             control={control}
             render={({field: {onChange, value}, fieldState: {error}}) => (
               <SliderWithInputs title="Price" onChange={onChange} value={value} error={error} />
+            )}
+          />
+        </Box>
+        <Box>
+          <Controller
+            name="ratingRange"
+            control={control}
+            render={({field: {onChange, value}}) => (
+              <BasicSlider
+                title="Rating"
+                onChange={onChange}
+                value={value}
+                sx={formStyles.ratingSlider as CSSProperties}
+              />
             )}
           />
         </Box>
