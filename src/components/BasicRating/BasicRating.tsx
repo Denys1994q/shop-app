@@ -7,15 +7,7 @@ interface BasicRatingProps {
 }
 
 const BasicRating = ({rating}: BasicRatingProps) => {
-  return (
-    <Rating
-      name="customized-icons"
-      defaultValue={rating}
-      getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
-      precision={0.5}
-      icon={<StarIcon fontSize="inherit" />}
-    />
-  );
+  return <Rating name="customized-icons" defaultValue={rating} readOnly icon={<StarIcon fontSize="inherit" />} />;
 };
 
 export default BasicRating;

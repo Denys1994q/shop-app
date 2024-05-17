@@ -7,7 +7,8 @@ const initialState: FiltersState = {
   filters: {
     priceRange: [minPrice, maxPrice],
     ratingRange: [RatingEnum.ONE_STAR, RatingEnum.FIVE_STARS],
-    categories: []
+    categories: [],
+    brands: []
   }
 };
 
