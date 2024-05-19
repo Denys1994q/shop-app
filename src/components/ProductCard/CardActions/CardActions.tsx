@@ -1,3 +1,4 @@
+import {routes} from '@/constants/routes';
 import ChevronBtn from '@components/btns/ChevronBtn/ChevronBtn';
 import WishListBtn from '@components/btns/WishlistBtn/WishlistBtn';
 import {CardActions as MuiCardActions} from '@mui/material';
@@ -11,10 +12,10 @@ const actionsStyles = {
   gap: 2
 };
 
-const CardActions = () => {
+const CardActions = ({id}: {id: string}) => {
   return (
     <MuiCardActions sx={actionsStyles}>
-      <Link to="/products/kek">
+      <Link to={`/${routes.products}/${id}`}>
         <ChevronBtn text="Product Detail" />
       </Link>
       <WishListBtn />

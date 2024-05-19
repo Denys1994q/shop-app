@@ -42,7 +42,7 @@ const ProductCard = ({product}: ProductCardProps) => {
       </Box>
       <Box sx={actionsBoxStyles}>
         <CardPrice priceAfterDiscount={priceWithDiscount} priceBeforeDiscount={discount && price} />
-        <CardActions />
+        <CardActions id={product._id} />
       </Box>
     </Card>
   );
