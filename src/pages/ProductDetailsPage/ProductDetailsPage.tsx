@@ -15,6 +15,9 @@ const StyledBox = ({children}: PropsWithChildren) => {
 };
 
 const ProductDetailsPage = () => {
+  const description =
+    'Carrots from Tomissy Farm are one of the best on the market. Tomisso and his family are giving a full love to his Bio products. To misso’s carrots are growing on the fields naturally.';
+
   return (
     <section className="product">
       <div className="product__photos">
@@ -26,11 +29,7 @@ const ProductDetailsPage = () => {
           <BasicRating rating={4} />
         </StyledBox>
         <StyledBox>
-          <MainParagraph
-            maxLength={longParagraphLength}
-            sx={{fontSize: 17}}
-            text="Carrots from Tomissy Farm are one of the best on the market. Tomisso and his family are giving a full love to his Bio products. To misso’s carrots are growing on the fields naturally."
-          />
+          <MainParagraph maxLength={longParagraphLength} sx={{fontSize: 17}} text={description} />
         </StyledBox>
         <StyledBox>
           <CardInfoList
