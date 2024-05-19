@@ -1,5 +1,5 @@
-import {CategoriesEnum} from '@/models/product.enum';
-import {BrandsEnum} from '@/models/product.enum';
+import {CategoriesEnum, BrandsEnum} from '@/models/product.enum';
+import {SortProductEnum} from '@/models/sortProduct.enum';
 
 const enumLabelResolver = {
   categories: {
@@ -28,6 +28,10 @@ const enumLabelResolver = {
     [BrandsEnum.CORRADO]: 'Corrado',
     [BrandsEnum.BRAIN]: 'Brain',
     [BrandsEnum.FORMULA]: 'Formula'
+  },
+  sortProduct: {
+    [SortProductEnum.FROM_CHEAP_TO_EXPENSIVE]: 'From cheap to expensive',
+    [SortProductEnum.FROM_EXPENSIVE_TO_CHEAP]: 'From expensive to cheap'
   }
 };
 
@@ -37,6 +41,11 @@ export const categoriesOptions = Object.entries(enumLabelResolver.categories).ma
 }));
 
 export const brandsOptions = Object.entries(enumLabelResolver.brands).map(([value, label]) => ({
+  label,
+  value: +value
+}));
+
+export const sortProductOptions = Object.entries(enumLabelResolver.sortProduct).map(([value, label]) => ({
   label,
   value: +value
 }));

@@ -20,7 +20,7 @@ const BasicNumberTextField = ({id, label, value, min, max, onChange, error, sx}:
       error={error}
       id={id}
       label={label}
-      sx={{...sx}}
+      sx={sx}
       InputProps={{inputProps: {min: min, max: max, step: '1'}}}
       InputLabelProps={{shrink: true}}
     />

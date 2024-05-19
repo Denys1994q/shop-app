@@ -15,9 +15,18 @@ const BasicSelect = ({label, options, value, onChange}: BasicSelectProps) => {
   };
 
   return (
-    <FormControl fullWidth>
-      {label && <InputLabel>{label}</InputLabel>}
-      <Select size="small" value={value} label={label} onChange={handleChange} sx={{fontSize: 14}}>
+    <FormControl
+      fullWidth
+      size="small"
+      sx={{
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderRadius: '15px',
+          fontSize: 14
+        }
+      }}
+    >
+      {label && <InputLabel sx={{fontSize: 14}}>{label}</InputLabel>}
+      <Select size="small" sx={{background: '#fdfdfd'}} value={value || ''} label={label} onChange={handleChange}>
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value} sx={{fontSize: 12}}>
             {option.label}
