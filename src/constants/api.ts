@@ -8,3 +8,9 @@ export const getAllProductsUrl = 'product';
 export const getOneProductUrl = (id: string): string => {
   return `/product/${id}`;
 };
+export const addToWishlistUrl = (id: string): string => {
+  return `/auth/wishlist/${id}`;
+};
+export const removeFromWishlistUrl = (id: string): string => {
+  return `/auth/wishlist/${id}`;
+};

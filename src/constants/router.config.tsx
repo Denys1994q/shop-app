@@ -4,6 +4,7 @@ import NotFoundPage from '@pages/NotFoundPage/NotFoundPage';
 import {routes} from './routes';
 import App from '@/App';
 import ProductDetailsPage from '@pages/ProductDetailsPage/ProductDetailsPage';
+import WishlistPage from '@pages/WishlistPage/WishlistPage';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
       {
         path: `${routes.home}/${routes.products}/:id`,
         element: <ProductDetailsPage />
+      },
+      {
+        path: `${routes.home}/${routes.wishlist}`,
+        element: <WishlistPage />
       },
       {
         path: '*',

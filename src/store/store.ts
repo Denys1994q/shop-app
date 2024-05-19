@@ -10,6 +10,8 @@ import toastSlice from './slices/toast/toast.slice';
 import {ToastState} from './slices/toast/toast.model';
 import filtersSlice from './slices/filters/filters.slice';
 import {FiltersState} from './slices/filters/filters.model';
+import wishlistSlice from './slices/wishlist/wishlist.slice';
+import {WishlistState} from './slices/wishlist/wishlist.model';
 
 export interface State {
   authSlice: AuthState;
@@ -18,6 +20,7 @@ export interface State {
   productsSlice: ProductsState;
   toastSlice: ToastState;
   filtersSlice: FiltersState;
+  wishlistSlice: WishlistState;
 }
 
 const store = configureStore({
@@ -27,7 +30,8 @@ const store = configureStore({
     loadingSlice,
     productsSlice,
     toastSlice,
-    filtersSlice
+    filtersSlice,
+    wishlistSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 });

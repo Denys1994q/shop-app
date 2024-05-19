@@ -10,6 +10,8 @@ import {closeDialog} from '@/store/slices/dialog/dialog.slice';
 import {openToast} from '@/store/slices/toast/toast.slice';
 import {ToastEnum} from '@/models/toast.enum';
 import {SuccessToastMessages} from '@/constants/toastMessages.constant';
+import {setWishlist} from '@/store/slices/wishlist/wishlist.slice';
+import {Product} from '@/store/slices/products/products.model';
 
 const loginFormLinkText = 'Already have an account?';
 const registerFormLinkText = 'New customer?';
@@ -31,6 +33,12 @@ const AuthForm = () => {
   const handleSignInFormSubmit = async (signInForm: SignInSchemaType): Promise<void> => {
     try {
       await dispatch(loginUser(signInForm)).unwrap();
+      const user = await dispatch(getUser()).unwrap();
+      const userWishlist = user.wishlist.map((item: {product: Product; addedDate: string}) => ({
+        ...item.product,
+        addedDate: item.addedDate
+      }));
+      dispatch(setWishlist(userWishlist));
       closeDialogAndGetUser(SuccessToastMessages.LOGIN);
     } catch (error) {
       typeof error === 'string' && dispatch(openToast({message: error, type: ToastEnum.ERROR}));

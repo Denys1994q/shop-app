@@ -53,7 +53,7 @@ const ProductCard = ({product}: ProductCardProps) => {
         <div>
           <CardPrice priceAfterDiscount={priceWithDiscount} priceBeforeDiscount={discount && price} />
         </div>
-        <CardActions id={product._id} />
+        <CardActions product={product} />
       </Box>
     </Card>
   );

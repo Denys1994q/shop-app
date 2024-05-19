@@ -8,13 +8,15 @@ import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {useSearchParams} from 'react-router-dom';
 import {selectIsLoading} from '@/store/slices/loading/loading.selectors';
 import ProductCardSkeleton from '../ProductCardSkeleton/ProductCardSkeleton';
+import {useSelectWishlistLoading} from '@/store/slices/wishlist/wishlist.actions';
 
 const ProductsList = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
   const [searchParams] = useSearchParams();
   const isLoading = useAppSelector(selectIsLoading);
-  const isOpenDialog = useAppSelector(state => state.dialogSlice.isOpen)
+  const isOpenDialog = useAppSelector((state) => state.dialogSlice.isOpen);
+  const isWishlistLoading = useSelectWishlistLoading();
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
@@ -39,7 +41,7 @@ const ProductsList = () => {
       </List>
     );
 
-  return isLoading && !isOpenDialog ? products.map(() => <ProductCardSkeleton />) : content;
+  return isLoading && !isOpenDialog && !isWishlistLoading ? products.map(() => <ProductCardSkeleton />) : content;
 };
 
 export default ProductsList;

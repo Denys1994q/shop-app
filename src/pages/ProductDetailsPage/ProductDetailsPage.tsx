@@ -146,7 +146,7 @@ const ProductDetailsPage = () => {
             <Box sx={{marginBottom: 3}}>
               <ProductAddToCart priceBeforeDiscount={product.price} priceAfterDiscount={priceAfterDiscount} />
             </Box>
-            <WishListBtn />
+            <WishListBtn product={product} />
             <Box mt={7}>
               <BasicTabs description={product.detailedDescription} />
             </Box>

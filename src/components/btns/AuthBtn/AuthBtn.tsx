@@ -12,6 +12,7 @@ import {UserMenuOptions} from '@/models/userMenuOptions.enum';
 import {openToast} from '@/store/slices/toast/toast.slice';
 import {SuccessToastMessages} from '@/constants/toastMessages.constant';
 import {ToastEnum} from '@/models/toast.enum';
+import {setWishlist} from '@/store/slices/wishlist/wishlist.slice';
 
 const AuthBtn = () => {
   const dispatch = useAppDispatch();
@@ -35,9 +36,10 @@ const AuthBtn = () => {
     if (menuItem === UserMenuOptions.LOGOUT) {
       try {
         await dispatch(logoutUser()).unwrap();
+        dispatch(setWishlist([]));
         dispatch(openToast({message: SuccessToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
       } catch (error) {
-       dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
+        dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
       }
     }
   };
