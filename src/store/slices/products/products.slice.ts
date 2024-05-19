@@ -6,7 +6,8 @@ const initialState: ProductsState = {
   products: [],
   total: 0,
   pages: 0,
-  productsError: null
+  productsError: null,
+  countByCategory: []
 };
 
 const ProductsSlice = createSlice({
@@ -21,6 +22,7 @@ const ProductsSlice = createSlice({
           state.products = action.payload.products;
           state.total = action.payload.total;
           state.pages = action.payload.pages;
+          state.countByCategory = action.payload.countByCategory;
         }
       )
       .addCase(getAllProducts.rejected, (state: ProductsState, action: PayloadAction<any>) => {

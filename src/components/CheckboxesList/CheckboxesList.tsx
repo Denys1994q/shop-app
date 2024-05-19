@@ -27,8 +27,9 @@ const CheckboxesList = ({title, items, value, onChange}: any) => {
           <BasicCheckbox
             key={item.value}
             label={item.label}
+            amount={item.amount}
             value={item.value}
-            checked={value.includes(item.value)} // Перевірка, чи міститься значення в масиві value
+            checked={value.includes(item.value)}
             onChange={(e: any) => handleCheckboxChange(item.value, e.target.checked)}
           />
         ))}

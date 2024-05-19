@@ -35,7 +35,7 @@ const PaginationPanel = () => {
   return (
     <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
       <BasicPagination currentPage={page} totalPages={pagesNumber} onChange={handlePageChange} />
-      <Total value={total} />
+      <Total value={total} label="Products" />
     </Box>
   );
 };

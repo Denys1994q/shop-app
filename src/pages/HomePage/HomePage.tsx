@@ -15,7 +15,7 @@ const HomePage = () => {
     <section className="products">
       <div className="products__title">
         <MainTitle text="All Products" />
-        <Total value={total} />
+        <Total value={total} label="Products" />
       </div>
       <SortWidget />
       <div className="products__main">

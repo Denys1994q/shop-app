@@ -16,6 +16,7 @@ import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {brandItems} from '@/models/brands.enum';
 import {decodeParamsArray} from '@/services/decodeParamsArray';
 import debounce from 'lodash/debounce';
+import {categoriesOptions} from '@/services/enumLabelResolver';
 
 const styles = {
   box: {
@@ -50,6 +51,8 @@ const ProductFiltersForm = () => {
     }
   });
   const [searchParams, setSearchParams] = useSearchParams();
+  const countByCategory = useAppSelector((state) => state.productsSlice.countByCategory);
+  console.log(countByCategory);
 
   useEffect(() => {
     const params: any = Object.fromEntries(searchParams.entries());
@@ -114,6 +117,15 @@ const ProductFiltersForm = () => {
     dispatch(updateFilters({priceRange: [1, 1200], ratingRange: [1, 5], categories: [], brands: [], sort: ''}));
   };
 
+  const categoriesWithAmount = categoriesOptions.map((categoryEnum) => {
+    return {
+      ...categoryEnum,
+      amount: countByCategory.find((item: any) => item._id === categoryEnum.value)
+        ? countByCategory.find((item: any) => item._id === categoryEnum.value).totalProducts
+        : 0
+    };
+  });
+
   return (
     <form>
       <Box sx={styles.box}>
@@ -126,13 +138,20 @@ const ProductFiltersForm = () => {
                 title="Categories"
                 onChange={onChange}
                 value={value}
-                items={[
-                  {label: 'Smartphones, TV, Electronics', value: 1},
-                  {label: 'Computers', value: 2},
-                  {label: 'Household appliances', value: 3},
-                  {label: 'Sport', value: 4},
-                  {label: 'Game Zone', value: 5}
-                ]}
+                items={categoriesWithAmount}
+                // items={[
+                //   {
+                //     label: 'Smartphones, TV, Electronics',
+                //     value: 1,
+                //     amount:
+                //       countByCategory.length > 0 &&
+                //       countByCategory.find((category: any) => category._id === 1).totalProducts
+                //   },
+                //   {label: 'Computers', value: 2, amount: 10},
+                //   {label: 'Household appliances', value: 3, amount: 10},
+                //   {label: 'Sport', value: 4, amount: 10},
+                //   {label: 'Game Zone', value: 5, amount: 10}
+                // ]}
               />
             )}
           />
