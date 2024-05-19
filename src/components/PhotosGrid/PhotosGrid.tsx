@@ -3,7 +3,6 @@ import {Box, Grid} from '@mui/material';
 const PhotosGrid = () => {
   return (
     <Grid container spacing={2}>
-      {/* Перший рядок */}
       <Grid item xs={12}>
         <Box sx={{display: 'flex', justifyContent: 'center'}}>
           <img
@@ -13,8 +12,6 @@ const PhotosGrid = () => {
           />
         </Box>
       </Grid>
-
-      {/* Другий рядок */}
       <Grid item xs={6} sx={{textAlign: 'center'}}>
         <img
           src="https://res.cloudinary.com/dw60kllwn/image/upload/v1697355087/zte_front_scqohl.webp"

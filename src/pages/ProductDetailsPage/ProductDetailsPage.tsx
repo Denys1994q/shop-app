@@ -5,7 +5,7 @@ import MainParagraph from '@components/typography/MainParagraph/MainParagraph';
 import {longParagraphLength} from '@constants/typography.constant';
 import CardInfoList from '@components/ProductCard/CardInfoList/CardInfoList';
 import {PropsWithChildren, ReactNode} from 'react';
-import {Box, Grid} from '@mui/material';
+import {Box} from '@mui/material';
 import WishListBtn from '@components/btns/WishlistBtn/WishlistBtn';
 import ProductAddToCart from '@/components/ProductAddToCart/ProductAddToCart';
 import PhotosGrid from '@/components/PhotosGrid/PhotosGrid';

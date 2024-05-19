@@ -11,19 +11,11 @@ interface CardPriceProps {
 const CardPrice = ({priceAfterDiscount, priceBeforeDiscount, fontSize = 18}: CardPriceProps) => {
   return (
     <>
-<<<<<<< HEAD
       <Typography variant="body1" fontSize={fontSize} sx={{fontWeight: 'bold'}}>
         {priceAfterDiscount} {CURRENCY}
       </Typography>
       {priceBeforeDiscount && (
         <Typography variant="body1" fontSize={12} sx={{textDecoration: 'line-through'}} className="oldPrice">
-=======
-      <Typography variant="body1" fontSize={18} sx={{fontWeight: 'bold'}}>
-        {priceAfterDiscount} {CURRENCY}
-      </Typography>
-      {priceBeforeDiscount && (
-        <Typography variant="body1" sx={{textDecoration: 'line-through'}} className="oldPrice">
->>>>>>> main
           {priceBeforeDiscount} {CURRENCY}
         </Typography>
       )}
