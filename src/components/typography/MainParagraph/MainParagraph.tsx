@@ -13,7 +13,7 @@ const MainParagraph = ({text, sx, maxLength}: MainParagraphProps) => {
   const truncatedLength = maxLength || paragraphLength;
 
   return (
-    <Typography variant="body2" color="#575757" fontSize={12} sx={{...sx}}>
+    <Typography variant="body2" color="#575757" fontSize={12} sx={sx}>
       {truncateText(text, truncatedLength)}
     </Typography>
   );
