@@ -2,9 +2,9 @@ import './HomePage.sass';
 import MainTitle from '@/components/typography/MainTitle/MainTitle';
 import ProductsList from '@/components/ProductsList/ProductsList';
 import Total from '@/components/Total/Total';
+import ProductFiltersForm from '@components/forms/ProductFiltersForm/ProductFiltersForm';
 import {useAppSelector} from '@/store/hooks';
 import {selectProducts} from '@/store/slices/products/products.selectors';
-import ProductFiltersForm from '@components/forms/ProductFiltersForm/ProductFiltersForm';
 import SortWidget from '@components/SortWidget/SortWidget';
 
 const HomePage = () => {
@@ -16,7 +16,9 @@ const HomePage = () => {
         <MainTitle text="All Products" />
         <Total value={products.length} />
       </div>
-      <SortWidget />
+      <div className="products__sort">
+        <SortWidget />
+      </div>
       <div className="products__main">
         <div className="productsFilters">
           <ProductFiltersForm />

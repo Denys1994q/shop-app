@@ -8,7 +8,7 @@ interface SliderWithInputsProps {
   title: string;
   onChange: (values: number[]) => void;
   value: number[];
-  error: FieldError | undefined;
+  error?: FieldError;
 }
 
 const styles = {display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 1};
@@ -18,16 +18,18 @@ const SliderWithInputs = ({title, value, onChange, error}: SliderWithInputsProps
   const max = useRef(value[1]);
 
   const handleMinInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (+event.target.value < value[1]) {
-      onChange([+event.target.value, value[1]]);
+    const inputValue = Number(event.target.value);
+    if (inputValue < value[1]) {
+      onChange([inputValue, value[1]]);
     }
   };
 
   const handleMaxInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (+event.target.value > max.current) {
+    const inputValue = Number(event.target.value);
+    if (inputValue > max.current) {
       return;
     }
-    onChange([value[0], +event.target.value]);
+    onChange([value[0], inputValue]);
   };
 
   const handleSliderChange = (values: number[]): void => {

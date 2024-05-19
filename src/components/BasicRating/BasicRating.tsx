@@ -8,16 +8,8 @@ interface BasicRatingProps {
   sx?: CSSProperties;
 }
 
-const BasicRating = ({rating, sx}: BasicRatingProps) => {
-  return (
-    <Rating
-      name="customized-icons"
-      defaultValue={rating}
-      readOnly
-      sx={{...sx}}
-      icon={<StarIcon fontSize="inherit" />}
-    />
-  );
+const BasicRating = ({rating}: BasicRatingProps) => {
+  return <Rating name="customized-icons" defaultValue={rating} readOnly icon={<StarIcon fontSize="inherit" />} />;
 };
 
 export default BasicRating;

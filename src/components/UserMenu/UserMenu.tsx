@@ -5,11 +5,11 @@ import {UserMenuOptions} from '@/models/userMenuOptions.enum';
 
 interface UserMenuProps extends MenuProps {
   handleClose: () => void;
-  onMenuItemClick: (menuItem: string) => void;
+  onMenuItemClick: (menuItem: UserMenuOptions) => void;
 }
 
 const UserMenu = ({anchorEl, open, handleClose, onMenuItemClick}: UserMenuProps) => {
-  const handleMenuItemClick = (menuItem: string): void => {
+  const handleMenuItemClick = (menuItem: UserMenuOptions): void => {
     onMenuItemClick(menuItem);
     handleClose();
   };

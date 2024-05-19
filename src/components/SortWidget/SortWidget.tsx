@@ -1,14 +1,13 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import BasicSelect from '../inputs/BasicSelect/BasicSelect';
-import {valibotResolver} from '@hookform/resolvers/valibot';
 import {Box} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
 import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {selectFilters} from '@/store/slices/filters/filters.selectors';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {useSearchParams} from 'react-router-dom';
+import {sortProductOptions} from '@/services/enumLabelResolver';
 
-// треба якийсь сервіс для парамсів
 const SortWidget = () => {
   const dispatch = useAppDispatch();
   let [searchParams, setSearchParams] = useSearchParams();
@@ -19,11 +18,11 @@ const SortWidget = () => {
     dispatch(updateFilters({sort: params.sort}));
   }, []);
 
-  // хук для двох методів, завжди updateFilters в ньому робити, взятив компоненті метод з хука і передати йому параметри, а в хуку оновити і фільтри і запит зробити, а з компонента просто цей метод викликати де треба
-  const handleChange = (value: any): void => {
+  const handleChange = (value: number): void => {
     dispatch(updateFilters({sort: value}));
     const params = Object.fromEntries(searchParams.entries());
     params.sort = value;
+    setSearchParams(params);
     dispatch(
       getAllProducts({
         minPrice: filters.priceRange[0],
@@ -35,20 +34,11 @@ const SortWidget = () => {
         sort: value
       })
     );
-    setSearchParams(params);
   };
 
   return (
-    <Box sx={{width: '181px', mb: 4}}>
-      <BasicSelect
-        value={filters.sort as any}
-        label="Sort by:"
-        onChange={(e) => handleChange(e)}
-        options={[
-          {value: 1, label: 'Cheaper first'},
-          {value: -1, label: 'Expensive  first'}
-        ]}
-      />
+    <Box mb={4}>
+      <BasicSelect value={filters.sort} label="Sort by:" onChange={handleChange} options={sortProductOptions} />
     </Box>
   );
 };
