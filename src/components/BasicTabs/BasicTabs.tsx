@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import BasicBadge from '../BasicBadge/BasicBadge';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,7 +24,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{pt: 3}}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -49,10 +50,14 @@ export default function BasicTabs({description}: any) {
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
         <Tabs
           sx={{
+            '& .MuiTabs-flexContainer': {
+              justifyContent: 'space-between'
+            },
             '& .MuiButtonBase-root.MuiTab-root': {
               color: 'black',
               fontWeight: 'bold',
-              textTransform: 'capitalize'
+              textTransform: 'capitalize',
+              width: '150px'
             },
             '& .MuiTabs-indicator': {
               backgroundColor: '#151515',
@@ -64,15 +69,15 @@ export default function BasicTabs({description}: any) {
           aria-label="basic tabs example"
         >
           <Tab sx={{fontSize: 16}} label="Description" {...a11yProps(0)} />
-          <Tab sx={{fontSize: 16}} label="Reviews" {...a11yProps(1)} />
-          <Tab sx={{fontSize: 16}} label="Questions" {...a11yProps(2)} />
+          <Tab sx={{fontSize: 16}} label={<BasicBadge badgeContent={0} children="Reviews" />} {...a11yProps(1)} />
+          <Tab sx={{fontSize: 16}} label={<BasicBadge badgeContent={0} children="Questions" />} {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         {description.length > 0
-          ? description.map((descriptionItem: any) => {
+          ? description.map((descriptionItem: any, index: number) => {
               return (
-                <Box mb={2}>
+                <Box key={index} mb={2}>
                   <p style={{fontWeight: 'bold', marginBottom: 8}}>{descriptionItem.label}</p>
                   <p>{descriptionItem.value}</p>
                 </Box>

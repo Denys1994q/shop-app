@@ -7,7 +7,6 @@ import {useAppSelector} from '@/store/hooks';
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
-  console.info('You clicked a breadcrumb.');
 }
 
 export default function BasicBreadcrumbs() {
@@ -15,7 +14,6 @@ export default function BasicBreadcrumbs() {
   const {id} = useParams();
   const products = useAppSelector(selectProducts);
 
-  console.log(location);
   const prod = products.find((product) => product._id === id)?.title;
 
   return (

@@ -1,4 +1,4 @@
-import {TextField} from '@mui/material';
+import {InputAdornment, TextField} from '@mui/material';
 
 interface BasicNumberTextFieldProps {
   value: number;
@@ -9,9 +9,20 @@ interface BasicNumberTextFieldProps {
   sx?: React.CSSProperties;
   min: number;
   max: number;
+  endAdornment?: any;
 }
 
-const BasicNumberTextField = ({id, label, value, min, max, onChange, error, sx}: BasicNumberTextFieldProps) => {
+const BasicNumberTextField = ({
+  id,
+  label,
+  value,
+  min,
+  max,
+  onChange,
+  error,
+  sx,
+  endAdornment
+}: BasicNumberTextFieldProps) => {
   return (
     <TextField
       type="number"
@@ -29,8 +40,15 @@ const BasicNumberTextField = ({id, label, value, min, max, onChange, error, sx}:
         },
         ...sx
       }}
-      InputProps={{inputProps: {min: min, max: max, step: '1'}}}
       InputLabelProps={{shrink: true}}
+      InputProps={{
+        inputProps: {min: min, max: max, step: '1'},
+        endAdornment: endAdornment ? (
+          <InputAdornment position="end">
+            <span style={{fontWeight: 'bold', fontSize: 12}}>{endAdornment}</span>{' '}
+          </InputAdornment>
+        ) : undefined
+      }}
     />
   );
 };

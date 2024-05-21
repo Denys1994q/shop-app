@@ -7,23 +7,18 @@ import {selectFilters} from '@/store/slices/filters/filters.selectors';
 import {updateFilters} from '@/store/slices/filters/filters.slice';
 import {useSearchParams} from 'react-router-dom';
 
-// треба якийсь сервіс для парамсів
 const SortWidget = () => {
   const dispatch = useAppDispatch();
   let [searchParams, setSearchParams] = useSearchParams();
   const filters = useAppSelector(selectFilters);
-  const [value, setValue] = useState(filters.sort);
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
-    setValue(params.sort);
     dispatch(updateFilters({sort: params.sort}));
   }, []);
 
-  // хук для двох методів, завжди updateFilters в ньому робити, взятив компоненті метод з хука і передати йому параметри, а в хуку оновити і фільтри і запит зробити, а з компонента просто цей метод викликати де треба
   const handleChange = (value: any): void => {
     dispatch(updateFilters({sort: value}));
-    setValue(value);
     const params = Object.fromEntries(searchParams.entries());
     params.sort = value;
     setSearchParams(params);
@@ -43,7 +38,7 @@ const SortWidget = () => {
   return (
     <Box sx={{width: '181px', mb: 4}}>
       <BasicSelect
-        value={value}
+        value={filters.sort || ''}
         label="Sort by:"
         onChange={(e) => handleChange(e)}
         options={[

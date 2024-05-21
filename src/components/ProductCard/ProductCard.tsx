@@ -18,13 +18,13 @@ const cardStyles = {
 };
 
 const cardBoxStyles = {
-  width: '33%',
+  width: '280px',
   padding: 3,
   display: 'flex'
 };
 
 const actionsBoxStyles = {
-  width: '33%',
+  // width: '300px',
   padding: 3,
   display: 'flex',
   flexDirection: 'column',

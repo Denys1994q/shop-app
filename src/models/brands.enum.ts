@@ -18,7 +18,9 @@ export enum Brands {
   INDESIT = 15,
   CORRADO = 16,
   BRAIN = 17,
-  FORMULA = 18
+  FORMULA = 18,
+  ACER = 19,
+  HP = 20
 }
 
 export const brandItems = Object.keys(Brands)

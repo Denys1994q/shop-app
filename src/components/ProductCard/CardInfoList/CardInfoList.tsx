@@ -26,7 +26,9 @@ const CardInfoList = ({list}: CardInfoListProps) => {
       {list.map(({label, value}) => (
         <ListItem sx={styles.box} key={value}>
           <Box sx={styles.listItem}>
-            <Typography variant="body1">{label}</Typography>
+            <Typography sx={{width: '70px'}} variant="body1">
+              {label}
+            </Typography>
             <Typography variant="body1" sx={{color: '#6A983C'}}>
               {capitalizeFirstLetter(value)}
             </Typography>

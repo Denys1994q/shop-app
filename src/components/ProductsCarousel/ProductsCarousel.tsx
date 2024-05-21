@@ -44,7 +44,7 @@ const ProductsCarousel = () => {
   return (
     <Box sx={{background: '#FDFDFD', padding: '64px 45px'}}>
       <Box mb={4}>
-        <SecondaryTitle text="You may will be love" />
+        <SecondaryTitle text="You will maybe love" />
       </Box>
       <Carousel slidesToShow={4} autoplay={true} infinite={true} dots={false} responsive={responsiveCarouselSettings}>
         {productsSlides}

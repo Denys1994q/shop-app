@@ -18,11 +18,13 @@ const btnStyles = {
 
 interface ChevronBtnProps {
   text: string;
+  onClick?: any;
+  withoutChevron?: any;
 }
 
-const ChevronBtn = ({text}: ChevronBtnProps) => {
+const ChevronBtn = ({text, onClick, withoutChevron = false}: ChevronBtnProps) => {
   return (
-    <Button sx={btnStyles} endIcon={<ChevronRightIcon />}>
+    <Button onClick={onClick} sx={btnStyles} endIcon={!withoutChevron ? <ChevronRightIcon /> : null}>
       {text}
     </Button>
   );

@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import SliderWithInputs from '../../SliderWithInputs/SliderWithInputs';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -7,7 +7,7 @@ import BasicSlider from '@/components/BasicSlider/BasicSlider';
 import {Box, Button} from '@mui/material';
 import {CSSProperties} from 'react';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
-import {updateFilters} from '@/store/slices/filters/filters.slice';
+import {resetFilters, updateFilters} from '@/store/slices/filters/filters.slice';
 import {Filters} from '@/store/slices/filters/filters.model';
 import {useSearchParams} from 'react-router-dom';
 import CheckboxesList from '@/components/CheckboxesList/CheckboxesList';
@@ -40,7 +40,15 @@ const styles = {
 const ProductFiltersForm = () => {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectFilters);
-  const {control, handleSubmit, setValue, getValues, reset, watch, formState} = useForm({
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    getValues,
+    reset,
+    watch,
+    formState: {isValid}
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(productFiltersSchema),
     defaultValues: {
@@ -52,7 +60,6 @@ const ProductFiltersForm = () => {
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const countByCategory = useAppSelector((state) => state.productsSlice.countByCategory);
-  console.log(countByCategory);
 
   useEffect(() => {
     const params: any = Object.fromEntries(searchParams.entries());
@@ -63,6 +70,10 @@ const ProductFiltersForm = () => {
     if (brands) setValue('brands', decodeParamsArray(brands));
     const formValues = getValues();
     dispatch(updateFilters(formValues));
+
+    return () => {
+      dispatch(resetFilters());
+    };
   }, []);
 
   const updateSearchParams = (filters: Filters): void => {
@@ -80,6 +91,7 @@ const ProductFiltersForm = () => {
   };
 
   const onSubmit = (): void => {
+    console.log('onSubmit');
     scrollTo({top: 0, behavior: 'smooth'});
     const formValues: any = getValues();
     dispatch(updateFilters(formValues));
@@ -100,21 +112,27 @@ const ProductFiltersForm = () => {
   const debouncedSubmit = debounce(onSubmit, 500);
 
   useEffect(() => {
-    const subscription = watch((value: any) => {
+    const subscription = watch((_, action) => {
+      if (!action.type) {
+        dispatch(getAllProducts({}));
+        return;
+      }
+
       return handleSubmit(debouncedSubmit)();
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, filters.sort, formState.isValid]);
+  }, [watch, filters.sort, isValid]);
 
   const handleReset = () => {
-    reset({
-      priceRange: [1, 1200],
-      ratingRange: [1, 5],
-      categories: [],
-      brands: []
-    });
-    dispatch(updateFilters({priceRange: [1, 1200], ratingRange: [1, 5], categories: [], brands: [], sort: ''}));
+    console.log('handle reset');
+    setSearchParams('');
+    reset({}, {keepDefaultValues: true});
+    dispatch(resetFilters());
+    scrollTo({top: 0, behavior: 'smooth'});
+
+    // // reset({priceRange: [1, 1200], ratingRange: [1, 5], categories: [], brands: []});
+    // dispatch(updateFilters({priceRange: [1, 1200], ratingRange: [1, 5], categories: [], brands: [], sort: ''}));
   };
 
   const categoriesWithAmount = categoriesOptions.map((categoryEnum) => {

@@ -19,12 +19,21 @@ const FiltersSlice = createSlice({
       state.filters = {...state.filters, ...action.payload};
       state.currentPage = 1;
     },
+    resetFilters(state) {
+      state.filters = {
+        priceRange: [1, 1200],
+        ratingRange: [1, 5],
+        categories: [],
+        brands: [],
+        sort: ''
+      };
+    },
     setPage(state, action) {
       state.currentPage = action.payload;
     }
   }
 });
 
-export const {updateFilters, setPage} = FiltersSlice.actions;
+export const {updateFilters, setPage, resetFilters} = FiltersSlice.actions;
 
 export default FiltersSlice.reducer;

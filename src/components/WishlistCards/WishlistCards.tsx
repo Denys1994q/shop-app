@@ -22,7 +22,7 @@ const WishlistCards = () => {
     ) : (
       <List>
         {wishlist.map((product: Product) => (
-          <ListItem key={product._id} sx={{mb: 4}}>
+          <ListItem key={product._id} sx={{mb: 4, width: '900px'}}>
             {<ProductCard product={product} />}
           </ListItem>
         ))}

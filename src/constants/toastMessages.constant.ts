@@ -1,6 +1,6 @@
 export enum SuccessToastMessages {
   LOGIN = 'Successfully logged in.',
-  REGISTER = 'Successfully registred.',
+  REGISTER = 'Successfully registered.',
   LOGGED_OUT = 'Successfully logged out.'
 }
 

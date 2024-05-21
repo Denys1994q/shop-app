@@ -20,7 +20,7 @@ const SecondaryProductCard = ({image, title, description, price, discount}: Seco
   const priceAfterDiscount = discount ? price - (price * discount) / 100 : price;
 
   return (
-    <Card>
+    <Card sx={{height: '280px'}}>
       <CardMedia component="img" alt="product image" height="140" image={image} />
       <CardContent>
         <SecondaryTitle text={title} fontSize={15} sx={{marginBottom: 1}} />
