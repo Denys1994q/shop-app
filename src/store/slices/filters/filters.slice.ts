@@ -1,25 +1,28 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {FiltersState, Filters} from './filters.model';
+import {minPrice, maxPrice} from '@/constants/productFilters.constant';
+import {RatingEnum} from '@/models/rating.enum';
 
-const initialState: any = {
+const initialState: FiltersState = {
   filters: {
-    priceRange: [1, 1200],
-    ratingRange: [1, 5],
+    priceRange: [minPrice, maxPrice],
+    ratingRange: [RatingEnum.ONE_STAR, RatingEnum.FIVE_STARS],
     categories: [],
     brands: [],
-    sort: ''
+    sort: 0
   },
   currentPage: 1
 };
 
 const FiltersSlice = createSlice({
-  name: 'products',
+  name: 'filters',
   initialState,
   reducers: {
-    updateFilters(state, action) {
+    updateFilters(state: FiltersState, action: PayloadAction<Filters>) {
       state.filters = {...state.filters, ...action.payload};
       state.currentPage = 1;
     },
-    setPage(state, action) {
+    setPage(state: FiltersState, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     }
   }
