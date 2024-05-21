@@ -16,12 +16,16 @@ const btnStyles = {
   }
 };
 
-const DetailesBtn = () => {
+interface ChevronBtnProps {
+  text: string;
+}
+
+const ChevronBtn = ({text}: ChevronBtnProps) => {
   return (
     <Button sx={btnStyles} endIcon={<ChevronRightIcon />}>
-      Product Detail
+      {text}
     </Button>
   );
 };
 
-export default DetailesBtn;
+export default ChevronBtn;
