@@ -25,22 +25,10 @@ const BasicSelect = ({label, options, value, onChange}: BasicSelectProps) => {
         }
       }}
     >
-      {label && (
-        <InputLabel sx={{fontSize: 14}} id="demo-simple-select-label">
-          {label}
-        </InputLabel>
-      )}
-      <Select
-        id="demo-simple-select-label"
-        size="small"
-        labelId="demo-simple-select-label"
-        sx={{background: '#fdfdfd', width: '230px'}}
-        value={value}
-        label={label}
-        onChange={handleChange}
-      >
+      {label && <InputLabel sx={{fontSize: 14}}>{label}</InputLabel>}
+      <Select size="small" sx={{background: '#fdfdfd'}} value={value || ''} label={label} onChange={handleChange}>
         {options.map((option) => (
-          <MenuItem key={option.value} value={option.value} sx={{fontSize: 12}}>
+          <MenuItem key={option.value} value={option.value} sx={{fontSize: 14}}>
             {option.label}
           </MenuItem>
         ))}

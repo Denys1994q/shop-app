@@ -1,8 +1,8 @@
+import {routes} from '@/constants/routes';
 import ChevronBtn from '@components/btns/ChevronBtn/ChevronBtn';
 import WishListBtn from '@components/btns/WishlistBtn/WishlistBtn';
 import {CardActions as MuiCardActions} from '@mui/material';
 import {Link} from 'react-router-dom';
-import {routes} from '@constants/routes';
 
 const actionsStyles = {
   mt: 2,
@@ -15,7 +15,7 @@ const actionsStyles = {
 const CardActions = ({id}: {id: string}) => {
   return (
     <MuiCardActions sx={actionsStyles}>
-      <Link to={`${routes.products}/${id}`}>
+      <Link to={`/${routes.products}/${id}`}>
         <ChevronBtn text="Product Detail" />
       </Link>
       <WishListBtn />

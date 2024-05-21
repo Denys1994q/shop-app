@@ -31,16 +31,29 @@ const AuthBtn = () => {
     dispatch(openDialog(<AuthForm />));
   };
 
-  const handleMenuItemClick = async (menuItem: string): Promise<void> => {
-    if (menuItem === UserMenuOptions.LOGOUT) {
-      try {
-        await dispatch(logoutUser()).unwrap();
-        dispatch(openToast({message: SuccessToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
-      } catch (error) {
-       dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
-      }
+  const handleMenuItemClick = async (menuItem: UserMenuOptions): Promise<void> => {
+    switch (menuItem) {
+      case UserMenuOptions.LOGOUT:
+        await handleLogout();
+        break;
+      case UserMenuOptions.PROFILE:
+        handleOpenProfile();
+        break;
+      default:
+        break;
     }
   };
+
+  const handleLogout = async (): Promise<void> => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      dispatch(openToast({message: SuccessToastMessages.LOGGED_OUT, type: ToastEnum.SUCCESS}));
+    } catch (error) {
+      dispatch(openToast({message: error as string, type: ToastEnum.ERROR}));
+    }
+  };
+
+  const handleOpenProfile = (): void => {};
 
   const userBtn = (
     <IconButton aria-label="user-icon" onClick={handleOpenUserMenu}>

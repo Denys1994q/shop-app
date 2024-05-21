@@ -1,28 +1,20 @@
 import {Typography} from '@mui/material';
 import {truncateText} from '@services/truncateText.service';
 import {paragraphLength} from '@/constants/typography.constant';
+import {CSSProperties} from 'react';
 
 interface MainParagraphProps {
   text: string;
-  sx?: any;
-  lineClamp?: number;
+  sx?: CSSProperties;
+  maxLength?: number;
 }
 
-const MainParagraph = ({text, sx, lineClamp = 2}: MainParagraphProps) => {
+const MainParagraph = ({text, sx, maxLength}: MainParagraphProps) => {
+  const truncatedLength = maxLength || paragraphLength;
+
   return (
-    <Typography
-      variant="body2"
-      color="#575757"
-      fontSize={12}
-      sx={{
-        display: '-webkit-box',
-        WebkitLineClamp: lineClamp,
-        WebkitBoxOrient: 'vertical',
-        overflow: 'hidden',
-        ...sx
-      }}
-    >
-      {text}
+    <Typography variant="body2" color="#575757" fontSize={12} sx={sx}>
+      {truncateText(text, truncatedLength)}
     </Typography>
   );
 };

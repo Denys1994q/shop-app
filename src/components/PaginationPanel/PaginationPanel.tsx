@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import BasicPagination from '../BasicPagination/BasicPagination';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
 import {getAllProducts} from '@/store/slices/products/products.thunks';

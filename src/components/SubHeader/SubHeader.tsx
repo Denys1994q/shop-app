@@ -4,8 +4,6 @@ import AuthPanel from '@/components/btns/AuthBtn/AuthBtn';
 import CartBtn from '@components/btns/CartBtn/CartBtn';
 import {Link} from 'react-router-dom';
 import {routes} from '@/constants/routes';
-import BasicBreadcrumbs from '../BasicBreadcrumbs/BasicBreadcrumbs';
-import {Box} from '@mui/material';
 
 const SubHeader: React.FC = () => {
   return (
@@ -19,9 +17,6 @@ const SubHeader: React.FC = () => {
           <CartBtn />
         </div>
       </div>
-      <Box sx={{mt: 2}}>
-        <BasicBreadcrumbs />
-      </Box>
     </div>
   );
 };
