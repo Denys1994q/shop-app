@@ -37,11 +37,16 @@ const a11yProps = (index: number) => {
   };
 };
 
-interface BasicTabsProps {
-  description: string;
+interface TabContent {
+  label: string;
+  content: React.ReactNode;
 }
 
-const BasicTabs = ({description}: BasicTabsProps) => {
+interface BasicTabsProps {
+  tabs: TabContent[];
+}
+
+const BasicTabs = ({tabs}: BasicTabsProps) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number): void => {
@@ -67,29 +72,16 @@ const BasicTabs = ({description}: BasicTabsProps) => {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab sx={{fontSize: 16}} label="Description" {...a11yProps(0)} />
-          <Tab sx={{fontSize: 16}} label="Reviews" {...a11yProps(1)} />
-          <Tab sx={{fontSize: 16}} label="Questions" {...a11yProps(2)} />
+          {tabs.map((tab, index) => (
+            <Tab key={index} sx={{fontSize: 16}} label={tab.label} {...a11yProps(index)} />
+          ))}
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        {description.length > 0
-          ? description.map((descriptionItem: any) => {
-              return (
-                <Box mb={2}>
-                  <p style={{fontWeight: 'bold', marginBottom: 8}}>{descriptionItem.label}</p>
-                  <p>{descriptionItem.value}</p>
-                </Box>
-              );
-            })
-          : 'No description.'}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        No reviews yet.
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        No questions yet.
-      </CustomTabPanel>
+      {tabs.map((tab, index) => (
+        <CustomTabPanel key={index} value={value} index={index}>
+          {tab.content}
+        </CustomTabPanel>
+      ))}
     </Box>
   );
 };
