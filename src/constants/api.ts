@@ -5,3 +5,6 @@ export const getUserUrl = 'auth/me';
 export const refreshTokensUrl = 'auth/refresh';
 export const logoutUserUrl = 'auth/logout';
 export const getAllProductsUrl = 'product';
+export const getOneProductUrl = (id: string): string => {
+  return `/product/${id}`;
+};

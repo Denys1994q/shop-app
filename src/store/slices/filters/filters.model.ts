@@ -8,4 +8,5 @@ export interface Filters {
 
 export interface FiltersState {
   filters: Filters;
+  currentPage: number;
 }

@@ -26,5 +26,7 @@ export interface Product {
 
 export interface ProductsState {
   products: Product[];
+  total: number;
+  pages: number;
   productsError: ErrorApi;
 }

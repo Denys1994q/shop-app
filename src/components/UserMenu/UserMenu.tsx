@@ -18,6 +18,14 @@ const UserMenu = ({anchorEl, open, handleClose, onMenuItemClick}: UserMenuProps)
     <Menu
       id="basic-menu"
       anchorEl={anchorEl}
+      slotProps={{
+        paper: {
+          style: {
+            left: '50%',
+            transform: 'translateX(-50%) translateY(0%)'
+          }
+        }
+      }}
       open={open}
       onClose={handleClose}
       MenuListProps={{

@@ -7,18 +7,23 @@ import SecondaryTitle from '../typography/SecondaryTitle/SecondaryTitle';
 import {useEffect} from 'react';
 import {getAllProducts} from '@/store/slices/products/products.thunks';
 import {useSearchParams} from 'react-router-dom';
+import ProductCardSkeleton from '../ProductCardSkeleton/ProductCardSkeleton';
+import {selectIsLoading} from '@/store/slices/loading/loading.selectors';
+import {selectIsOpenDialog} from '@/store/slices/dialog/dialog.selectors';
 
 const ProductsList = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
   const [searchParams] = useSearchParams();
+  const isLoading = useAppSelector(selectIsLoading);
+  const isOpenDialog = useAppSelector(selectIsOpenDialog);
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
     dispatch(getAllProducts(params));
   }, []);
 
-  return Boolean(products.length) ? (
+  const content = Boolean(products.length) ? (
     <List>
       {products.map((product: Product) => (
         <ListItem key={product._id} sx={{mb: 4}}>
@@ -29,6 +34,8 @@ const ProductsList = () => {
   ) : (
     <SecondaryTitle sx={{textAlign: 'center'}} text="Nothing found" />
   );
+
+  return isLoading && !isOpenDialog ? products.map(() => <ProductCardSkeleton />) : content;
 };
 
 export default ProductsList;

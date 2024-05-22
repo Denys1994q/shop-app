@@ -1,4 +1,4 @@
-import {getAllProductsUrl} from '@/constants/api';
+import {getAllProductsUrl, getOneProductUrl} from '@/constants/api';
 import axiosInstance from '@/services/axiosInstance';
 import {handleApiError} from '@/services/handleApiError';
 import {createAsyncThunk} from '@reduxjs/toolkit';

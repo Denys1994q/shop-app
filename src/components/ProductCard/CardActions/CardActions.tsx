@@ -15,7 +15,7 @@ const actionsStyles = {
 const CardActions = ({id}: {id: string}) => {
   return (
     <MuiCardActions sx={actionsStyles}>
-      <Link to={`/${routes.products}/${id}`}>
+      <Link to={`${routes.products}/${id}`}>
         <ChevronBtn text="Product Detail" />
       </Link>
       <WishListBtn />
