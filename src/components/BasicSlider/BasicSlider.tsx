@@ -2,7 +2,6 @@ import {CSSProperties, useRef} from 'react';
 import Slider from '@mui/material/Slider';
 import {Box} from '@mui/material';
 import SecondaryTitle from '../typography/SecondaryTitle/SecondaryTitle';
-import {useDebounce} from '@/hooks/useDebounce';
 
 interface BasicSliderProps {
   title: string;
@@ -12,7 +11,7 @@ interface BasicSliderProps {
   sx?: CSSProperties;
 }
 
-const styles = {
+const sliderStyles = {
   '& .MuiSlider-thumb': {
     color: '#fff'
   },
@@ -24,25 +23,21 @@ const styles = {
   }
 };
 
-const BasicSlider = ({title, value, onChange, sx = styles as CSSProperties}: BasicSliderProps) => {
+const BasicSlider = ({title, value, onChange, sx = sliderStyles as CSSProperties}: BasicSliderProps) => {
   const minValue = useRef(value[0]);
   const maxValue = useRef(value[1]);
 
   const handleChange = (event: Event, newValue: number | number[]): void => {
-    console.log('handle change');
     if (Array.isArray(newValue)) {
       onChange([newValue[0], newValue[1]]);
     }
   };
 
-  // const debouncedValue = useDebounce(handleChange, 2500);
-  // console.log(debouncedValue);
-
   return (
     <Box>
-      <SecondaryTitle text={title} sx={{marginBottom: 2}} />
+      <SecondaryTitle text={title} sx={{marginBottom: 1}} />
       <Slider
-        sx={{...sx}}
+        sx={sx}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"
