@@ -4,6 +4,8 @@ import {getAllProducts} from './products.thunks';
 
 const initialState: ProductsState = {
   products: [],
+  total: 0,
+  pages: 0,
   productsError: null
 };
 
@@ -13,9 +15,14 @@ const ProductsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.fulfilled, (state: ProductsState, action: PayloadAction<{products: Product[]}>) => {
-        state.products = action.payload.products;
-      })
+      .addCase(
+        getAllProducts.fulfilled,
+        (state: ProductsState, action: PayloadAction<{products: Product[]; total: number; pages: number}>) => {
+          state.products = action.payload.products;
+          state.total = action.payload.total;
+          state.pages = action.payload.pages;
+        }
+      )
       .addCase(getAllProducts.rejected, (state: ProductsState, action: PayloadAction<any>) => {
         state.productsError = action.payload;
       });

@@ -10,7 +10,8 @@ const initialState: FiltersState = {
     categories: [],
     brands: [],
     sort: 0
-  }
+  },
+  currentPage: 1
 };
 
 const FiltersSlice = createSlice({
@@ -19,10 +20,14 @@ const FiltersSlice = createSlice({
   reducers: {
     updateFilters(state: FiltersState, action: PayloadAction<Filters>) {
       state.filters = {...state.filters, ...action.payload};
+      state.currentPage = 1;
+    },
+    setPage(state, action) {
+      state.currentPage = action.payload;
     }
   }
 });
 
-export const {updateFilters} = FiltersSlice.actions;
+export const {updateFilters, setPage} = FiltersSlice.actions;
 
 export default FiltersSlice.reducer;

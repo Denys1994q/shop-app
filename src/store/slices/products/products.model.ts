@@ -20,11 +20,14 @@ export interface Product {
   seller: SellerEnum;
   brand: string;
   state: StateEnum;
+  country: string;
   discount?: number;
   rating?: RatingEnum;
 }
 
 export interface ProductsState {
   products: Product[];
+  total: number;
+  pages: number;
   productsError: ErrorApi;
 }

@@ -27,18 +27,27 @@ const actionsBoxStyles = {
   width: '33%',
   padding: 3,
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  minHeight: '270px',
+  justifyContent: 'space-between'
 };
 
 const ProductCard = ({product}: ProductCardProps) => {
-  const {images, title, description, rating, state, seller, price, discount} = product;
+  const {images, title, description, rating, state, seller, country, price, discount} = product;
   const priceWithDiscount = discount ? price - (price * discount) / 100 : price;
 
   return (
     <Card sx={cardStyles}>
       <CardMedia imageUrl={images[0]} width={270} height={270} />
       <Box sx={cardBoxStyles}>
-        <CardContent title={title} description={description} rating={rating || 0} state={state} seller={seller} />
+        <CardContent
+          title={title}
+          description={description}
+          rating={rating || 0}
+          state={state}
+          seller={seller}
+          country={country}
+        />
       </Box>
       <Box sx={actionsBoxStyles}>
         <CardPrice priceAfterDiscount={priceWithDiscount} priceBeforeDiscount={discount && price} />

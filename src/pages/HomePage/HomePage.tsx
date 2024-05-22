@@ -6,6 +6,7 @@ import ProductFiltersForm from '@components/forms/ProductFiltersForm/ProductFilt
 import {useAppSelector} from '@/store/hooks';
 import {selectProducts} from '@/store/slices/products/products.selectors';
 import SortWidget from '@components/SortWidget/SortWidget';
+import PaginationPanel from '@components/PaginationPanel/PaginationPanel';
 
 const HomePage = () => {
   const products = useAppSelector(selectProducts);
@@ -27,6 +28,7 @@ const HomePage = () => {
           <ProductsList />
         </div>
       </div>
+      <PaginationPanel />
     </section>
   );
 };
