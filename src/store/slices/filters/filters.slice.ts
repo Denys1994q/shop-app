@@ -18,7 +18,7 @@ const FiltersSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    updateFilters(state, action) {
+    updateFilters(state: FiltersState, action: PayloadAction<Filters>) {
       state.filters = {...state.filters, ...action.payload};
       state.currentPage = 1;
     },

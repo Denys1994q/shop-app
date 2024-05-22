@@ -18,8 +18,9 @@ import BasicTabs from '@/components/BasicTabs/BasicTabs';
 import Carousel from '@/components/Carousel/Carousel';
 import ProductsCarousel from '@/components/ProductsCarousel/ProductsCarousel';
 import {SellerEnum} from '@/models/product.enum';
+import {scrollToTop} from '@services/scrollToTop.service';
 
-const StyledBox = ({children}: {children: PropsWithChildren<ReactNode>}) => {
+const StyledBox = ({children}: PropsWithChildren) => {
   return <Box sx={{mb: 5}}>{children}</Box>;
 };
 
@@ -42,7 +43,7 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     getProduct();
-    scrollTo({top: 0, behavior: 'smooth'});
+    scrollToTop();
   }, []);
 
   const priceAfterDiscount =
